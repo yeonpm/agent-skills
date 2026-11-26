@@ -6,10 +6,11 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const SKILL = path.resolve(__dirname, '..');
 const FAVICON = path.join(SKILL, '..', 'htmlfy', 'assets', 'favicon.svg');
-const PROJECTS_JSON = '/Users/you/yeonpm/ai-agency/config/projects.json';
+const PROJECTS_JSON = process.env.AGENCY_PROJECTS_JSON || path.join(os.homedir(), 'yeonpm/ai-agency/config/projects.json');
 const HUB = process.env.LOOKFY_HUB || 'http://127.0.0.1:8080';
 
 function fail(msg) { console.error('build 실패: ' + msg); process.exit(1); }

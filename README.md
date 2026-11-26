@@ -1,7 +1,15 @@
 # agent-skills-common
 
-여러 프로젝트에서 함께 쓰는 커스텀 에이전트 스킬의 원본 저장소다(비공개).
+여러 프로젝트에서 함께 쓰는 커스텀 에이전트 스킬(Claude Code / Codex `SKILL.md` 형식)의 원본 저장소다.
 `~/.claude/skills/<이름>`은 이 저장소 폴더를 가리키는 심볼릭 링크다.
+
+> **공개 저장소 안내**
+> - 이 스킬들은 작성자 개인 작업 환경을 전제로 만들었다. 그대로 쓰면 일부가 동작하지 않는다.
+>   - 에이전트 운영 저장소 `~/yeonpm/ai-agency`와 그 `config/projects.json`(프로젝트 등록부). 경로는 `AGENCY_PROJECTS_JSON` 환경 변수로 바꿀 수 있다(dcfy·lookfy 빌드 스크립트).
+>   - 로컬 문서 허브 `http://127.0.0.1:8080`(`~/yeonpm/docs-hub`). 주소는 `DECISION_DOC_HUB`(dcfy)·`LOOKFY_HUB`(lookfy)로 바꿀 수 있다.
+>   - preview → main 브랜치 운영, 작업 ID(부서-프로젝트-작업-번호) 규칙 등 작성자 프로젝트 규칙(`lp`·`pm`·`lpm`·`lm`·`brief`).
+> - 다른 환경에서는 참고용 예시로 보고, 경로·규칙을 자기 환경에 맞게 고쳐 쓴다.
+> - 문서와 주석은 한국어다. 라이선스는 아직 정하지 않았다.
 
 | 스킬 | 한 줄 설명 |
 |---|---|
@@ -16,6 +24,8 @@
 | `task-token-report` | 사용자가 요청한 경우에만 작업별 실제 토큰·경과 시간을 로컬 실행 로그에서 집계한다 |
 
 ## 설치
+
+요구 사항: Node.js(dcfy·lookfy·htmlfy 스크립트), Python 3(task-token-report).
 
 ```bash
 git clone https://github.com/yeonpm/agent-skills-common.git ~/yeonpm/agent-skills/agent-skills-common

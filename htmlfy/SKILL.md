@@ -11,7 +11,7 @@ description: 요청 내용(조사 정리, 기획·스펙 정의서, 전후 비�
 - 실행 에이전트(인계받은 쪽)가 아래 단계를 수행한다.
 
 ## 1. 대상 프로젝트와 저장 위치
-- `/Users/you/yeonpm/ai-agency/config/projects.json`의 `path`로 저장소를 찾는다. 프로젝트는 대화 맥락으로 판단하고 정말 모를 때만 (비서를 통해) 묻는다.
+- `~/yeonpm/ai-agency/config/projects.json`의 `path`로 저장소를 찾는다. 프로젝트는 대화 맥락으로 판단하고 정말 모를 때만 (비서를 통해) 묻는다.
 - 여러 프로젝트 공통 운영 문서만 ai-agency에 둔다. `~/yeonpm/deprecated` 하위는 대상·참조로 쓰지 않는다.
 - 작업 전 경로·브랜치·미커밋 변경을 확인하고 남의 변경은 건드리지 않는다.
 - 파일: `docs/<종류>/YYYY-MM-DD-<slug>.html` (날짜는 KST)
@@ -57,7 +57,7 @@ node ~/.claude/skills/htmlfy/scripts/verify.cjs <문서.html> [<같은폴더>/<s
 - 커밋한 뒤 묻지 않고 해당 저장소 흐름의 원격 브랜치로 push한다(사용자 지시 2026-11-26, SEC-AGENCY-RULES-0020). force push 금지. 스토어 업로드·운영 DB·외부 게시는 별도 승인. 배포 연동 저장소는 푸시 후 배포 SHA를 확인한다.
 
 ## 5. 띄우기
-- 허브 확인: `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/`. 꺼져 있으면 백그라운드로 `cd /Users/you/yeonpm/docs-hub && source ~/.nvm/nvm.sh && nvm use 24 && npm start` (포트가 사용 중이면 다음 포트로 뜨므로 시작 로그의 실제 주소 사용).
+- 허브 확인: `curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/`. 꺼져 있으면 백그라운드로 `cd ~/yeonpm/docs-hub && source ~/.nvm/nvm.sh && nvm use 24 && npm start` (포트가 사용 중이면 다음 포트로 뜨므로 시작 로그의 실제 주소 사용).
 - URL: `http://127.0.0.1:8080/f/<project-id>/<저장소 내 경로>`
 - 사용자에게 보여 주는 문서는 사용자의 크롬으로 연다: `open -a "Google Chrome" "<URL>"`. 페이지를 조작·점검해야 할 때만 ego lite(`ego-browser` 스킬)를 쓴다. 크롬 확장(claude-in-chrome)·내장 브라우저 패널은 쓰지 않는다.
 - 사용자가 다른 기기에서도 볼 수 있게 스크린샷 png를 SendUserFile로 보낸다(도구가 없으면 경로만 보고).

@@ -10,7 +10,7 @@ Create a sourced snapshot of recent changes and current obligations. Run only fo
 ## Window and scope
 
 - Default to the current day and preceding two **calendar** days in `Asia/Seoul`, from 00:00 on the first day through the actual query time. For example, on 2026-10-22 the start is 2026-10-20 00:00 KST. A user-specified window, time zone, or project scope takes precedence. Show the exact window and snapshot time.
-- Locate the Agency source at `/Users/you/yeonpm/ai-agency` (or its registered project path when moved), then use its `config/projects.json` for registered IDs and paths even when invoked from another project. Respect each project's access and personal-work boundary; registration alone does not authorize access to private material. Do not invent or automatically register missing projects.
+- Locate the Agency source at `~/yeonpm/ai-agency` (or its registered project path when moved), then use its `config/projects.json` for registered IDs and paths even when invoked from another project. Respect each project's access and personal-work boundary; registration alone does not authorize access to private material. Do not invent or automatically register missing projects.
 - Include work completed, failed, cancelled, or otherwise changed within the window. Also include currently active or blocked work, pending next actions, and open decisions even if they started earlier. A task that was merely unfinished during the window is **not** evidence of current progress.
 
 ## Gather the smallest sufficient evidence
