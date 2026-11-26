@@ -1,0 +1,4 @@
+interface:
+  display_name: "pm · Preview → Main"
+  short_description: "검증된 preview를 PR로 main에 반영하고 배포를 확인합니다"
+  default_prompt: "$pm을 사용해 현재 프로젝트의 Preview → Main 작업을 진행해줘."

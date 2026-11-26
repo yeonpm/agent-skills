@@ -1,0 +1,22 @@
+/* htmlfy 포커스 포인트 하이라이트 v1 — 문서 <style> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   마크업:
+     <div class="fp-stage"> <img|svg|목업 HTML>
+       <span class="fp-area" data-focus="v01-1" data-no="1" style="--x:10%;--y:20%;--w:30%;--h:15%"></span>
+     </div>
+     <button type="button" class="fp-btn" data-target="v01-1"><span class="fp-no">1</span>설명</button>
+   좌표는 stage 기준 % (이미지 크기가 바뀌어도 위치 유지). 색은 아래 토큰을 문서 :root에서 덮어써도 된다. */
+:root{--fp-ring:#ff9f0a;--fp-dim:rgba(0,0,0,.55);--fp-badge-fg:#111}
+@media (prefers-color-scheme:dark){:root{--fp-ring:#ffb340;--fp-dim:rgba(0,0,0,.68)}}
+.fp-stage{position:relative;overflow:hidden;line-height:0}
+.fp-stage>img,.fp-stage>svg{display:block;width:100%;height:auto}
+.fp-area{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);border-radius:var(--r,8px);pointer-events:none;opacity:0;transition:opacity .18s,box-shadow .18s}
+.fp-stage.fp-on .fp-area.fp-active{opacity:1;outline:3px solid var(--fp-ring);outline-offset:0;box-shadow:0 0 0 9999px var(--fp-dim)}
+.fp-area.fp-active::after{content:attr(data-no);position:absolute;top:0;left:0;transform:translate(var(--bx,4px),var(--by,4px));min-width:26px;height:26px;padding:0 6px;border-radius:13px;background:var(--fp-ring);color:var(--fp-badge-fg);font:700 14px/26px -apple-system,BlinkMacSystemFont,sans-serif;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.fp-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.fp-btn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:1px solid var(--line,#ccc);border-radius:8px;padding:8px 10px;cursor:pointer;min-height:44px;line-height:1.45}
+.fp-btn:hover{border-color:var(--fp-ring)}
+.fp-btn:focus-visible{outline:3px solid var(--fp-ring);outline-offset:2px}
+.fp-btn[aria-pressed="true"]{border-color:var(--fp-ring);background:color-mix(in srgb,var(--fp-ring) 16%,transparent)}
+.fp-no{flex:none;min-width:24px;height:24px;border-radius:12px;background:var(--fp-ring);color:var(--fp-badge-fg);font-weight:700;font-size:13px;line-height:24px;text-align:center}
+.fp-hint{font-size:13px;opacity:.75;margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){.fp-area{transition:none}}

@@ -1,0 +1,1138 @@
+{
+  "meta": {
+    "title": "[예시] 메모 앱 \"새 메모\" 버튼 시안 30개",
+    "subtitle": "lookfy 예시 — 가상의 앱이며 실제 결정과 무관",
+    "date": "2026-11-25",
+    "taskId": "OPS-AGENCY-MOCKUP_DOC_RULE-0001",
+    "project": "agency",
+    "count": 30,
+    "round": 1,
+    "multi": false
+  },
+  "summary": {
+    "recommend": [
+      {
+        "id": "01",
+        "reason": "엄지로 바로 닿고 목록 공간을 거의 쓰지 않습니다."
+      },
+      {
+        "id": "03",
+        "reason": "쓰기·분류가 한 번에 되지만 화면 높이를 96px 씁니다."
+      }
+    ]
+  },
+  "criteria": [
+    "찾기 쉬움",
+    "한 손 조작",
+    "목록 공간",
+    "구현 난이도"
+  ],
+  "current": {
+    "name": "상단 + 아이콘",
+    "concept": "오른쪽 위 작은 + 아이콘으로 새 메모를 만듭니다.",
+    "direction": "현재 화면",
+    "problemsLabel": "예시 피드백",
+    "scores": {
+      "찾기 쉬움": "보통",
+      "한 손 조작": "나쁨",
+      "목록 공간": "그대로",
+      "구현 난이도": "—"
+    },
+    "problems": [
+      {
+        "text": "+ 아이콘이 작고 화면 위 끝이라 한 손으로 닿기 어렵습니다.",
+        "area": {
+          "x": 83.3,
+          "y": 2.1,
+          "w": 11.1,
+          "h": 7.5
+        }
+      },
+      {
+        "text": "엄지가 편한 화면 아래쪽에는 조작이 없습니다.",
+        "area": {
+          "x": 0,
+          "y": 83.3,
+          "w": 100,
+          "h": 16.7,
+          "r": 0
+        }
+      }
+    ],
+    "mock": {
+      "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"현재안: 오른쪽 위 작은 + 아이콘\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"300\" y=\"10\" width=\"40\" height=\"36\" rx=\"8\"/><text class=\"m-fg\" x=\"320\" y=\"36\" font-size=\"22\" text-anchor=\"middle\">+</text></svg>"
+    }
+  },
+  "variants": [
+    {
+      "id": "01",
+      "name": "하단 플로팅 버튼",
+      "direction": "떠 있는 원형 버튼",
+      "concept": "오른쪽 아래 둥근 + 버튼 하나로 새 메모를 시작합니다.",
+      "features": [
+        "위치·형태: 떠 있는 원형 버튼",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "하단 플로팅 버튼 — 처음 보는 사람이 바로 찾는지",
+          "area": {
+            "x": 73.3,
+            "y": 80,
+            "w": 17.8,
+            "h": 13.3,
+            "r": "50%"
+          }
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 01: 오른쪽 아래 둥근 + 버튼 하나로 새 메모를 시작합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"296\" cy=\"416\" r=\"28\"/><text class=\"m-on\" x=\"296\" y=\"425\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "02",
+      "name": "상단 큰 입력줄",
+      "direction": "목록 위 고정 입력",
+      "concept": "목록 위 입력줄을 누르면 바로 씁니다.",
+      "features": [
+        "위치·형태: 목록 위 고정 입력",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 44px 줄어듦",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "상단 큰 입력줄 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "나쁨",
+        "목록 공간": "44px 줄어듦",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 02: 목록 위 입력줄을 누르면 바로 씁니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"116\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"130\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"148\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"180\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"194\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"212\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"244\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"258\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"276\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"308\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"322\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"340\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"372\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"386\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"404\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"64\" width=\"328\" height=\"44\" rx=\"10\"/><text class=\"m-sub\" x=\"30\" y=\"91\" font-size=\"14\">새 메모 쓰기…</text><rect class=\"m-stroke\" x=\"16\" y=\"64\" width=\"328\" height=\"44\" rx=\"10\" stroke-width=\"2\" stroke-dasharray=\"6 4\"/></svg>"
+      }
+    },
+    {
+      "id": "03",
+      "name": "하단 입력줄 + 태그",
+      "direction": "메신저형 하단 입력",
+      "concept": "아래 고정 입력줄과 최근 태그 칩으로 쓰면서 분류합니다.",
+      "features": [
+        "위치·형태: 메신저형 하단 입력",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 96px 줄어듦",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "하단 입력줄 + 태그 — 처음 보는 사람이 바로 찾는지",
+          "area": {
+            "x": 0,
+            "y": 85.8,
+            "w": 100,
+            "h": 14.2,
+            "r": 0
+          }
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "96px 줄어듦",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 03: 아래 고정 입력줄과 최근 태그 칩으로 쓰면서 분류합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"368\" width=\"70\" height=\"28\" rx=\"14\"/><text class=\"m-sub\" x=\"51\" y=\"387\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">#일</text><rect class=\"m-item\" x=\"94\" y=\"368\" width=\"70\" height=\"28\" rx=\"14\"/><text class=\"m-sub\" x=\"129\" y=\"387\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">#생각</text><rect class=\"m-bar\" x=\"0\" y=\"412\" width=\"360\" height=\"68\"/><text class=\"m-sub\" x=\"20\" y=\"451\" font-size=\"14\">메모 입력…</text></svg>"
+      }
+    },
+    {
+      "id": "04",
+      "name": "하단 탭 가운데 +",
+      "direction": "탭 바 중앙 버튼",
+      "concept": "하단 탭 바 가운데 큰 + 버튼으로 다른 탭과 함께 둡니다.",
+      "features": [
+        "위치·형태: 탭 바 중앙 버튼",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 60px 줄어듦",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "하단 탭 가운데 + — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "60px 줄어듦",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 04: 하단 탭 바 가운데 큰 + 버튼으로 다른 탭과 함께 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-bar\" x=\"0\" y=\"420\" width=\"360\" height=\"60\"/><text class=\"m-sub\" x=\"20\" y=\"455\" font-size=\"14\"></text><circle class=\"m-acc\" cx=\"180\" cy=\"434\" r=\"30\"/><text class=\"m-on\" x=\"180\" y=\"443\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "05",
+      "name": "당겨서 새 메모",
+      "direction": "제스처(아래로 당기기)",
+      "concept": "목록 맨 위에서 아래로 당기면 새 메모가 열립니다.",
+      "features": [
+        "위치·형태: 제스처(아래로 당기기)",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "당겨서 새 메모 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 05: 목록 맨 위에서 아래로 당기면 새 메모가 열립니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"92\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"106\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"124\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"156\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"170\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"188\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"220\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"234\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"252\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"284\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"298\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"316\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"348\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"362\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"380\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><text class=\"m-sub\" x=\"108\" y=\"70\" font-size=\"12\">↓ 당겨서 새 메모</text><rect class=\"m-stroke\" x=\"16\" y=\"52\" width=\"328\" height=\"28\" rx=\"10\" stroke-width=\"2\" stroke-dasharray=\"6 4\"/></svg>"
+      }
+    },
+    {
+      "id": "06",
+      "name": "확장형 플로팅 메뉴",
+      "direction": "누르면 펼쳐지는 버튼 묶음",
+      "concept": "+를 누르면 글·체크리스트·사진 메모 버튼이 위로 펼쳐집니다.",
+      "features": [
+        "위치·형태: 누르면 펼쳐지는 버튼 묶음",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "확장형 플로팅 메뉴 — 처음 보는 사람이 바로 찾는지",
+          "area": {
+            "x": 55.6,
+            "y": 54.6,
+            "w": 33.9,
+            "h": 25.8
+          }
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 06: +를 누르면 글·체크리스트·사진 메모 버튼이 위로 펼쳐집니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"206\" y=\"268\" width=\"110\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"261\" y=\"289\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">체크리스트</text><rect class=\"m-acc\" x=\"206\" y=\"308\" width=\"110\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"261\" y=\"329\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">사진 메모</text><rect class=\"m-acc\" x=\"206\" y=\"348\" width=\"110\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"261\" y=\"369\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">글 메모</text><circle class=\"m-acc\" cx=\"296\" cy=\"416\" r=\"28\"/><text class=\"m-on\" x=\"296\" y=\"425\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">×</text></svg>"
+      }
+    },
+    {
+      "id": "07",
+      "name": "빈 줄 바로 쓰기",
+      "direction": "목록 끝 빈 카드",
+      "concept": "목록 맨 아래 빈 카드에 바로 적으면 저장됩니다.",
+      "features": [
+        "위치·형태: 목록 끝 빈 카드",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 56px 줄어듦",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "빈 줄 바로 쓰기 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "56px 줄어듦",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 07: 목록 맨 아래 빈 카드에 바로 적으면 저장됩니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"392\" width=\"328\" height=\"56\" rx=\"10\"/><text class=\"m-sub\" x=\"30\" y=\"425\" font-size=\"14\">+ 여기에 바로 쓰기</text><rect class=\"m-stroke\" x=\"16\" y=\"392\" width=\"328\" height=\"56\" rx=\"10\" stroke-width=\"2\" stroke-dasharray=\"6 4\"/></svg>"
+      }
+    },
+    {
+      "id": "08",
+      "name": "헤더 오른쪽 텍스트 버튼",
+      "direction": "글자로 쓴 상단 버튼",
+      "concept": "오른쪽 위에 \"새 메모\" 글자 버튼을 둡니다.",
+      "features": [
+        "위치·형태: 글자로 쓴 상단 버튼",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 매우 낮음"
+      ],
+      "points": [
+        {
+          "text": "헤더 오른쪽 텍스트 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "나쁨",
+        "목록 공간": "그대로",
+        "구현 난이도": "매우 낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 08: 오른쪽 위에 \"새 메모\" 글자 버튼을 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"258\" y=\"12\" width=\"88\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"302\" y=\"33\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "09",
+      "name": "길게 눌러 빠른 메뉴",
+      "direction": "아이콘 길게 누르기",
+      "concept": "앱 아이콘을 길게 눌러 바로 새 메모를 엽니다.",
+      "features": [
+        "위치·형태: 아이콘 길게 누르기",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "길게 눌러 빠른 메뉴 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 09: 앱 아이콘을 길게 눌러 바로 새 메모를 엽니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"60\" y=\"160\" width=\"240\" height=\"120\" rx=\"10\"/><text class=\"m-sub\" x=\"74\" y=\"225\" font-size=\"14\"></text><text class=\"m-sub\" x=\"84\" y=\"200\" font-size=\"12\">앱 아이콘 빠른 메뉴</text><rect class=\"m-acc\" x=\"84\" y=\"222\" width=\"192\" height=\"36\" rx=\"18\"/><text class=\"m-on\" x=\"180\" y=\"245\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">+ 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "10",
+      "name": "하단 왼쪽 버튼",
+      "direction": "왼손 엄지 위치",
+      "concept": "왼쪽 아래 둥근 버튼으로 왼손 사용자를 배려합니다.",
+      "features": [
+        "위치·형태: 왼손 엄지 위치",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 보통"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "하단 왼쪽 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "보통",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 10: 왼쪽 아래 둥근 버튼으로 왼손 사용자를 배려합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"64\" cy=\"416\" r=\"28\"/><text class=\"m-on\" x=\"64\" y=\"425\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "11",
+      "name": "넓은 하단 버튼",
+      "direction": "화면 폭 전체 버튼",
+      "concept": "아래에 폭 전체 \"새 메모\" 버튼을 둡니다.",
+      "features": [
+        "위치·형태: 화면 폭 전체 버튼",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 64px 줄어듦",
+        "구현 난이도 매우 낮음"
+      ],
+      "points": [
+        {
+          "text": "넓은 하단 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "64px 줄어듦",
+        "구현 난이도": "매우 낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 11: 아래에 폭 전체 \"새 메모\" 버튼을 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"16\" y=\"420\" width=\"328\" height=\"48\" rx=\"24\"/><text class=\"m-on\" x=\"180\" y=\"449\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">+ 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "12",
+      "name": "사이드 가장자리 탭",
+      "direction": "화면 오른쪽 가장자리 손잡이",
+      "concept": "오른쪽 가장자리 작은 손잡이를 끌면 새 메모가 열립니다.",
+      "features": [
+        "위치·형태: 화면 오른쪽 가장자리 손잡이",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 보통"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "사이드 가장자리 탭 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "보통",
+        "목록 공간": "그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 12: 오른쪽 가장자리 작은 손잡이를 끌면 새 메모가 열립니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"344\" y=\"200\" width=\"16\" height=\"80\" rx=\"6\"/></svg>"
+      }
+    },
+    {
+      "id": "13",
+      "name": "음성 메모 버튼",
+      "direction": "말로 시작",
+      "concept": "마이크 버튼을 눌러 말하면 글로 적어 줍니다.",
+      "features": [
+        "위치·형태: 말로 시작",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 높음"
+      ],
+      "points": [
+        {
+          "text": "음성 메모 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "높음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 13: 마이크 버튼을 눌러 말하면 글로 적어 줍니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"180\" cy=\"416\" r=\"30\"/><text class=\"m-on\" x=\"180\" y=\"425\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">●</text></svg>"
+      }
+    },
+    {
+      "id": "14",
+      "name": "상단 검색창 겸 입력",
+      "direction": "검색과 쓰기 통합",
+      "concept": "위 입력창에 쓰다가 Enter면 새 메모, 아래 결과는 검색입니다.",
+      "features": [
+        "위치·형태: 검색과 쓰기 통합",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 40px 줄어듦",
+        "구현 난이도 높음"
+      ],
+      "points": [
+        {
+          "text": "상단 검색창 겸 입력 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "나쁨",
+        "목록 공간": "40px 줄어듦",
+        "구현 난이도": "높음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 14: 위 입력창에 쓰다가 Enter면 새 메모, 아래 결과는 검색입니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"112\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"126\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"144\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"176\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"190\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"208\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"240\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"254\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"272\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"304\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"318\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"336\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"368\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"382\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"400\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"64\" width=\"328\" height=\"40\" rx=\"10\"/><text class=\"m-sub\" x=\"30\" y=\"89\" font-size=\"14\">찾거나 새로 쓰기</text></svg>"
+      }
+    },
+    {
+      "id": "15",
+      "name": "템플릿 카드 줄",
+      "direction": "템플릿에서 시작",
+      "concept": "목록 위 가로 카드(할 일·회의·일기)를 눌러 시작합니다.",
+      "features": [
+        "위치·형태: 템플릿에서 시작",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 보통"
+      ],
+      "cons": [
+        "목록 공간: 56px 줄어듦",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "템플릿 카드 줄 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "보통",
+        "목록 공간": "56px 줄어듦",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 15: 목록 위 가로 카드(할 일·회의·일기)를 눌러 시작합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"124\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"138\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"156\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"188\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"202\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"220\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"252\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"266\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"284\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"316\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"330\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"348\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"380\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"394\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"412\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"64\" width=\"100\" height=\"48\" rx=\"10\"/><text class=\"m-sub\" x=\"30\" y=\"93\" font-size=\"14\">할 일</text><rect class=\"m-item\" x=\"124\" y=\"64\" width=\"100\" height=\"48\" rx=\"10\"/><text class=\"m-sub\" x=\"138\" y=\"93\" font-size=\"14\">회의</text><rect class=\"m-item\" x=\"232\" y=\"64\" width=\"100\" height=\"48\" rx=\"10\"/><text class=\"m-sub\" x=\"246\" y=\"93\" font-size=\"14\">일기</text></svg>"
+      }
+    },
+    {
+      "id": "16",
+      "name": "두 번 탭 빈 곳",
+      "direction": "빈 공간 두 번 탭",
+      "concept": "목록 아래 빈 곳을 두 번 탭하면 새 메모가 열립니다.",
+      "features": [
+        "위치·형태: 빈 공간 두 번 탭",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "두 번 탭 빈 곳 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 16: 목록 아래 빈 곳을 두 번 탭하면 새 메모가 열립니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><text class=\"m-sub\" x=\"96\" y=\"420\" font-size=\"12\">빈 곳 두 번 탭 → 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "17",
+      "name": "스와이프 업 시트",
+      "direction": "아래에서 끌어올리는 시트",
+      "concept": "아래 손잡이를 위로 끌면 쓰기 시트가 올라옵니다.",
+      "features": [
+        "위치·형태: 아래에서 끌어올리는 시트",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 40px 줄어듦",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "스와이프 업 시트 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "40px 줄어듦",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 17: 아래 손잡이를 위로 끌면 쓰기 시트가 올라옵니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-bar\" x=\"0\" y=\"440\" width=\"360\" height=\"40\" rx=\"14\"/><rect class=\"m-sub\" x=\"160\" y=\"450\" width=\"40\" height=\"5\" rx=\"2.5\"/><text class=\"m-sub\" x=\"126\" y=\"472\" font-size=\"12\">끌어올려 쓰기</text></svg>"
+      }
+    },
+    {
+      "id": "18",
+      "name": "위젯 바로가기",
+      "direction": "홈 화면 위젯",
+      "concept": "홈 화면 위젯의 + 로 앱을 열지 않고 씁니다.",
+      "features": [
+        "위치·형태: 홈 화면 위젯",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 높음"
+      ],
+      "points": [
+        {
+          "text": "위젯 바로가기 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "높음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 18: 홈 화면 위젯의 + 로 앱을 열지 않고 씁니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"40\" y=\"150\" width=\"280\" height=\"140\" rx=\"10\"/><text class=\"m-sub\" x=\"54\" y=\"225\" font-size=\"14\"></text><text class=\"m-sub\" x=\"60\" y=\"180\" font-size=\"12\">홈 화면 위젯</text><rect class=\"m-acc\" x=\"60\" y=\"230\" width=\"240\" height=\"40\" rx=\"20\"/><text class=\"m-on\" x=\"180\" y=\"255\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">+ 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "19",
+      "name": "상단 아이콘 크게",
+      "direction": "현재안 확대",
+      "concept": "지금의 오른쪽 위 +를 크기만 키웁니다(48px).",
+      "features": [
+        "위치·형태: 현재안 확대",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 매우 낮음"
+      ],
+      "points": [
+        {
+          "text": "상단 아이콘 크게 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "나쁨",
+        "목록 공간": "그대로",
+        "구현 난이도": "매우 낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 19: 지금의 오른쪽 위 +를 크기만 키웁니다(48px).\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"316\" cy=\"28\" r=\"22\"/><text class=\"m-on\" x=\"316\" y=\"37\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "20",
+      "name": "하단 툴바 버튼",
+      "direction": "편집 도구 줄 안 버튼",
+      "concept": "하단 툴바(정렬·필터·+) 오른쪽 끝에 +를 둡니다.",
+      "features": [
+        "위치·형태: 편집 도구 줄 안 버튼",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 56px 줄어듦",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "하단 툴바 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "56px 줄어듦",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 20: 하단 툴바(정렬·필터·+) 오른쪽 끝에 +를 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-bar\" x=\"0\" y=\"424\" width=\"360\" height=\"56\"/><text class=\"m-sub\" x=\"20\" y=\"457\" font-size=\"14\">정렬 · 필터</text><rect class=\"m-acc\" x=\"280\" y=\"436\" width=\"64\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"312\" y=\"457\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "21",
+      "name": "대화형 첫 화면",
+      "direction": "빈 상태 안내형",
+      "concept": "첫 화면 가운데 \"무엇을 적을까요?\" 입력으로 시작합니다.",
+      "features": [
+        "위치·형태: 빈 상태 안내형",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 보통"
+      ],
+      "cons": [
+        "목록 공간: 목록 숨김",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "대화형 첫 화면 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "보통",
+        "목록 공간": "목록 숨김",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 21: 첫 화면 가운데 \"무엇을 적을까요?\" 입력으로 시작합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"300\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"314\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"332\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"364\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"378\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"396\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><text class=\"m-sub\" x=\"110\" y=\"190\" font-size=\"12\">무엇을 적을까요?</text><rect class=\"m-item\" x=\"40\" y=\"206\" width=\"280\" height=\"44\" rx=\"10\"/><text class=\"m-sub\" x=\"54\" y=\"233\" font-size=\"14\">여기에 쓰기…</text></svg>"
+      }
+    },
+    {
+      "id": "22",
+      "name": "키보드 단축 입력",
+      "direction": "외부 키보드 단축키",
+      "concept": "N 키 또는 ⌘N 으로 새 메모(태블릿·키보드 사용자).",
+      "features": [
+        "위치·형태: 외부 키보드 단축키",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 해당 없음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "키보드 단축 입력 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "해당 없음",
+        "목록 공간": "그대로",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 22: N 키 또는 ⌘N 으로 새 메모(태블릿·키보드 사용자).\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"120\" y=\"420\" width=\"120\" height=\"36\" rx=\"18\"/><text class=\"m-sub\" x=\"180\" y=\"443\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">⌘N 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "23",
+      "name": "고정 첫 줄 카드",
+      "direction": "목록 첫 칸 고정",
+      "concept": "목록 첫 카드 자리를 항상 \"+ 새 메모\"로 고정합니다.",
+      "features": [
+        "위치·형태: 목록 첫 칸 고정",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 매우 좋음, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 56px 줄어듦",
+        "구현 난이도 낮음"
+      ],
+      "points": [
+        {
+          "text": "고정 첫 줄 카드 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "매우 좋음",
+        "한 손 조작": "나쁨",
+        "목록 공간": "56px 줄어듦",
+        "구현 난이도": "낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 23: 목록 첫 카드 자리를 항상 \"+ 새 메모\"로 고정합니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><text class=\"m-on\" x=\"30\" y=\"105\" font-size=\"14\">+ 새 메모</text></svg>"
+      }
+    },
+    {
+      "id": "24",
+      "name": "반투명 하단 독",
+      "direction": "떠 있는 하단 독",
+      "concept": "하단에 떠 있는 둥근 독 안에 검색·+·설정을 둡니다.",
+      "features": [
+        "위치·형태: 떠 있는 하단 독",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "반투명 하단 독 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 24: 하단에 떠 있는 둥근 독 안에 검색·+·설정을 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"70\" y=\"420\" width=\"220\" height=\"44\" rx=\"22\"/><text class=\"m-sub\" x=\"180\" y=\"447\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">검색 · + · 설정</text></svg>"
+      }
+    },
+    {
+      "id": "25",
+      "name": "색 점 빠른 생성",
+      "direction": "색으로 분류하며 시작",
+      "concept": "하단 색 점 4개 중 하나를 누르면 그 색 메모가 생깁니다.",
+      "features": [
+        "위치·형태: 색으로 분류하며 시작",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "색 점 빠른 생성 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 25: 하단 색 점 4개 중 하나를 누르면 그 색 메모가 생깁니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"120\" cy=\"440\" r=\"14\"/><circle class=\"m-sub\" cx=\"160\" cy=\"440\" r=\"14\"/><circle class=\"m-fg\" cx=\"200\" cy=\"440\" r=\"14\"/><circle class=\"m-line\" cx=\"240\" cy=\"440\" r=\"14\" stroke-width=\"2\"/></svg>"
+      }
+    },
+    {
+      "id": "26",
+      "name": "사진 먼저 버튼",
+      "direction": "카메라로 시작",
+      "concept": "카메라 버튼을 누르면 찍은 사진으로 메모가 시작됩니다.",
+      "features": [
+        "위치·형태: 카메라로 시작",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 거의 그대로",
+        "구현 난이도 높음"
+      ],
+      "points": [
+        {
+          "text": "사진 먼저 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "거의 그대로",
+        "구현 난이도": "높음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 26: 카메라 버튼을 누르면 찍은 사진으로 메모가 시작됩니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><circle class=\"m-acc\" cx=\"296\" cy=\"416\" r=\"28\"/><text class=\"m-on\" x=\"296\" y=\"425\" font-size=\"26\" font-weight=\"700\" text-anchor=\"middle\">◎</text></svg>"
+      }
+    },
+    {
+      "id": "27",
+      "name": "날짜 헤더 + 버튼",
+      "direction": "날짜 묶음마다 추가",
+      "concept": "오늘·어제 같은 날짜 머리줄마다 작은 +를 둡니다.",
+      "features": [
+        "위치·형태: 날짜 묶음마다 추가",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 보통"
+      ],
+      "cons": [
+        "목록 공간: 28px 줄어듦",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "날짜 헤더 + 버튼 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "보통",
+        "목록 공간": "28px 줄어듦",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 27: 오늘·어제 같은 날짜 머리줄마다 작은 +를 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"100\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"114\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"132\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"164\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"178\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"196\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"228\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"242\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"260\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"292\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"306\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"324\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"356\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"370\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"388\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-bar\" x=\"0\" y=\"64\" width=\"360\" height=\"28\"/><text class=\"m-sub\" x=\"20\" y=\"83\" font-size=\"14\">오늘</text><rect class=\"m-acc\" x=\"300\" y=\"66\" width=\"44\" height=\"24\" rx=\"12\"/><text class=\"m-on\" x=\"322\" y=\"83\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">+</text></svg>"
+      }
+    },
+    {
+      "id": "28",
+      "name": "흔들어 새 메모",
+      "direction": "기기 흔들기",
+      "concept": "휴대폰을 흔들면 새 메모 화면이 열립니다.",
+      "features": [
+        "위치·형태: 기기 흔들기",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 나쁨, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 중간"
+      ],
+      "points": [
+        {
+          "text": "흔들어 새 메모 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "나쁨",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "중간"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 28: 휴대폰을 흔들면 새 메모 화면이 열립니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><text class=\"m-sub\" x=\"118\" y=\"440\" font-size=\"12\">흔들면 새 메모 ↯</text></svg>"
+      }
+    },
+    {
+      "id": "29",
+      "name": "알림 영역 바로가기",
+      "direction": "잠금화면·알림 상주",
+      "concept": "알림 영역에 상주 바로가기를 두어 어디서나 씁니다.",
+      "features": [
+        "위치·형태: 잠금화면·알림 상주",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 보통, 한 손 조작 좋음"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 높음"
+      ],
+      "points": [
+        {
+          "text": "알림 영역 바로가기 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "보통",
+        "한 손 조작": "좋음",
+        "목록 공간": "그대로",
+        "구현 난이도": "높음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 29: 알림 영역에 상주 바로가기를 두어 어디서나 씁니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"16\" y=\"8\" width=\"328\" height=\"40\" rx=\"10\"/><text class=\"m-on\" x=\"30\" y=\"33\" font-size=\"14\">메모  ·  + 바로 쓰기</text></svg>"
+      }
+    },
+    {
+      "id": "30",
+      "name": "오른쪽 위 펜 아이콘 + 라벨",
+      "direction": "아이콘과 글자 조합(상단)",
+      "concept": "오른쪽 위에 펜 아이콘과 \"쓰기\" 글자를 함께 둡니다.",
+      "features": [
+        "위치·형태: 아이콘과 글자 조합(상단)",
+        "누르면 빈 메모 편집 화면으로 이동",
+        "기존 목록 정렬은 그대로"
+      ],
+      "pros": [
+        "찾기 쉬움 좋음, 한 손 조작 나쁨"
+      ],
+      "cons": [
+        "목록 공간: 그대로",
+        "구현 난이도 매우 낮음"
+      ],
+      "points": [
+        {
+          "text": "오른쪽 위 펜 아이콘 + 라벨 — 처음 보는 사람이 바로 찾는지"
+        },
+        {
+          "text": "목록을 읽을 때 방해되지 않는지"
+        }
+      ],
+      "scores": {
+        "찾기 쉬움": "좋음",
+        "한 손 조작": "나쁨",
+        "목록 공간": "그대로",
+        "구현 난이도": "매우 낮음"
+      },
+      "mock": {
+        "svg": "<svg viewBox=\"0 0 360 480\" role=\"img\" aria-label=\"시안 30: 오른쪽 위에 펜 아이콘과 \"쓰기\" 글자를 함께 둡니다.\" xmlns=\"http://www.w3.org/2000/svg\"><rect class=\"m-bg\" width=\"360\" height=\"480\"/><rect class=\"m-bar\" width=\"360\" height=\"56\"/><text class=\"m-fg\" x=\"20\" y=\"37\" font-size=\"20\" font-weight=\"700\">메모</text><rect class=\"m-item\" x=\"16\" y=\"72\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"86\" width=\"150\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"104\" width=\"220\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"136\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"150\" width=\"138\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"168\" width=\"202\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"200\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"214\" width=\"126\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"232\" width=\"184\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"264\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"278\" width=\"114\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"296\" width=\"166\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-item\" x=\"16\" y=\"328\" width=\"328\" height=\"56\" rx=\"10\"/><rect class=\"m-sub\" x=\"30\" y=\"342\" width=\"102\" height=\"10\" rx=\"5\" opacity=\".6\"/><rect class=\"m-sub\" x=\"30\" y=\"360\" width=\"148\" height=\"8\" rx=\"4\" opacity=\".35\"/><rect class=\"m-acc\" x=\"262\" y=\"12\" width=\"84\" height=\"32\" rx=\"16\"/><text class=\"m-on\" x=\"304\" y=\"33\" font-size=\"14\" font-weight=\"600\" text-anchor=\"middle\">✎ 쓰기</text></svg>"
+      }
+    }
+  ]
+}

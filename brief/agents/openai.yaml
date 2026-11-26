@@ -1,0 +1,4 @@
+interface:
+  display_name: "업무 브리핑"
+  short_description: "최근 변화와 현재 할 일, 사용자 결정을 근거와 함께 정리"
+  default_prompt: "Use $brief to summarize the last three calendar days and current work across my registered projects."

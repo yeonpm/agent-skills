@@ -1,0 +1,4 @@
+interface:
+  display_name: "lp · 로컬 → Preview"
+  short_description: "로컬 변경을 preview에 검증·커밋·푸시하고 결과를 확인합니다"
+  default_prompt: "$lp을 사용해 현재 프로젝트의 로컬 → Preview 작업을 진행해줘."

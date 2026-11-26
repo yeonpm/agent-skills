@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<link rel="icon" type="image/svg+xml" href="__FAVICON__">
+<style>
+:root{
+  --bg:#f6f7f9;--surface:#fff;--surface-2:#f0f2f5;--text:#1f2937;--muted:#5b6472;--line:#dde1e7;
+  --accent:#2563eb;--accent-soft:#e0eaff;--rec:#0f7b4f;--rec-soft:#dcf5e8;--urgent:#b42318;--urgent-soft:#fde4e1;
+  --warn:#8a5a00;--warn-soft:#fff1cc;--sel:#eef4ff;--shadow:0 1px 2px rgba(0,0,0,.06);
+  --panel-bg:rgba(255,255,255,.97);
+  --bg-chip-bg:#e0eaff;--bg-chip-bd:#93b4f5;--bg-chip-fg:#1e3a8a;
+  --bl-chip-bg:#ffe9d6;--bl-chip-bd:#f0a868;--bl-chip-fg:#8a2c0a;
+  --nt-chip-bg:#efe9fb;--nt-chip-bd:#bba8ec;--nt-chip-fg:#4a2a8f;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#111418;--surface:#1a1f26;--surface-2:#222833;--text:#e5e9ef;--muted:#9aa4b2;--line:#2e3642;
+  --accent:#7aa2ff;--accent-soft:#1d2b4d;--rec:#4fd39a;--rec-soft:#123326;--urgent:#ff8a7a;--urgent-soft:#3d1a16;
+  --warn:#f5c35b;--warn-soft:#3a2d0c;--sel:#1b2740;--shadow:none;--panel-bg:rgba(26,31,38,.97);
+  --bg-chip-bg:#1d2b4d;--bg-chip-bd:#3f5c9e;--bg-chip-fg:#c3d5ff;
+  --bl-chip-bg:#3d2410;--bl-chip-bd:#8a5226;--bl-chip-fg:#ffcfa3;
+  --nt-chip-bg:#2b2145;--nt-chip-bd:#5d4a94;--nt-chip-fg:#dccffb;
+}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;overflow-wrap:anywhere}
+a{color:var(--accent)}
+.wrap{max-width:880px;margin:0 auto;padding:16px}
+h1{font-size:21px;margin:4px 0 2px}
+h2{font-size:17px;margin:26px 0 8px}
+h3{font-size:15px;margin:16px 0 6px;color:var(--muted)}
+.sub{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;box-shadow:var(--shadow)}
+.summary{display:grid;gap:10px}
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:var(--surface-2);border-radius:8px;padding:6px 10px;font-size:13px}
+.stat b{font-size:17px;margin-right:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13px;text-decoration:none;color:var(--text);background:var(--surface)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 12px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){button.primary{color:#0b1020}}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.badge{display:inline-block;font-size:11px;font-weight:600;border-radius:4px;padding:1px 6px;vertical-align:middle;white-space:nowrap}
+.b-id{background:var(--surface-2);color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+.b-high{background:var(--urgent-soft);color:var(--urgent)}
+.b-normal{background:var(--warn-soft);color:var(--warn)}
+.b-low{background:var(--surface-2);color:var(--muted)}
+.b-rec{background:var(--rec-soft);color:var(--rec)}
+.b-done{background:var(--accent-soft);color:var(--accent)}
+.dec{margin:10px 0}
+.dec.answered{border-color:var(--accent)}
+.dec-head{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:4px}
+.dec-title{font-weight:700;font-size:15px;margin:2px 0 6px}
+.kv{font-size:13px;margin:3px 0;color:var(--text)}
+.kv>span:first-child{color:var(--muted);margin-right:4px}
+.kv.chipkv{display:flex;gap:8px;align-items:baseline}
+.kv.chipkv>.chip{flex:none;margin:0;font-size:12px;font-weight:700;line-height:1.4;border:1px solid;border-radius:999px;padding:1px 10px;white-space:nowrap}
+.kv.chipkv>.kv-t{flex:1 1 0;min-width:0}
+.chip.c-bg{background:var(--bg-chip-bg);border-color:var(--bg-chip-bd);color:var(--bg-chip-fg)}
+.chip.c-bl{background:var(--bl-chip-bg);border-color:var(--bl-chip-bd);color:var(--bl-chip-fg)}
+.chip.c-nt{background:var(--nt-chip-bg);border-color:var(--nt-chip-bd);color:var(--nt-chip-fg)}
+.q{font-size:14px;margin:8px 0 6px;font-weight:600}
+.opts{display:grid;gap:6px}
+.opt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:start;border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer;background:var(--surface)}
+.opt:has(input:checked){background:var(--sel);border-color:var(--accent)}
+.opt input{margin:3px 0 0}
+.opt-label{font-weight:600;font-size:14px}
+.opt-desc{font-size:13px;color:var(--muted);margin-top:2px}
+.pcl{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:1px;font-size:12px;line-height:1.45;color:var(--muted)}
+.pcl li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:4px;align-items:baseline}
+.pcl .mk{font-weight:700;text-align:center;font-family:ui-monospace,Menlo,monospace}
+.pcl .k-pro .mk{color:var(--rec)}
+.pcl .k-con .mk{color:var(--urgent)}
+.pcl .k-con2 .mk{color:var(--warn)}
+.rec-line{font-size:13px;margin:8px 0 2px;color:var(--rec)}
+.custom-field{margin-top:6px}
+input[type=text],textarea{width:100%;box-sizing:border-box;font:inherit;font-size:14px;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 8px}
+textarea{min-height:56px;resize:vertical;display:block;box-sizing:border-box;font-family:inherit;line-height:1.5}
+.memo{margin-top:8px}
+.memo label,.field label{font-size:12px;color:var(--muted);display:block;margin-bottom:2px}
+.field{margin:8px 0}
+.field .hint{font-size:12px;color:var(--muted);margin-bottom:3px}
+.src{font-size:12px;color:var(--muted);margin-top:8px}
+.src ul{margin:2px 0 0;padding-left:18px}
+.todo li{margin:4px 0}
+.todo-d{margin:8px 0;padding:0}
+.todo-d>summary{list-style:none;cursor:pointer;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:start}
+.todo-d>summary::-webkit-details-marker{display:none}
+.todo-d>summary::after{content:'펼치기';font-size:12px;color:var(--accent);white-space:nowrap;padding-top:2px}
+.todo-d[open]>summary::after{content:'접기'}
+.todo-d>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:10px}
+.todo-n{font-weight:700;color:var(--muted);font-family:ui-monospace,Menlo,monospace;padding-top:1px}
+.todo-t{font-weight:700;font-size:15px}
+.todo-what{font-size:13px;color:var(--muted);font-weight:400;margin-top:2px}
+.todo-body{border-top:1px solid var(--line);padding:6px 14px 12px}
+.todo-row{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:8px;font-size:13.5px;margin:7px 0}
+.todo-row>.k{color:var(--muted);font-weight:600}
+.todo-row ol,.todo-row ul{margin:0;padding-left:20px}
+.todo-row li{margin:2px 0}
+.todo-row.k-caution>.k{color:var(--urgent)}
+.todo-row code{font-size:12px;background:var(--surface-2);border-radius:4px;padding:0 4px}
+@media (max-width:600px){.todo-row{grid-template-columns:minmax(0,1fr);gap:1px}}
+footer.meta{font-size:12px;color:var(--muted);margin:28px 0 8px;border-top:1px solid var(--line);padding-top:10px}
+footer.meta ul{margin:4px 0;padding-left:18px}
+#panel{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel-bg);border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.08)}
+#panel .inner{max-width:880px;margin:0 auto;padding:8px 16px 10px}
+#panel .bar{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+#panel .bar strong{font-size:14px}
+#panel .status{font-size:12px;color:var(--muted);flex:1 1 140px;min-width:0}
+#prompt{margin:8px 0 0;max-height:28vh;overflow:auto;white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 ui-monospace,Menlo,monospace;background:var(--surface-2);border-radius:8px;padding:8px 10px}
+#panel.collapsed #prompt{display:none}
+@media (max-width:600px){#prompt{max-height:15vh;font-size:12px}#panel .inner{padding:6px 12px 8px}}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(var(--panel-h,120px) + 10px);z-index:30;background:var(--text);color:var(--bg);font-size:13px;border-radius:8px;padding:6px 12px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:calc(100vw - 32px)}
+#toast.show{opacity:1}
+#toast.err{background:var(--urgent);color:#fff}
+.sr{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0}
+.legend{font-size:12px;color:var(--muted)}
+/* 확정 카드(resolution, 2026-11-20) — 읽기 전용 */
+.b-fix{background:var(--text);color:var(--bg)}
+.s-decided{background:var(--accent-soft);color:var(--accent)}
+.s-in_progress{background:var(--warn-soft);color:var(--warn)}
+.s-done{background:var(--rec-soft);color:var(--rec)}
+.s-blocked{background:var(--urgent-soft);color:var(--urgent)}
+.s-deferred{background:var(--surface-2);color:var(--muted);border:1px dashed var(--muted)}
+.dec.resolved{background:var(--surface-2);border-left:4px solid var(--muted)}
+.dec.resolved.st-done{border-left-color:var(--rec)}
+.dec.resolved.st-in_progress,.dec.resolved.st-decided{border-left-color:var(--accent)}
+.dec.resolved.st-blocked{border-left-color:var(--urgent)}
+.dec.resolved.st-deferred{border-left-style:dashed}
+.res-sec{margin:10px 0 0}
+.res-sec>.k{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:3px}
+.res-answer{font-weight:600;font-size:14px}
+.res-quote{margin:0;border-left:3px solid var(--line);padding:6px 10px;background:var(--surface);border-radius:0 6px 6px 0;font:12.5px/1.55 ui-monospace,Menlo,monospace;white-space:pre-wrap;word-break:break-word}
+.res-acts{margin:0;padding-left:0;list-style:none;display:grid;gap:6px}
+.res-acts li{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:8px;font-size:13px}
+.res-acts .dt{color:var(--muted);font-family:ui-monospace,Menlo,monospace;font-size:12px;padding-top:1px}
+.res-acts .who{color:var(--muted);font-size:12px}
+.res-acts .ev{font-size:12px;color:var(--muted);margin-top:2px}
+.res-acts .ev code,.res-sec code{font-size:11.5px;background:var(--surface);border-radius:4px;padding:0 4px}
+.res-carry{font-size:13px;margin:8px 0 0;padding:6px 10px;border-radius:6px;background:var(--warn-soft);color:var(--warn)}
+.res-opts{font-size:12px;color:var(--muted);margin-top:8px}
+.res-opts ul{margin:4px 0 0;padding-left:18px}
+@media (max-width:600px){.res-acts li{grid-template-columns:minmax(0,1fr);gap:0}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div id="panel" class="collapsed">
+  <div class="inner">
+    <div class="bar">
+      <strong>프롬프트</strong>
+      <span class="status" id="status">선택하면 아래 프롬프트가 작성되고 자동으로 복사됩니다.</span>
+      <button type="button" id="btn-copy" class="primary">복사</button>
+      <button type="button" id="btn-toggle" aria-expanded="false" aria-controls="prompt">펼치기</button>
+    </div>
+    <pre id="prompt" aria-live="polite"></pre>
+  </div>
+</div>
+<div id="toast" role="status"></div>
+<script id="decision-data" type="application/json">__DATA__</script>
+<script>
+(function(){
+'use strict';
+var D = JSON.parse(document.getElementById('decision-data').textContent);
+var meta = D.meta || {};
+var KEY = 'decisionfy:' + (meta.storageKey || meta.docPath || meta.title || 'default');
+var HOLD = '__hold', CUSTOM = '__custom';
+var URG = {high:['긴급','b-high'], normal:['보통','b-normal'], low:['낮음','b-low']};
+var state = load();
+
+function load(){ try { var s = localStorage.getItem(KEY); return s ? JSON.parse(s) : {}; } catch(e){ return {}; } }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+function st(id){ if(!state[id]) state[id] = {choice:'', choices:[], custom:'', memo:'', fields:{}}; var s=state[id]; s.choices=s.choices||[]; s.fields=s.fields||{}; return s; }
+function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function txt(t){ return esc(t).replace(/\n/g,'<br>'); }
+function projName(id){ var p = (D.projects||{})[id]; return (p && p.name) || id; }
+function memoText(t){ return String(t||'').replace(/\r\n?/g,'\n').split('\n').map(function(l){return l.replace(/[ \t]+/g,' ').trim();}).filter(function(l){return l;}).join('\n').trim().replace(/\n/g,'\n    '); }
+function oneLine(t){ return String(t||'').replace(/\s+/g,' ').trim(); }
+
+function srcList(sources){
+  if(!sources || !sources.length) return '';
+  return '<div class="src">근거·원본<ul>' + sources.map(function(s){
+    var label = esc(s.label || s.path || s.url);
+    var link = s.url ? ' <a href="' + esc(s.url) + '" target="_blank" rel="noopener">열기</a>' : '';
+    var path = s.path && s.label ? ' <code>' + esc(s.path) + '</code>' : '';
+    return '<li>' + label + path + link + '</li>';
+  }).join('') + '</ul></div>';
+}
+
+// 할 일 상세(2026-11-18): what·why·where·steps·done·eta·report·caution·note 중 하나라도 있으면 펼침 카드.
+var TODO_KEYS = ['what','why','where','steps','done','eta','report','caution','note'];
+function isDetailedTodo(t){ return TODO_KEYS.some(function(k){ var v = t[k]; return Array.isArray(v) ? v.length : !!v; }); }
+function arr(v){ return v == null ? [] : (Array.isArray(v) ? v : [v]); }
+function linkItem(w){
+  if (typeof w === 'string') return txt(w);
+  var label = esc(w.label || w.path || w.url);
+  if (w.url) label = '<a href="' + esc(w.url) + '" target="_blank" rel="noopener">' + label + '</a>';
+  return label + (w.path && w.label ? ' <code>' + esc(w.path) + '</code>' : '');
+}
+function renderTodo(t, n){
+  var h = '<details class="card todo-d" id="todo-' + n + '"><summary><span class="todo-n">' + n + '</span><span><span class="todo-t">' + esc(t.title) + '</span>' +
+    '<div class="todo-what"><b>' + esc(projName(t.project)) + '</b>' + (t.what ? ' · ' + esc(t.what) : (t.detail ? ' · ' + esc(t.detail) : '')) + '</div>' +
+    (t.eta ? '<div class="todo-what">예상 ' + esc(String(t.eta).split(/(?<=[.。])\s/)[0]) + '</div>' : '') + '</span></summary><div class="todo-body">';
+  function row(k, label, inner, cls){ if (inner) h += '<div class="todo-row' + (cls ? ' ' + cls : '') + '"><span class="k">' + label + '</span><div>' + inner + '</div></div>'; }
+  row('why', '왜 필요한지', t.why ? txt(t.why) : '');
+  var wh = arr(t.where); row('where', '어디서', wh.length ? '<ul>' + wh.map(function(w){ return '<li>' + linkItem(w) + '</li>'; }).join('') + '</ul>' : '');
+  var sp = arr(t.steps); row('steps', '단계별 방법', sp.length ? '<ol>' + sp.map(function(s){ return '<li>' + txt(s) + '</li>'; }).join('') + '</ol>' : '');
+  row('done', '완료 기준', t.done ? txt(t.done) : '');
+  row('eta', '예상 소요', t.eta ? txt(t.eta) : '');
+  row('report', '비서에게 회신', t.report ? txt(t.report) : '');
+  var ca = arr(t.caution); row('caution', '주의', ca.length ? '<ul>' + ca.map(function(c){ return '<li>' + txt(c) + '</li>'; }).join('') + '</ul>' : '', 'k-caution');
+  row('note', '참고', t.note ? txt(t.note) : '');
+  if (t.detail && t.what) row('detail', '요약', txt(t.detail));
+  h += srcList(t.sources || (t.url ? [{label: t.path || '원본', url: t.url}] : []));
+  return h + '</div></details>';
+}
+
+function optRow(d, o, inputType){
+  var name = 'opt-' + d.id;
+  var rec = o.recommended ? ' <span class="badge b-rec">추천</span>' : '';
+  // 장점(+)·단점(−)·고려할 점(?) — build가 배열로 정규화하지만 문자열도 받는다.
+  var pc = '';
+  [['pros','+','장점','k-pro'],['cons','−','단점','k-con'],['considerations','?','고려할 점','k-con2']].forEach(function(k){
+    var v = o[k[0]]; if (!v) return;
+    (Array.isArray(v) ? v : [v]).forEach(function(t){
+      if (!String(t).trim()) return;
+      pc += '<li class="' + k[3] + '" title="' + k[2] + '"><span class="mk" aria-hidden="true">' + k[1] + '</span><span><span class="sr">' + k[2] + ': </span>' + esc(t) + '</span></li>';
+    });
+  });
+  if (pc) pc = '<ul class="pcl">' + pc + '</ul>';
+  return '<label class="opt"><input type="' + inputType + '" name="' + esc(name) + '" value="' + esc(o.key) + '" data-id="' + esc(d.id) + '" data-kind="choice">' +
+    '<span><span class="opt-label">' + esc(o.label) + rec + '</span>' + (o.desc ? '<div class="opt-desc">' + txt(o.desc) + '</div>' : '') + pc +
+    (o.key === CUSTOM ? '<input type="text" class="custom-field" placeholder="직접 입력" data-id="' + esc(d.id) + '" data-kind="custom" aria-label="' + esc(d.id) + ' 직접 입력">' : '') + '</span></label>';
+}
+
+// 확정 카드(2026-11-20): resolution이 있는 항목은 입력 없이 읽기 전용으로 보이고 프롬프트·추천 일괄·초기화·저장에서 빠진다.
+var RES_ST = {decided:['조치 대기','s-decided'], in_progress:['진행 중','s-in_progress'], done:['완료','s-done'], blocked:['차단','s-blocked'], deferred:['보류','s-deferred']};
+function isResolved(d){ return !!(d && d.resolution && d.resolution.status); }
+function openDecs(){ return (D.decisions||[]).filter(function(d){ return !isResolved(d); }); }
+function evItem(e){
+  if (typeof e === 'string') e = {label: e};
+  var label = esc(e.label || e.path || e.url);
+  if (e.url) return '<a href="' + esc(e.url) + '" target="_blank" rel="noopener">' + label + '</a>';
+  return '<code>' + label + '</code>';
+}
+function renderResolved(d){
+  var r = d.resolution, u = URG[d.urgency] || URG.normal, s = RES_ST[r.status] || RES_ST.decided;
+  var h = '<article class="card dec resolved st-' + esc(r.status) + '" id="d-' + esc(d.id) + '" data-dec="' + esc(d.id) + '" data-resolved="' + esc(r.status) + '">';
+  h += '<div class="dec-head"><span class="badge b-id">' + esc(d.id) + '</span><span class="badge ' + u[1] + '">' + u[0] + '</span><span class="badge b-fix">확정</span><span class="badge ' + s[1] + '">' + s[0] + '</span>' +
+    (r.decided_at ? '<span class="sub">' + esc(r.decided_at) + '</span>' : '') + '</div>';
+  h += '<div class="dec-title">' + esc(d.title) + '</div>';
+  if (d.background) h += '<div class="kv chipkv"><span class="chip c-bg">배경</span><span class="kv-t">' + txt(d.background) + '</span></div>';
+  var ans = String(r.user_answer || ''), ai = ans.indexOf('→');
+  var picked = ai >= 0 ? ans.slice(ai + 1).trim() : ans.trim();
+  if (picked) h += '<div class="res-sec"><span class="k">확정한 답</span><div class="res-answer">' + txt(picked) + '</div></div>';
+  if (r.instruction) h += '<div class="res-sec"><span class="k">지시 요약</span>' + txt(r.instruction) + '</div>';
+  if (ans) h += '<div class="res-sec"><span class="k">사용자 지시 원문</span><blockquote class="res-quote">' + esc(ans) + '</blockquote>' +
+    (r.response_doc ? '<div class="sub">응답 기록 ' + (r.response_doc_url ? '<a href="' + esc(r.response_doc_url) + '" target="_blank" rel="noopener">열기</a> ' : '') + '<code>' + esc(r.response_doc) + '</code></div>' : '') + '</div>';
+  var acts = r.actions || [];
+  h += '<div class="res-sec"><span class="k">조치·구현 기록</span>' + (acts.length ? '<ol class="res-acts">' + acts.map(function(a){
+    var ev = a.evidence || [];
+    return '<li><span class="dt">' + esc(a.date) + '</span><div>' + txt(a.what) + (a.who ? ' <span class="who">· ' + esc(a.who) + '</span>' : '') +
+      (ev.length ? '<div class="ev">증거 ' + ev.map(evItem).join(' · ') + '</div>' : '') + '</div></li>';
+  }).join('') + '</ol>' : '<div class="sub">아직 조치 기록 없음</div>') + '</div>';
+  h += '<div class="res-sec"><span class="k">결과</span>' + (r.result ? txt(r.result) : '<span class="sub">아직 없음</span>') + '</div>';
+  var rem = r.remaining || [];
+  if (rem.length) h += '<div class="res-sec"><span class="k">남은 일</span><ul style="margin:0;padding-left:18px">' + rem.map(function(x){ return '<li>' + txt(x) + '</li>'; }).join('') + '</ul></div>';
+  if (r.status === 'deferred') h += '<div class="res-carry">보류 — 다음 결정 문서로 이월 대상입니다(원본에서 최신 상태를 확인해 다시 올림).</div>';
+  if (r.status === 'blocked') h += '<div class="res-carry">차단 — 다음 결정 문서를 만들 때 최신 상태를 확인해 다시 올립니다.</div>';
+  if (d.type !== 'text' && (d.options||[]).length) h += '<details class="res-opts"><summary>당시 선택지 ' + d.options.length + '개 보기</summary><ul>' +
+    d.options.map(function(o){ return '<li>' + esc(o.label) + (o.recommended ? ' <span class="badge b-rec">추천</span>' : '') + '</li>'; }).join('') + '</ul></details>';
+  h += srcList(d.sources);
+  return h + '</article>';
+}
+
+function renderDecision(d){
+  if (isResolved(d)) return renderResolved(d);
+  var u = URG[d.urgency] || URG.normal;
+  var h = '<article class="card dec" id="d-' + esc(d.id) + '" data-dec="' + esc(d.id) + '">';
+  h += '<div class="dec-head"><span class="badge b-id">' + esc(d.id) + '</span><span class="badge ' + u[1] + '">' + u[0] + '</span><span class="badge b-done" hidden data-done>응답함</span></div>';
+  h += '<div class="dec-title">' + esc(d.title) + '</div>';
+  if (d.background) h += '<div class="kv chipkv"><span class="chip c-bg">배경</span><span class="kv-t">' + txt(d.background) + '</span></div>';
+  if (d.blocks) h += '<div class="kv chipkv"><span class="chip c-bl">막는 것</span><span class="kv-t">' + txt(d.blocks) + '</span></div>';
+  if (d.note) h += '<div class="kv chipkv"><span class="chip c-nt">참고</span><span class="kv-t">' + txt(d.note) + '</span></div>';
+  if (d.question) h += '<div class="q">' + txt(d.question) + '</div>';
+  if (d.type === 'text') {
+    (d.fields||[]).forEach(function(f){
+      h += '<div class="field"><label for="f-' + esc(d.id) + '-' + esc(f.key) + '">' + esc(f.key) + '. ' + esc(f.label) + '</label>' + (f.hint ? '<div class="hint">' + esc(f.hint) + '</div>' : '') +
+        '<textarea id="f-' + esc(d.id) + '-' + esc(f.key) + '" data-id="' + esc(d.id) + '" data-kind="field" data-key="' + esc(f.key) + '"></textarea></div>';
+    });
+  } else {
+    var it = d.type === 'multi' ? 'checkbox' : 'radio';
+    h += '<div class="opts">';
+    (d.options||[]).forEach(function(o){ h += optRow(d, o, it); });
+    if (d.allowCustom !== false) h += optRow(d, {key:CUSTOM, label:'직접 입력', desc:'이 칸에 원하는 답을 적습니다.'}, it);
+    if (d.allowHold !== false) h += optRow(d, {key:HOLD, label:'보류', desc:'지금 정하지 않습니다(프롬프트에 보류로 전달).'}, it);
+    h += '</div>';
+    var recs = (d.options||[]).filter(function(o){ return o.recommended; });
+    if (recs.length || d.recommendReason) h += '<div class="rec-line"><span class="badge b-rec">추천</span> ' + esc(recs.map(function(o){return o.label;}).join(', ') || '없음') + (d.recommendReason ? ' — ' + esc(d.recommendReason) : '') + '</div>';
+  }
+  h += '<div class="memo"><label for="m-' + esc(d.id) + '">메모(선택)</label><textarea rows="3" id="m-' + esc(d.id) + '" data-id="' + esc(d.id) + '" data-kind="memo" placeholder="조건·이유·질문"></textarea></div>';
+  h += srcList(d.sources);
+  return h + '</article>';
+}
+
+function render(){
+  var decs = D.decisions || [];
+  var resolved = decs.filter(isResolved), open = openDecs();
+  var urgent = open.filter(function(d){ return d.urgency === 'high'; });
+  var order = [], groups = {};
+  decs.forEach(function(d){ if(!groups[d.project]){ groups[d.project]=[]; order.push(d.project); } groups[d.project].push(d); });
+  var h = '<header><h1>' + esc(meta.title || '결정 문서') + '</h1><div class="sub">작성 ' + esc(meta.createdAt || meta.date || '') + ' · 작업 ' + esc(meta.taskId || '-') + '</div></header>';
+  h += '<h2>핵심 요약</h2><section class="card summary">';
+  var cnt = function(st){ return resolved.filter(function(d){ return d.resolution.status === st; }).length; };
+  h += (resolved.length
+    ? '<div class="stats"><span class="stat"><b>' + resolved.length + '</b>건 확정 (완료 ' + cnt('done') + ' · 진행 ' + (cnt('in_progress') + cnt('decided')) + (cnt('blocked') ? ' · 차단 ' + cnt('blocked') : '') + (cnt('deferred') ? ' · 보류 ' + cnt('deferred') : '') + ')</span>' +
+      '<span class="stat"><b>' + open.length + '</b>건 미결</span><span class="stat"><b>' + urgent.length + '</b>건 긴급(미결)</span>'
+    : '<div class="stats"><span class="stat"><b>' + decs.length + '</b>건 결정 필요</span><span class="stat"><b>' + urgent.length + '</b>건 긴급</span>') +
+    '<span class="stat"><b id="answered-n">0</b>건 응답</span>' + ((D.todos||[]).length ? '<span class="stat"><b>' + D.todos.length + '</b>건 할 일</span>' : '') + '</div>';
+  h += '<div class="chips">' + order.map(function(p){ return '<a class="chip" href="#p-' + esc(p) + '">' + esc(projName(p)) + ' ' + groups[p].length + '</a>'; }).join('') + '</div>';
+  if (urgent.length) h += '<div class="kv"><span>긴급</span>' + urgent.map(function(d){ return '<a href="#d-' + esc(d.id) + '">' + esc(d.id) + '</a> ' + esc(d.title); }).join(' · ') + '</div>';
+  if (meta.summary) h += '<div class="kv">' + txt(meta.summary) + '</div>';
+  h += '<div class="toolbar"><button type="button" id="btn-rec" class="primary">추천안 일괄 선택</button><button type="button" id="btn-reset">초기화</button></div>';
+  h += '<div class="legend">고르면 하단 프롬프트가 바로 작성되고 클립보드로 복사됩니다(텍스트는 입력을 멈춘 뒤 0.3초). 선택은 이 브라우저에 저장됩니다. 고르지 않은 항목은 프롬프트의 "미결" 줄에만 들어갑니다. 선택지 아래 <b style="color:var(--rec)">+</b> 장점 · <b style="color:var(--urgent)">−</b> 단점 · <b style="color:var(--warn)">?</b> 고려할 점("(비서 정리)"는 원본에 없는 일반 고려사항).</div>';
+  if (resolved.length) h += '<div class="legend"><b>확정</b> 카드는 사용자가 이미 답한 항목으로 읽기 전용입니다. 프롬프트·추천안 일괄 선택·초기화에 포함되지 않고, 조치가 끝날 때마다 조치·구현 기록과 상태가 갱신됩니다.</div>';
+  h += '</section>';
+  if ((D.todos||[]).length) {
+    var simple = D.todos.filter(function(t){ return !isDetailedTodo(t); });
+    var detailed = D.todos.filter(isDetailedTodo);
+    h += '<h2>사용자 할 일 (결정 아님)</h2>';
+    if (detailed.length) h += '<div class="legend">항목을 누르면 왜·어디서·단계별 방법·완료 기준·회신 내용이 펼쳐집니다. 할 일은 프롬프트에 들어가지 않으니 끝나면 대화창에 "회신" 문구를 직접 적어 주세요.</div>';
+    detailed.forEach(function(t, i){ h += renderTodo(t, i + 1); });
+    if (simple.length) h += '<section class="card"><ul class="todo">' + simple.map(function(t){
+      return '<li><b>' + esc(projName(t.project)) + '</b> · ' + esc(t.title) + (t.detail ? ' — ' + esc(t.detail) : '') + (t.url ? ' <a href="' + esc(t.url) + '" target="_blank" rel="noopener">열기</a>' : '') + '</li>';
+    }).join('') + '</ul></section>';
+  }
+  h += '<h2>상세 내용</h2>';
+  order.forEach(function(p){
+    h += '<section id="p-' + esc(p) + '"><h2>' + esc(projName(p)) + ' <span class="sub">' + groups[p].length + '건</span></h2>';
+    var lastGroup = null;
+    groups[p].forEach(function(d){
+      if (d.group && d.group !== lastGroup) { h += '<h3>' + esc(d.group) + '</h3>'; lastGroup = d.group; }
+      h += renderDecision(d);
+    });
+    h += '</section>';
+  });
+  h += '<footer class="meta">작성 ' + esc(meta.createdAt || meta.date || '') + ' · 작업 ID ' + esc(meta.taskId || '-') + (meta.docPath ? ' · 문서 <code>' + esc(meta.docPath) + '</code>' : '') +
+    ' · 이 문서는 결정 모음(링크)이며 각 결정의 원본은 해당 프로젝트 저장소에 있습니다.' + (meta.footerNote ? '<br>' + txt(meta.footerNote) : '') + '</footer>';
+  document.getElementById('app').innerHTML = h;
+}
+
+function decById(id){ var ds = D.decisions||[]; for (var i=0;i<ds.length;i++) if (ds[i].id===id) return ds[i]; return null; }
+function optLabel(d, key){
+  if (key === HOLD) return '보류';
+  if (key === CUSTOM) { var c = oneLine(st(d.id).custom); return '직접 입력 "' + (c || '(내용 없음)') + '"'; }
+  var o = (d.options||[]).filter(function(x){ return x.key === key; })[0];
+  return o ? (o.label + (o.recommended ? ' (추천안)' : '')) : key;
+}
+function isAnswered(d){
+  var s = st(d.id);
+  if (memoText(s.memo)) return true;
+  if (d.type === 'text') return Object.keys(s.fields).some(function(k){ return oneLine(s.fields[k]); });
+  if (d.type === 'multi') return s.choices.length > 0;
+  return !!s.choice;
+}
+function line(d){
+  var s = st(d.id), head = '[' + d.id + '] ' + projName(d.project) + '·' + oneLine(d.title) + ' → ';
+  var body;
+  if (d.type === 'text') {
+    var parts = (d.fields||[]).filter(function(f){ return oneLine(s.fields[f.key]); }).map(function(f){ return f.key + ' ' + oneLine(f.label) + ': "' + oneLine(s.fields[f.key]) + '"'; });
+    body = '피드백: ' + (parts.join(' · ') || '없음');
+  } else if (d.type === 'multi') {
+    var ch = s.choices.indexOf(HOLD) >= 0 ? [HOLD] : s.choices;
+    body = '선택: ' + (ch.length ? ch.map(function(k){ return optLabel(d,k); }).join(', ') : '없음');
+  } else {
+    body = '선택: ' + (s.choice ? optLabel(d, s.choice) : '없음');
+  }
+  if (memoText(s.memo)) body += ' / 메모: ' + memoText(s.memo);
+  return head + body;
+}
+function buildPrompt(){
+  var decs = openDecs(), out = ['결정 문서 ' + (meta.date || '') + ' 응답'];
+  if (meta.docPath || meta.taskId) out.push('문서: ' + (meta.docPath || '-') + (meta.taskId ? ' (작업 ' + meta.taskId + ')' : ''));
+  var open = [];
+  decs.forEach(function(d){ if (isAnswered(d)) out.push(line(d)); else open.push(d.id); });
+  if (open.length) out.push('미결 ' + open.length + '건: ' + open.join(', '));
+  out.push('위 응답대로 각 원본 문서에 기록하고 담당 작업에 위임해 줘. 보류·미결은 다음 결정 문서에 다시 올려 줘.');
+  return out.join('\n');
+}
+
+var lastCopied = '';
+function syncUI(){
+  var decs = openDecs(), n = 0;
+  decs.forEach(function(d){
+    var a = isAnswered(d); if (a) n++;
+    var el = document.getElementById('d-' + d.id); if (!el) return;
+    el.classList.toggle('answered', a);
+    var b = el.querySelector('[data-done]'); if (b) b.hidden = !a;
+  });
+  var an = document.getElementById('answered-n'); if (an) an.textContent = n;
+  document.getElementById('prompt').textContent = buildPrompt();
+  document.getElementById('status').textContent = '응답 ' + n + '건 · 미결 ' + (decs.length - n) + '건 (전체 ' + decs.length + ')' + (lastCopied ? ' · 마지막 복사 ' + lastCopied : '');
+}
+function applyStateToInputs(){
+  document.querySelectorAll('[data-id]').forEach(function(el){
+    var s = st(el.getAttribute('data-id')), k = el.getAttribute('data-kind');
+    if (k === 'choice') el.checked = el.type === 'radio' ? s.choice === el.value : s.choices.indexOf(el.value) >= 0;
+    else if (k === 'custom') el.value = s.custom || '';
+    else if (k === 'memo') el.value = s.memo || '';
+    else if (k === 'field') el.value = s.fields[el.getAttribute('data-key')] || '';
+  });
+}
+
+var toastTimer;
+function toast(msg, err){
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.toggle('err', !!err); t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+}
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.setAttribute('readonly', ''); ta.className = 'sr';
+  document.body.appendChild(ta); ta.select();
+  var ok = false; try { ok = document.execCommand('copy'); } catch(e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok;
+}
+function copyPrompt(){
+  var text = buildPrompt();
+  var done = function(ok){
+    if (ok) { lastCopied = new Date().toLocaleTimeString('ko-KR', {hour12:false}); toast('프롬프트를 클립보드에 복사했습니다'); }
+    else toast('복사 실패 — 프롬프트를 직접 선택해 복사하세요', true);
+    document.documentElement.setAttribute('data-copy-state', ok ? 'ok' : 'fail');
+    syncUI();
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(fallbackCopy(text)); });
+  } else done(fallbackCopy(text));
+}
+
+// 직접 입력 입력칸을 누르거나 타이핑하면 '직접 입력'이 자동 선택된다(값은 다른 선택지로 바꿔도 남고 프롬프트에는 선택 때만 들어간다).
+function selectCustom(d, s){
+  if (d.type === 'multi') { if (s.choices.indexOf(CUSTOM) < 0) s.choices.push(CUSTOM); }
+  else s.choice = CUSTOM;
+  var box = document.querySelector('#d-' + CSS.escape(d.id) + ' input[data-kind=choice][value="' + CUSTOM + '"]');
+  if (box) box.checked = true;
+}
+var debounce;
+function onEdit(e){
+  var el = e.target, id = el.getAttribute && el.getAttribute('data-id'); if (!id) return;
+  var d = decById(id); if (!d || isResolved(d)) return;
+  var s = st(id), k = el.getAttribute('data-kind'), textual = false;
+  if (k === 'choice') {
+    if (el.type === 'radio') { if (el.checked) s.choice = el.value; }
+    else {
+      var set = s.choices.filter(function(x){ return x !== el.value; });
+      if (el.checked) set.push(el.value);
+      s.choices = set;
+    }
+  } else if (k === 'custom') { s.custom = el.value; textual = true; if (e.type === 'input') selectCustom(d, s); }
+  else if (k === 'memo') { s.memo = el.value; textual = true; }
+  else if (k === 'field') { s.fields[el.getAttribute('data-key')] = el.value; textual = true; }
+  save(); syncUI();
+  clearTimeout(debounce);
+  if (textual) { if (e.type === 'input') debounce = setTimeout(copyPrompt, 300); }
+  else if (e.type === 'change') copyPrompt();
+}
+
+function applyRecommended(){
+  openDecs().forEach(function(d){
+    if (d.type === 'text') return;
+    var recs = (d.options||[]).filter(function(o){ return o.recommended; }).map(function(o){ return o.key; });
+    if (!recs.length) return;
+    var s = st(d.id);
+    if (d.type === 'multi') s.choices = recs; else s.choice = recs[0];
+  });
+  save(); applyStateToInputs(); syncUI(); copyPrompt();
+}
+function reset(){
+  if (!confirm('모든 선택과 메모를 지울까요?')) return;
+  state = {}; save(); applyStateToInputs(); syncUI(); copyPrompt();
+}
+
+function fitPanel(){
+  var p = document.getElementById('panel');
+  var h = p.offsetHeight;
+  document.body.style.paddingBottom = (h + 16) + 'px';
+  document.documentElement.style.setProperty('--panel-h', h + 'px');
+}
+
+// 확정 항목의 예전 선택(localStorage)은 복원하지 않고 지운다.
+(D.decisions||[]).forEach(function(d){ if (isResolved(d) && state[d.id]) { delete state[d.id]; save(); } });
+render();
+applyStateToInputs();
+syncUI();
+var app = document.getElementById('app');
+// 포인터로 '직접 입력'을 고르면 입력칸에 바로 포커스. 키보드(화살표·Space, detail 0)는 포커스를 옮기지 않는다 — 화살표로 다른 선택지로 이어 갈 수 있게, Tab이 곧바로 입력칸으로 간다.
+app.addEventListener('click', function(e){
+  var el = e.target; if (!el.getAttribute) return;
+  var id = el.getAttribute('data-id'); if (!id) return;
+  var d = decById(id); if (!d || isResolved(d)) return;
+  if (el.getAttribute('data-kind') === 'custom') {
+    var s = st(id); selectCustom(d, s); save(); syncUI(); copyPrompt();
+  } else if (el.getAttribute('data-kind') === 'choice' && el.value === CUSTOM && el.checked && e.detail > 0) {
+    var inp = document.querySelector('#d-' + CSS.escape(id) + ' input[data-kind=custom]'); if (inp) inp.focus();
+  }
+});
+app.addEventListener('change', onEdit);
+app.addEventListener('input', onEdit);
+document.getElementById('btn-rec').addEventListener('click', applyRecommended);
+document.getElementById('btn-reset').addEventListener('click', reset);
+document.getElementById('btn-copy').addEventListener('click', copyPrompt);
+var PKEY = KEY + ':panel-open';
+function setPanel(open){
+  var p = document.getElementById('panel'), b = document.getElementById('btn-toggle');
+  p.classList.toggle('collapsed', !open);
+  b.textContent = open ? '접기' : '펼치기'; b.setAttribute('aria-expanded', String(open)); fitPanel();
+}
+var wasOpen = false;
+try { wasOpen = localStorage.getItem(PKEY) === '1'; } catch(e){}
+document.getElementById('btn-toggle').addEventListener('click', function(){
+  var open = document.getElementById('panel').classList.contains('collapsed');
+  setPanel(open);
+  try { if (open) localStorage.setItem(PKEY, '1'); else localStorage.removeItem(PKEY); } catch(e){}
+});
+setPanel(wasOpen);
+fitPanel();
+if (window.ResizeObserver) new ResizeObserver(fitPanel).observe(document.getElementById('panel'));
+else window.addEventListener('resize', fitPanel);
+window.__decisionDoc = { buildPrompt: buildPrompt, storageKey: KEY };
+})();
+</script>
+</body>
+</html>

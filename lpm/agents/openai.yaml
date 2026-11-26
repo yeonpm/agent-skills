@@ -1,0 +1,4 @@
+interface:
+  display_name: "lpm · 로컬 → Preview → Main"
+  short_description: "로컬 변경을 preview 검증부터 main 운영 반영까지 실행합니다"
+  default_prompt: "$lpm을 사용해 현재 프로젝트의 로컬 → Preview → Main 작업을 진행해줘."

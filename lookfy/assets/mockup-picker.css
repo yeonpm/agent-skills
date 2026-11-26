@@ -1,0 +1,36 @@
+/* htmlfy 시안 선택·의견·하단 프롬프트 v1 — 문서 <style> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   선택 가능한 시안 카드: <article class="mp-card" id="v01" data-mp-id="01" data-mp-name="하단 플로팅 버튼"> … <div class="mp-slot"></div> … </article>
+   (mp-slot이 없으면 카드 끝에 붙는다.) 전체 의견 자리: <div class="mp-overall"></div> (없으면 main 끝에 자동 생성)
+   색은 문서 :root에서 --mp-acc 등을 덮어써 바꿀 수 있다. 문서의 --line/--card/--fg/--sub가 있으면 따라간다. */
+:root{--mp-acc:#2f6fed;--mp-on-acc:#fff;--mp-sel-bg:#e8efff;--mp-panel-bg:rgba(255,255,255,.97);--mp-code-bg:#f1f3f6;--mp-err:#c62828;--mp-line:var(--line,#d9dde4);--mp-fg:var(--fg,#1d2433);--mp-sub:var(--sub,#5b6475);--mp-card:var(--card,#fff)}
+@media (prefers-color-scheme:dark){:root{--mp-acc:#7aa5ff;--mp-on-acc:#0d1320;--mp-sel-bg:#1c2a4a;--mp-panel-bg:rgba(27,31,39,.97);--mp-code-bg:#262c37;--mp-err:#ff6b6b;--mp-line:var(--line,#333a46);--mp-fg:var(--fg,#e7eaf0);--mp-sub:var(--sub,#a3abb9);--mp-card:var(--card,#1b1f27)}}
+.mp-card{scroll-margin:16px}
+.mp-card.mp-selected{outline:3px solid var(--mp-acc);outline-offset:-1px}
+.mp-pick{display:grid;gap:8px;margin:12px 0 0;padding:12px 0 0;border-top:1px dashed var(--mp-line);line-height:1.45}
+.mp-sel{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--mp-acc);background:transparent;color:var(--mp-acc);font:inherit;font-weight:700;cursor:pointer;justify-self:start;max-width:100%}
+.mp-sel:hover{background:var(--mp-sel-bg)}
+.mp-sel:focus-visible,.mp-note:focus-visible,#mp-panel button:focus-visible{outline:3px solid var(--mp-acc);outline-offset:2px}
+.mp-sel[aria-pressed="true"]{background:var(--mp-acc);color:var(--mp-on-acc)}
+.mp-sel .mp-mark{display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid currentColor;flex:none;position:relative}
+.mp-multi .mp-sel .mp-mark{border-radius:4px}
+.mp-sel[aria-pressed="true"] .mp-mark::after{content:"";position:absolute;left:4px;top:0;width:5px;height:10px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.mp-lbl{font-size:13px;font-weight:700;color:var(--mp-sub)}
+.mp-note{width:100%;min-height:64px;resize:vertical;font:inherit;font-size:14px;line-height:1.5;color:var(--mp-fg);background:var(--mp-card);border:1px solid var(--mp-line);border-radius:8px;padding:8px 10px;box-sizing:border-box}
+.mp-overall{margin:24px 0 0;padding:14px 16px;border:1px solid var(--mp-line);border-radius:12px;background:var(--mp-card)}
+.mp-overall .mp-lbl{display:block;font-size:15px;color:var(--mp-fg);margin:0 0 6px}
+#mp-panel{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--mp-panel-bg);color:var(--mp-fg);border-top:1px solid var(--mp-line);box-shadow:0 -4px 14px rgba(0,0,0,.1);line-height:1.45}
+#mp-panel .mp-inner{max-width:1080px;margin:0 auto;padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+#mp-panel .mp-bar{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+#mp-panel .mp-bar strong{font-size:14px}
+#mp-status{font-size:12px;color:var(--mp-sub);flex:1 1 150px;min-width:0}
+#mp-panel button{min-height:36px;padding:4px 12px;border-radius:8px;border:1px solid var(--mp-line);background:var(--mp-card);color:var(--mp-fg);font:inherit;font-size:13px;cursor:pointer}
+#mp-panel button.mp-primary{background:var(--mp-acc);border-color:var(--mp-acc);color:var(--mp-on-acc);font-weight:700}
+#mp-prompt{margin:8px 0 0;max-height:26vh;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.5 ui-monospace,Menlo,monospace;background:var(--mp-code-bg);border-radius:8px;padding:8px 10px}
+#mp-panel.mp-collapsed #mp-prompt{display:none}
+@media (max-width:600px){#mp-prompt{max-height:15vh;font-size:12px}#mp-panel .mp-inner{padding:6px 12px calc(8px + env(safe-area-inset-bottom,0px))}#mp-status{flex-basis:100%;order:3}}
+/* 토스트는 패널 안쪽(아래)에 띄워 입력 중인 카드 내용을 가리지 않는다 */
+#mp-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:41;background:var(--mp-fg);color:var(--mp-card);font-size:13px;border-radius:8px;padding:6px 12px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:calc(100vw - 32px)}
+#mp-toast.mp-show{opacity:1}
+#mp-toast.mp-err{background:var(--mp-err);color:#fff}
+.mp-sr{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0}
+@media (prefers-reduced-motion:reduce){#mp-toast{transition:none}}

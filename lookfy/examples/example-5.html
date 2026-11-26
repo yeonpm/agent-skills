@@ -1,0 +1,439 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>[예시] 메모 앱 &quot;새 메모&quot; 버튼 시안 5개</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cstyle%3E.h%20*%7Bfill%3A%23fff!important%3Bstroke%3A%23fff!important%3Bstroke-width%3A4.5px!important%3Bstroke-linejoin%3Around%3Bstroke-linecap%3Around%7D%3C%2Fstyle%3E%3Cg%20class%3D%22h%22%3E%3Cg%20transform%3D%22rotate(-6%2016%2016)%22%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%2225%22%20rx%3D%222%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M10%2016h12M10%2020h12M10%2024h7%22%20fill%3D%22none%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M3%205.5l18-2.5%201%205.5-18%202.5z%22%20fill%3D%22%23fab005%22%20fill-opacity%3D%22.85%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(-6%2016%2016)%22%3E%3Crect%20x%3D%226%22%20y%3D%224%22%20width%3D%2220%22%20height%3D%2225%22%20rx%3D%222%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%222%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M10%2016h12M10%2020h12M10%2024h7%22%20fill%3D%22none%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M3%205.5l18-2.5%201%205.5-18%202.5z%22%20fill%3D%22%23fab005%22%20fill-opacity%3D%22.85%22%20stroke%3D%22%231f2937%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<meta name="mp-title" content="[예시] 메모 앱 &quot;새 메모&quot; 버튼 시안 5개">
+<meta name="mp-date" content="2026-11-25">
+<meta name="mp-task" content="OPS-AGENCY-MOCKUP_DOC_RULE-0001">
+<meta name="mp-path" content="/Users/you/.claude/skills/lookfy/examples/example-5.html">
+<meta name="lookfy-count" content="5">
+<style>
+:root{--bg:#f6f7f9;--fg:#1d2433;--sub:#5b6475;--card:#fff;--line:#d9dde4;--acc:#2f6fed;--rec:#0a7d3e;--recbg:#e3f5ea;--th:#f1f3f6;--m-bg:#ffffff;--m-bar:#f1f3f6;--m-item:#f4f5f7;--m-fg:#1d2433;--m-sub:#7a8292;--m-acc:#2f6fed;--m-onacc:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#12151b;--fg:#e7eaf0;--sub:#a3abb9;--card:#1b1f27;--line:#333a46;--acc:#7aa5ff;--rec:#6fdc9b;--recbg:#143322;--th:#262c37;--m-bg:#1f242d;--m-bar:#262c37;--m-item:#2a303b;--m-fg:#e7eaf0;--m-sub:#9aa3b2;--m-acc:#5b8dff;--m-onacc:#fff}}
+/* ---- lookfy assets/focus-points.css ---- */
+/* htmlfy 포커스 포인트 하이라이트 v1 — 문서 <style> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   마크업:
+     <div class="fp-stage"> <img|svg|목업 HTML>
+       <span class="fp-area" data-focus="v01-1" data-no="1" style="--x:10%;--y:20%;--w:30%;--h:15%"></span>
+     </div>
+     <button type="button" class="fp-btn" data-target="v01-1"><span class="fp-no">1</span>설명</button>
+   좌표는 stage 기준 % (이미지 크기가 바뀌어도 위치 유지). 색은 아래 토큰을 문서 :root에서 덮어써도 된다. */
+:root{--fp-ring:#ff9f0a;--fp-dim:rgba(0,0,0,.55);--fp-badge-fg:#111}
+@media (prefers-color-scheme:dark){:root{--fp-ring:#ffb340;--fp-dim:rgba(0,0,0,.68)}}
+.fp-stage{position:relative;overflow:hidden;line-height:0}
+.fp-stage>img,.fp-stage>svg{display:block;width:100%;height:auto}
+.fp-area{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);border-radius:var(--r,8px);pointer-events:none;opacity:0;transition:opacity .18s,box-shadow .18s}
+.fp-stage.fp-on .fp-area.fp-active{opacity:1;outline:3px solid var(--fp-ring);outline-offset:0;box-shadow:0 0 0 9999px var(--fp-dim)}
+.fp-area.fp-active::after{content:attr(data-no);position:absolute;top:0;left:0;transform:translate(var(--bx,4px),var(--by,4px));min-width:26px;height:26px;padding:0 6px;border-radius:13px;background:var(--fp-ring);color:var(--fp-badge-fg);font:700 14px/26px -apple-system,BlinkMacSystemFont,sans-serif;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.fp-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.fp-btn{display:flex;align-items:flex-start;gap:8px;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:1px solid var(--line,#ccc);border-radius:8px;padding:8px 10px;cursor:pointer;min-height:44px;line-height:1.45}
+.fp-btn:hover{border-color:var(--fp-ring)}
+.fp-btn:focus-visible{outline:3px solid var(--fp-ring);outline-offset:2px}
+.fp-btn[aria-pressed="true"]{border-color:var(--fp-ring);background:color-mix(in srgb,var(--fp-ring) 16%,transparent)}
+.fp-no{flex:none;min-width:24px;height:24px;border-radius:12px;background:var(--fp-ring);color:var(--fp-badge-fg);font-weight:700;font-size:13px;line-height:24px;text-align:center}
+.fp-hint{font-size:13px;opacity:.75;margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){.fp-area{transition:none}}
+
+/* ---- lookfy assets/mockup-picker.css ---- */
+/* htmlfy 시안 선택·의견·하단 프롬프트 v1 — 문서 <style> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   선택 가능한 시안 카드: <article class="mp-card" id="v01" data-mp-id="01" data-mp-name="하단 플로팅 버튼"> … <div class="mp-slot"></div> … </article>
+   (mp-slot이 없으면 카드 끝에 붙는다.) 전체 의견 자리: <div class="mp-overall"></div> (없으면 main 끝에 자동 생성)
+   색은 문서 :root에서 --mp-acc 등을 덮어써 바꿀 수 있다. 문서의 --line/--card/--fg/--sub가 있으면 따라간다. */
+:root{--mp-acc:#2f6fed;--mp-on-acc:#fff;--mp-sel-bg:#e8efff;--mp-panel-bg:rgba(255,255,255,.97);--mp-code-bg:#f1f3f6;--mp-err:#c62828;--mp-line:var(--line,#d9dde4);--mp-fg:var(--fg,#1d2433);--mp-sub:var(--sub,#5b6475);--mp-card:var(--card,#fff)}
+@media (prefers-color-scheme:dark){:root{--mp-acc:#7aa5ff;--mp-on-acc:#0d1320;--mp-sel-bg:#1c2a4a;--mp-panel-bg:rgba(27,31,39,.97);--mp-code-bg:#262c37;--mp-err:#ff6b6b;--mp-line:var(--line,#333a46);--mp-fg:var(--fg,#e7eaf0);--mp-sub:var(--sub,#a3abb9);--mp-card:var(--card,#1b1f27)}}
+.mp-card{scroll-margin:16px}
+.mp-card.mp-selected{outline:3px solid var(--mp-acc);outline-offset:-1px}
+.mp-pick{display:grid;gap:8px;margin:12px 0 0;padding:12px 0 0;border-top:1px dashed var(--mp-line);line-height:1.45}
+.mp-sel{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 16px;border-radius:10px;border:2px solid var(--mp-acc);background:transparent;color:var(--mp-acc);font:inherit;font-weight:700;cursor:pointer;justify-self:start;max-width:100%}
+.mp-sel:hover{background:var(--mp-sel-bg)}
+.mp-sel:focus-visible,.mp-note:focus-visible,#mp-panel button:focus-visible{outline:3px solid var(--mp-acc);outline-offset:2px}
+.mp-sel[aria-pressed="true"]{background:var(--mp-acc);color:var(--mp-on-acc)}
+.mp-sel .mp-mark{display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid currentColor;flex:none;position:relative}
+.mp-multi .mp-sel .mp-mark{border-radius:4px}
+.mp-sel[aria-pressed="true"] .mp-mark::after{content:"";position:absolute;left:4px;top:0;width:5px;height:10px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.mp-lbl{font-size:13px;font-weight:700;color:var(--mp-sub)}
+.mp-note{width:100%;min-height:64px;resize:vertical;font:inherit;font-size:14px;line-height:1.5;color:var(--mp-fg);background:var(--mp-card);border:1px solid var(--mp-line);border-radius:8px;padding:8px 10px;box-sizing:border-box}
+.mp-overall{margin:24px 0 0;padding:14px 16px;border:1px solid var(--mp-line);border-radius:12px;background:var(--mp-card)}
+.mp-overall .mp-lbl{display:block;font-size:15px;color:var(--mp-fg);margin:0 0 6px}
+#mp-panel{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--mp-panel-bg);color:var(--mp-fg);border-top:1px solid var(--mp-line);box-shadow:0 -4px 14px rgba(0,0,0,.1);line-height:1.45}
+#mp-panel .mp-inner{max-width:1080px;margin:0 auto;padding:8px 16px calc(10px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+#mp-panel .mp-bar{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+#mp-panel .mp-bar strong{font-size:14px}
+#mp-status{font-size:12px;color:var(--mp-sub);flex:1 1 150px;min-width:0}
+#mp-panel button{min-height:36px;padding:4px 12px;border-radius:8px;border:1px solid var(--mp-line);background:var(--mp-card);color:var(--mp-fg);font:inherit;font-size:13px;cursor:pointer}
+#mp-panel button.mp-primary{background:var(--mp-acc);border-color:var(--mp-acc);color:var(--mp-on-acc);font-weight:700}
+#mp-prompt{margin:8px 0 0;max-height:26vh;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:12.5px/1.5 ui-monospace,Menlo,monospace;background:var(--mp-code-bg);border-radius:8px;padding:8px 10px}
+#mp-panel.mp-collapsed #mp-prompt{display:none}
+@media (max-width:600px){#mp-prompt{max-height:15vh;font-size:12px}#mp-panel .mp-inner{padding:6px 12px calc(8px + env(safe-area-inset-bottom,0px))}#mp-status{flex-basis:100%;order:3}}
+/* 토스트는 패널 안쪽(아래)에 띄워 입력 중인 카드 내용을 가리지 않는다 */
+#mp-toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:41;background:var(--mp-fg);color:var(--mp-card);font-size:13px;border-radius:8px;padding:6px 12px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:calc(100vw - 32px)}
+#mp-toast.mp-show{opacity:1}
+#mp-toast.mp-err{background:var(--mp-err);color:#fff}
+.mp-sr{position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0}
+@media (prefers-reduced-motion:reduce){#mp-toast{transition:none}}
+
+/* ---- 문서 레이아웃 ---- */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard",sans-serif}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 32px}
+h1{font-size:24px;line-height:1.35;margin:0 0 4px}h2{font-size:19px;margin:32px 0 10px}h3{font-size:17px;margin:0;line-height:1.35}
+a{color:var(--acc)}
+.sub{color:var(--sub);margin:0 0 16px;font-size:14px;overflow-wrap:anywhere}
+.sum{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}.sum ul{margin:6px 0 0;padding-left:20px}
+.toc{display:flex;flex-wrap:wrap;gap:6px 12px;margin:14px 0 0;font-size:14px}
+.legend{font-size:13px;color:var(--sub);margin:8px 0 0}
+.badge{display:inline-block;font-size:12px;line-height:1;padding:4px 7px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.badge.rec{background:var(--recbg);color:var(--rec);border-color:transparent;font-weight:700}
+.badge.u{background:#fff4d6;color:#7a5200;border-color:transparent}.badge.p{background:#e8efff;color:#1e47a8;border-color:transparent}
+.badge.dir{white-space:normal;line-height:1.35;color:var(--sub)}
+@media (prefers-color-scheme:dark){.badge.u{background:#3a2f12;color:#ffd77a}.badge.p{background:#1c2a4a;color:#a9c3ff}}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--th);white-space:nowrap}tr:last-child td{border-bottom:0}
+.grid{display:grid;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:18px;align-items:start;scroll-margin-top:12px}
+.grid.many{grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+.grid.many .card{grid-template-columns:minmax(0,1fr);gap:12px}
+.grid.many .fp-stage{max-width:240px;margin:0 auto;width:100%}
+.ch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.no{font-weight:800;color:var(--acc);font-size:18px}
+.concept{margin:2px 0 8px;color:var(--sub)}
+.feat{margin:0 0 8px;padding-left:18px}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}.pc div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px}.pc b{display:block;font-size:13px;color:var(--sub)}.pc ul{margin:0;padding-left:16px}
+.grid.many .pc{grid-template-columns:1fr}
+.fp-stage{border-radius:14px;border:1px solid var(--line);max-width:300px;background:var(--m-bg)}
+.label{font-size:13px;font-weight:700;color:var(--sub);margin:10px 0 0}
+.pts{margin:4px 0 0;padding-left:20px}
+.m-bg{fill:var(--m-bg)}.m-bar{fill:var(--m-bar)}.m-item{fill:var(--m-item)}.m-fg{fill:var(--m-fg)}.m-sub{fill:var(--m-sub)}.m-acc{fill:var(--m-acc)}.m-on{fill:var(--m-onacc)}.m-line{stroke:var(--m-sub);fill:none}.m-stroke{stroke:var(--m-acc);fill:none}
+svg text{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
+footer{margin-top:28px;color:var(--sub);font-size:13px;overflow-wrap:anywhere}
+code{overflow-wrap:anywhere;font-size:13px}
+@media (max-width:720px){.card{grid-template-columns:minmax(0,1fr)}.fp-stage{margin:0 auto;width:100%}.pc{grid-template-columns:1fr}}
+</style></head><body><main>
+<h1>[예시] 메모 앱 &quot;새 메모&quot; 버튼 시안 5개</h1>
+<p class="sub">lookfy 예시 — 가상의 앱이며 실제 결정과 무관 · 2026-11-25 · OPS-AGENCY-MOCKUP_DOC_RULE-0001 · 프로젝트 agency · 라운드 1</p>
+<section class="sum" id="summary"><b>핵심 요약</b><ul>
+<li><b>시안</b>: 5개(01~05) + 현재안.</li>
+<li><b>추천</b>: <b>1순위 <a href="#v01">01 하단 플로팅 버튼</a></b> — 엄지로 바로 닿고 목록 공간을 거의 쓰지 않습니다. <b>2순위 <a href="#v03">03 하단 입력줄 + 태그</a></b> — 쓰기·분류가 한 번에 되지만 화면 높이를 96px 씁니다.</li>
+<li><b>사용자 할 일</b>: 마음에 드는 시안 카드의 [이 시안 선택] 버튼을 누르고, 필요하면 카드별·전체 의견을 적어 주세요. 고르거나 적을 때마다 화면 아래 프롬프트가 자동으로 복사되니 대화창에 붙여 넣으면 됩니다. 하나만 고를 수 있고, 다시 누르면 해제됩니다. 포인트 버튼이 있는 카드는 누르면 해당 영역이 강조되고, 다시 누르거나 Esc로 해제합니다.</li>
+
+</ul></section>
+<nav class="toc"><a href="#table">비교표</a><a href="#now">현재안</a><a href="#cards">시안 5개</a><a href="#opinion">전체 의견</a></nav>
+<p class="legend">범례: <span class="badge u">[사용자 확인]</span> 사용자 원문 근거 · <span class="badge p">[제안]</span> 이 문서 제안 · <span class="badge rec">추천</span> 추천 시안</p>
+<h2 id="table">1. 같은 기준 비교</h2><div class="tw"><table>
+<tr><th>#</th><th>이름</th><th>방향</th><th>찾기 쉬움</th><th>한 손 조작</th><th>목록 공간</th><th>구현 난이도</th><th>추천</th></tr>
+<tr><td>현재</td><td><a href="#now">상단 + 아이콘</a></td><td>현재 화면</td><td>보통</td><td>나쁨</td><td>그대로</td><td>—</td><td></td></tr>
+<tr><td>01</td><td><a href="#v01">하단 플로팅 버튼</a></td><td>떠 있는 원형 버튼</td><td>좋음</td><td>좋음</td><td>거의 그대로</td><td>낮음</td><td><span class="badge rec">1순위</span></td></tr>
+<tr><td>02</td><td><a href="#v02">상단 큰 입력줄</a></td><td>목록 위 고정 입력</td><td>매우 좋음</td><td>나쁨</td><td>44px 줄어듦</td><td>낮음</td><td></td></tr>
+<tr><td>03</td><td><a href="#v03">하단 입력줄 + 태그</a></td><td>메신저형 하단 입력</td><td>매우 좋음</td><td>좋음</td><td>96px 줄어듦</td><td>중간</td><td><span class="badge rec">2순위</span></td></tr>
+<tr><td>04</td><td><a href="#v04">하단 탭 가운데 +</a></td><td>탭 바 중앙 버튼</td><td>좋음</td><td>좋음</td><td>60px 줄어듦</td><td>중간</td><td></td></tr>
+<tr><td>05</td><td><a href="#v05">당겨서 새 메모</a></td><td>제스처(아래로 당기기)</td><td>나쁨</td><td>좋음</td><td>그대로</td><td>중간</td><td></td></tr>
+</table></div>
+<h2 id="now">2. 현재안</h2><div class="grid"><article class="card" id="now-card">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="현재안: 오른쪽 위 작은 + 아이콘" xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="72" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="86" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="104" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="136" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="150" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="168" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="200" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="214" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="232" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="264" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="278" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="296" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="328" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="342" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="360" width="148" height="8" rx="4" opacity=".35"/><rect class="m-item" x="300" y="10" width="40" height="36" rx="8"/><text class="m-fg" x="320" y="36" font-size="22" text-anchor="middle">+</text></svg><span class="fp-area" data-focus="now-1" data-no="1" style="--x:83.3%;--y:2.1%;--w:11.1%;--h:7.5%"></span><span class="fp-area" data-focus="now-2" data-no="2" style="--x:0%;--y:83.3%;--w:100%;--h:16.7%;--r:0"></span></div>
+<div><div class="ch"><span class="no">현재</span><h3>상단 + 아이콘</h3></div>
+<p class="concept">오른쪽 위 작은 + 아이콘으로 새 메모를 만듭니다.</p>
+<p class="label">문제(예시 피드백)</p>
+<ul class="fp-list"><li><button type="button" class="fp-btn" data-target="now-1"><span class="fp-no">1</span><span>+ 아이콘이 작고 화면 위 끝이라 한 손으로 닿기 어렵습니다.</span></button></li><li><button type="button" class="fp-btn" data-target="now-2"><span class="fp-no">2</span><span>엄지가 편한 화면 아래쪽에는 조작이 없습니다.</span></button></li></ul></div></article></div>
+<h2 id="cards">3. 시안 5개</h2><div class="grid">
+<article class="card mp-card" id="v01" data-mp-id="01" data-mp-name="하단 플로팅 버튼">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="시안 01: 오른쪽 아래 둥근 + 버튼 하나로 새 메모를 시작합니다." xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="72" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="86" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="104" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="136" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="150" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="168" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="200" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="214" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="232" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="264" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="278" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="296" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="328" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="342" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="360" width="148" height="8" rx="4" opacity=".35"/><circle class="m-acc" cx="296" cy="416" r="28"/><text class="m-on" x="296" y="425" font-size="26" font-weight="700" text-anchor="middle">+</text></svg><span class="fp-area" data-focus="v01-1" data-no="1" style="--x:73.3%;--y:80%;--w:17.8%;--h:13.3%;--r:50%"></span></div>
+<div><div class="ch"><span class="no">01</span><h3>하단 플로팅 버튼</h3><span class="badge rec">추천 1</span></div>
+<p class="concept">오른쪽 아래 둥근 + 버튼 하나로 새 메모를 시작합니다.</p>
+<p><span class="badge dir">방향: 떠 있는 원형 버튼</span></p>
+<ul class="feat"><li>위치·형태: 떠 있는 원형 버튼</li><li>누르면 빈 메모 편집 화면으로 이동</li><li>기존 목록 정렬은 그대로</li></ul>
+<div class="pc"><div><b>장점</b><ul><li>찾기 쉬움 좋음, 한 손 조작 좋음</li></ul></div><div><b>고려할 점</b><ul><li>목록 공간: 거의 그대로</li><li>구현 난이도 낮음</li></ul></div></div>
+<p class="label">봐야 할 포인트</p>
+<ul class="fp-list"><li><button type="button" class="fp-btn" data-target="v01-1"><span class="fp-no">1</span><span>하단 플로팅 버튼 — 처음 보는 사람이 바로 찾는지</span></button></li><li class="fp-btn" style="cursor:default"><span class="fp-no">2</span><span>목록을 읽을 때 방해되지 않는지</span></li></ul>
+<div class="mp-slot"></div></div></article>
+<article class="card mp-card" id="v02" data-mp-id="02" data-mp-name="상단 큰 입력줄">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="시안 02: 목록 위 입력줄을 누르면 바로 씁니다." xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="116" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="130" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="148" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="180" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="194" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="212" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="244" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="258" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="276" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="308" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="322" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="340" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="372" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="386" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="404" width="148" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="64" width="328" height="44" rx="10"/><text class="m-sub" x="30" y="91" font-size="14">새 메모 쓰기…</text><rect class="m-stroke" x="16" y="64" width="328" height="44" rx="10" stroke-width="2" stroke-dasharray="6 4"/></svg></div>
+<div><div class="ch"><span class="no">02</span><h3>상단 큰 입력줄</h3></div>
+<p class="concept">목록 위 입력줄을 누르면 바로 씁니다.</p>
+<p><span class="badge dir">방향: 목록 위 고정 입력</span></p>
+<ul class="feat"><li>위치·형태: 목록 위 고정 입력</li><li>누르면 빈 메모 편집 화면으로 이동</li><li>기존 목록 정렬은 그대로</li></ul>
+<div class="pc"><div><b>장점</b><ul><li>찾기 쉬움 매우 좋음, 한 손 조작 나쁨</li></ul></div><div><b>고려할 점</b><ul><li>목록 공간: 44px 줄어듦</li><li>구현 난이도 낮음</li></ul></div></div>
+<p class="label">봐야 할 포인트</p>
+<ol class="pts"><li>상단 큰 입력줄 — 처음 보는 사람이 바로 찾는지</li><li>목록을 읽을 때 방해되지 않는지</li></ol>
+<div class="mp-slot"></div></div></article>
+<article class="card mp-card" id="v03" data-mp-id="03" data-mp-name="하단 입력줄 + 태그">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="시안 03: 아래 고정 입력줄과 최근 태그 칩으로 쓰면서 분류합니다." xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="72" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="86" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="104" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="136" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="150" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="168" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="200" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="214" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="232" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="264" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="278" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="296" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="328" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="342" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="360" width="148" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="368" width="70" height="28" rx="14"/><text class="m-sub" x="51" y="387" font-size="14" font-weight="600" text-anchor="middle">#일</text><rect class="m-item" x="94" y="368" width="70" height="28" rx="14"/><text class="m-sub" x="129" y="387" font-size="14" font-weight="600" text-anchor="middle">#생각</text><rect class="m-bar" x="0" y="412" width="360" height="68"/><text class="m-sub" x="20" y="451" font-size="14">메모 입력…</text></svg><span class="fp-area" data-focus="v03-1" data-no="1" style="--x:0%;--y:85.8%;--w:100%;--h:14.2%;--r:0"></span></div>
+<div><div class="ch"><span class="no">03</span><h3>하단 입력줄 + 태그</h3><span class="badge rec">추천 2</span></div>
+<p class="concept">아래 고정 입력줄과 최근 태그 칩으로 쓰면서 분류합니다.</p>
+<p><span class="badge dir">방향: 메신저형 하단 입력</span></p>
+<ul class="feat"><li>위치·형태: 메신저형 하단 입력</li><li>누르면 빈 메모 편집 화면으로 이동</li><li>기존 목록 정렬은 그대로</li></ul>
+<div class="pc"><div><b>장점</b><ul><li>찾기 쉬움 매우 좋음, 한 손 조작 좋음</li></ul></div><div><b>고려할 점</b><ul><li>목록 공간: 96px 줄어듦</li><li>구현 난이도 중간</li></ul></div></div>
+<p class="label">봐야 할 포인트</p>
+<ul class="fp-list"><li><button type="button" class="fp-btn" data-target="v03-1"><span class="fp-no">1</span><span>하단 입력줄 + 태그 — 처음 보는 사람이 바로 찾는지</span></button></li><li class="fp-btn" style="cursor:default"><span class="fp-no">2</span><span>목록을 읽을 때 방해되지 않는지</span></li></ul>
+<div class="mp-slot"></div></div></article>
+<article class="card mp-card" id="v04" data-mp-id="04" data-mp-name="하단 탭 가운데 +">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="시안 04: 하단 탭 바 가운데 큰 + 버튼으로 다른 탭과 함께 둡니다." xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="72" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="86" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="104" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="136" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="150" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="168" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="200" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="214" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="232" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="264" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="278" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="296" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="328" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="342" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="360" width="148" height="8" rx="4" opacity=".35"/><rect class="m-bar" x="0" y="420" width="360" height="60"/><text class="m-sub" x="20" y="455" font-size="14"></text><circle class="m-acc" cx="180" cy="434" r="30"/><text class="m-on" x="180" y="443" font-size="26" font-weight="700" text-anchor="middle">+</text></svg></div>
+<div><div class="ch"><span class="no">04</span><h3>하단 탭 가운데 +</h3></div>
+<p class="concept">하단 탭 바 가운데 큰 + 버튼으로 다른 탭과 함께 둡니다.</p>
+<p><span class="badge dir">방향: 탭 바 중앙 버튼</span></p>
+<ul class="feat"><li>위치·형태: 탭 바 중앙 버튼</li><li>누르면 빈 메모 편집 화면으로 이동</li><li>기존 목록 정렬은 그대로</li></ul>
+<div class="pc"><div><b>장점</b><ul><li>찾기 쉬움 좋음, 한 손 조작 좋음</li></ul></div><div><b>고려할 점</b><ul><li>목록 공간: 60px 줄어듦</li><li>구현 난이도 중간</li></ul></div></div>
+<p class="label">봐야 할 포인트</p>
+<ol class="pts"><li>하단 탭 가운데 + — 처음 보는 사람이 바로 찾는지</li><li>목록을 읽을 때 방해되지 않는지</li></ol>
+<div class="mp-slot"></div></div></article>
+<article class="card mp-card" id="v05" data-mp-id="05" data-mp-name="당겨서 새 메모">
+<div class="fp-stage"><svg viewBox="0 0 360 480" role="img" aria-label="시안 05: 목록 맨 위에서 아래로 당기면 새 메모가 열립니다." xmlns="http://www.w3.org/2000/svg"><rect class="m-bg" width="360" height="480"/><rect class="m-bar" width="360" height="56"/><text class="m-fg" x="20" y="37" font-size="20" font-weight="700">메모</text><rect class="m-item" x="16" y="92" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="106" width="150" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="124" width="220" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="156" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="170" width="138" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="188" width="202" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="220" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="234" width="126" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="252" width="184" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="284" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="298" width="114" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="316" width="166" height="8" rx="4" opacity=".35"/><rect class="m-item" x="16" y="348" width="328" height="56" rx="10"/><rect class="m-sub" x="30" y="362" width="102" height="10" rx="5" opacity=".6"/><rect class="m-sub" x="30" y="380" width="148" height="8" rx="4" opacity=".35"/><text class="m-sub" x="108" y="70" font-size="12">↓ 당겨서 새 메모</text><rect class="m-stroke" x="16" y="52" width="328" height="28" rx="10" stroke-width="2" stroke-dasharray="6 4"/></svg></div>
+<div><div class="ch"><span class="no">05</span><h3>당겨서 새 메모</h3></div>
+<p class="concept">목록 맨 위에서 아래로 당기면 새 메모가 열립니다.</p>
+<p><span class="badge dir">방향: 제스처(아래로 당기기)</span></p>
+<ul class="feat"><li>위치·형태: 제스처(아래로 당기기)</li><li>누르면 빈 메모 편집 화면으로 이동</li><li>기존 목록 정렬은 그대로</li></ul>
+<div class="pc"><div><b>장점</b><ul><li>찾기 쉬움 나쁨, 한 손 조작 좋음</li></ul></div><div><b>고려할 점</b><ul><li>목록 공간: 그대로</li><li>구현 난이도 중간</li></ul></div></div>
+<p class="label">봐야 할 포인트</p>
+<ol class="pts"><li>당겨서 새 메모 — 처음 보는 사람이 바로 찾는지</li><li>목록을 읽을 때 방해되지 않는지</li></ol>
+<div class="mp-slot"></div></div></article>
+</div>
+<h2 id="opinion">4. 전체 의견</h2><div class="mp-overall" style="margin-top:0"></div>
+<footer>작성 2026-11-25 · 작업 ID OPS-AGENCY-MOCKUP_DOC_RULE-0001 · 원본 <code>/Users/you/.claude/skills/lookfy/examples/example-5.html</code> · lookfy로 생성(시안 5개)</footer>
+</main>
+<script>
+/* ---- lookfy assets/focus-points.js ---- */
+/* htmlfy 포커스 포인트 하이라이트 v1 — 문서 맨 끝 <script> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   .fp-btn[data-target] 클릭 → 같은 data-focus를 가진 .fp-area 강조(딤+테두리+번호) + 화면 가운데로 스크롤.
+   같은 버튼 다시 누르기 또는 Esc → 해제. 한 번에 하나만 켜진다. */
+(function () {
+  var current = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 번호 배지 자리: 영역 밖 왼쪽 → 위 → 오른쪽 → 아래 → 안쪽 순으로 stage 안에 들어가는 첫 자리(영역을 가리지 않게).
+  function placeBadge(area) {
+    var st = area.closest('.fp-stage').getBoundingClientRect(), r = area.getBoundingClientRect();
+    var B = 26, g = 4, x = r.left - st.left, y = r.top - st.top;
+    var spots = [[x - B - g, y], [x, y - B - g], [x + r.width + g, y], [x, y + r.height + g], [x + g, y + g]];
+    var pick = spots[spots.length - 1];
+    for (var i = 0; i < spots.length - 1; i++) {
+      var p = spots[i];
+      if (p[0] >= 0 && p[1] >= 0 && p[0] + B <= st.width && p[1] + B <= st.height) { pick = p; break; }
+    }
+    area.style.setProperty('--bx', (pick[0] - x) + 'px');
+    area.style.setProperty('--by', (pick[1] - y) + 'px');
+  }
+  function clear() {
+    if (!current) return;
+    current.area.classList.remove('fp-active');
+    current.area.closest('.fp-stage').classList.remove('fp-on');
+    current.btn.setAttribute('aria-pressed', 'false');
+    current = null;
+  }
+  function show(btn) {
+    var id = btn.getAttribute('data-target');
+    var area = document.querySelector('.fp-area[data-focus="' + id + '"]');
+    if (!area) { console.warn('focus-points: 영역 없음 ' + id); return; }
+    clear();
+    var d = area.closest('details'); if (d && !d.open) d.open = true;
+    area.classList.add('fp-active');
+    placeBadge(area);
+    area.closest('.fp-stage').classList.add('fp-on');
+    btn.setAttribute('aria-pressed', 'true');
+    current = { btn: btn, area: area };
+    area.closest('.fp-stage').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+  document.querySelectorAll('.fp-btn[data-target]').forEach(function (btn) {
+    btn.setAttribute('aria-pressed', 'false');
+    var area = document.querySelector('.fp-area[data-focus="' + btn.getAttribute('data-target') + '"]');
+    if (area) { area.setAttribute('aria-hidden', 'true'); }
+  });
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.fp-btn[data-target]');
+    if (!btn) return;
+    if (current && current.btn === btn) { clear(); btn.focus(); } else { show(btn); }
+  });
+  window.addEventListener('resize', function () { if (current) placeBadge(current.area); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) { var b = current.btn; clear(); b.focus({ preventScroll: true }); }
+  });
+})();
+
+</script>
+<script>
+/* ---- lookfy assets/mockup-picker.js ---- */
+/* htmlfy 시안 선택·의견·하단 프롬프트 v1 — 문서 맨 끝 <script> 안에 그대로 붙여 넣는다(외부 요청 없음).
+   dcfy(결정 문서) 하단 프롬프트 동작을 차용: 선택 변경 즉시·글 입력은 멈춘 뒤 300ms에 자동 복사,
+   navigator.clipboard 실패 시 숨은 textarea + execCommand('copy') 폴백, 성공/실패 토스트, localStorage 유지.
+   문서 메타(<head>): <meta name="mp-title" content="…"> mp-date, mp-task, mp-path(저장소 경로), mp-url(허브 URL, 없으면 http 주소 자동),
+   mp-multi(content="1"이면 복수 선택). 제목이 없으면 document.title. */
+(function () {
+  'use strict';
+  function meta(n) { var m = document.querySelector('meta[name="mp-' + n + '"]'); return m ? (m.getAttribute('content') || '').trim() : ''; }
+  var M = {
+    title: meta('title') || document.title || '',
+    date: meta('date'),
+    task: meta('task'),
+    path: meta('path'),
+    url: meta('url') || (/^https?:$/.test(location.protocol) ? location.href.split('#')[0] : ''),
+    multi: /^(1|true|yes)$/i.test(meta('multi'))
+  };
+  var KEY = 'mockup-picker:' + (M.path || M.title || location.pathname);
+  var cards = [].slice.call(document.querySelectorAll('.mp-card[data-mp-id]'));
+  if (!cards.length) { console.warn('mockup-picker: .mp-card[data-mp-id] 없음'); return; }
+  var ids = cards.map(function (c) { return c.getAttribute('data-mp-id'); });
+  var names = {};
+  cards.forEach(function (c) { names[c.getAttribute('data-mp-id')] = (c.getAttribute('data-mp-name') || '').trim(); });
+
+  function blank() { return { sel: [], notes: {}, overall: '' }; }
+  function load() {
+    try {
+      var s = JSON.parse(localStorage.getItem(KEY) || 'null') || blank();
+      s.sel = (s.sel || []).filter(function (id) { return ids.indexOf(id) >= 0; });
+      s.notes = s.notes || {}; s.overall = s.overall || '';
+      return s;
+    } catch (e) { return blank(); }
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  var state = load();
+
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function label(id) { return id + (names[id] ? ' ' + names[id] : ''); }
+  function noteText(t) {
+    return String(t || '').replace(/\r\n?/g, '\n').split('\n')
+      .map(function (l) { return l.replace(/[ \t]+/g, ' ').trim(); })
+      .filter(function (l) { return l; }).join('\n    ');
+  }
+
+  // ---- 카드마다 선택 버튼 + 의견 입력 ----
+  if (M.multi) document.documentElement.classList.add('mp-multi');
+  cards.forEach(function (c) {
+    var id = c.getAttribute('data-mp-id');
+    var slot = c.querySelector('.mp-slot') || c.appendChild(el('div', { 'class': 'mp-slot' }));
+    var box = el('div', { 'class': 'mp-pick' });
+    var btn = el('button', { type: 'button', 'class': 'mp-sel', 'data-mp-sel': id, 'aria-pressed': 'false' });
+    btn.appendChild(el('span', { 'class': 'mp-mark', 'aria-hidden': 'true' }));
+    btn.appendChild(el('span', { 'class': 'mp-sel-t' }, '이 시안 선택'));
+    var tid = 'mp-note-' + id.replace(/[^\w-]/g, '_');
+    var lab = el('label', { 'class': 'mp-lbl', 'for': tid }, '시안 ' + id + ' 의견 (선택하지 않아도 적을 수 있어요)');
+    var ta = el('textarea', { 'class': 'mp-note', id: tid, 'data-mp-note': id, rows: '2', placeholder: '좋은 점, 바꿀 점, 다른 시안과 섞고 싶은 요소…' });
+    box.appendChild(btn); box.appendChild(lab); box.appendChild(ta);
+    slot.appendChild(box);
+  });
+
+  // ---- 문서 전체 의견 ----
+  var ov = document.querySelector('.mp-overall');
+  if (!ov) {
+    ov = el('section', { 'class': 'mp-overall' });
+    var host = document.querySelector('main') || document.body;
+    var foot = host.querySelector('footer');
+    if (foot && foot.parentNode === host) host.insertBefore(ov, foot); else host.appendChild(ov);
+  }
+  ov.appendChild(el('label', { 'class': 'mp-lbl', 'for': 'mp-overall-note' }, '전체 의견 (선택)'));
+  ov.appendChild(el('textarea', { 'class': 'mp-note', id: 'mp-overall-note', 'data-mp-overall': '', rows: '3', placeholder: '여러 시안에 걸친 의견, 다음 라운드 요청 등' }));
+
+  // ---- 하단 패널 + 토스트 ----
+  var panel = el('div', { id: 'mp-panel', role: 'region', 'aria-label': '선택 프롬프트' });
+  panel.innerHTML = '<div class="mp-inner"><div class="mp-bar"><strong>프롬프트</strong>' +
+    '<span id="mp-status"></span>' +
+    '<button type="button" id="mp-copy" class="mp-primary">복사</button>' +
+    '<button type="button" id="mp-reset">초기화</button>' +
+    '<button type="button" id="mp-toggle" aria-expanded="true" aria-controls="mp-prompt">접기</button></div>' +
+    '<pre id="mp-prompt" aria-live="polite"></pre></div>';
+  document.body.appendChild(panel);
+  var toastEl = el('div', { id: 'mp-toast', role: 'status' });
+  document.body.appendChild(toastEl);
+
+  function buildPrompt() {
+    var out = ['시안 선택 ' + [M.title, M.date].filter(Boolean).join(' ')];
+    var doc = M.url || M.path;
+    if (doc || M.task) out.push('문서: ' + (doc || '-') + (M.url && M.path ? ' (원본 ' + M.path + ')' : '') + (M.task ? ' · 작업 ' + M.task : ''));
+    var sel = ids.filter(function (id) { return state.sel.indexOf(id) >= 0; });
+    if (sel.length) sel.forEach(function (id) { out.push('선택: ' + label(id)); });
+    else out.push('선택 없음');
+    ids.forEach(function (id) { var t = noteText(state.notes[id]); if (t) out.push('[' + label(id) + '] 의견: ' + t); });
+    var o = noteText(state.overall); if (o) out.push('전체 의견: ' + o);
+    out.push('이 선택으로 진행해줘');
+    return out.join('\n');
+  }
+
+  var lastCopied = '';
+  function syncUI() {
+    cards.forEach(function (c) {
+      var id = c.getAttribute('data-mp-id'), on = state.sel.indexOf(id) >= 0;
+      c.classList.toggle('mp-selected', on);
+      var b = c.querySelector('[data-mp-sel]');
+      b.setAttribute('aria-pressed', String(on));
+      b.querySelector('.mp-sel-t').textContent = on ? '선택됨' : '이 시안 선택';
+    });
+    document.getElementById('mp-prompt').textContent = buildPrompt();
+    var n = ids.filter(function (id) { return noteText(state.notes[id]); }).length + (noteText(state.overall) ? 1 : 0);
+    document.getElementById('mp-status').textContent =
+      (state.sel.length ? '선택 ' + state.sel.join(', ') : '선택 없음') + ' · 의견 ' + n + '건' +
+      (M.multi ? ' · 복수 선택' : '') + (lastCopied ? ' · 마지막 복사 ' + lastCopied : ' · 고르면 자동 복사');
+  }
+  function applyInputs() {
+    document.querySelectorAll('[data-mp-note]').forEach(function (t) { t.value = state.notes[t.getAttribute('data-mp-note')] || ''; });
+    document.getElementById('mp-overall-note').value = state.overall || '';
+  }
+
+  var toastTimer;
+  function toast(msg, err) {
+    toastEl.textContent = msg; toastEl.classList.toggle('mp-err', !!err); toastEl.classList.add('mp-show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove('mp-show'); }, 1600);
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.className = 'mp-sr';
+    var prev = document.activeElement;
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (prev && prev.focus) try { prev.focus({ preventScroll: true }); } catch (e) {}
+    return ok;
+  }
+  function copyPrompt() {
+    var text = buildPrompt();
+    var done = function (ok) {
+      if (ok) { lastCopied = new Date().toLocaleTimeString('ko-KR', { hour12: false }); toast('프롬프트를 클립보드에 복사했습니다'); }
+      else toast('복사 실패 — 아래 프롬프트를 직접 선택해 복사하세요', true);
+      document.documentElement.setAttribute('data-copy-state', ok ? 'ok' : 'fail');
+      syncUI();
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(text)); });
+    } else done(fallbackCopy(text));
+  }
+
+  var debounce;
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-mp-sel]'); if (!b) return;
+    var id = b.getAttribute('data-mp-sel'), on = state.sel.indexOf(id) >= 0;
+    if (M.multi) state.sel = on ? state.sel.filter(function (x) { return x !== id; }) : state.sel.concat(id);
+    else state.sel = on ? [] : [id];
+    save(); syncUI(); clearTimeout(debounce); copyPrompt();
+  });
+  document.addEventListener('input', function (e) {
+    var t = e.target;
+    if (t.hasAttribute && t.hasAttribute('data-mp-note')) state.notes[t.getAttribute('data-mp-note')] = t.value;
+    else if (t.id === 'mp-overall-note') state.overall = t.value;
+    else return;
+    save(); syncUI(); clearTimeout(debounce); debounce = setTimeout(copyPrompt, 300);
+  });
+  document.getElementById('mp-copy').addEventListener('click', copyPrompt);
+  document.getElementById('mp-reset').addEventListener('click', function () {
+    if (!confirm('시안 선택과 의견을 모두 지울까요?')) return;
+    state = blank(); save(); applyInputs(); syncUI(); copyPrompt();
+  });
+  document.getElementById('mp-toggle').addEventListener('click', function () {
+    var c = panel.classList.toggle('mp-collapsed');
+    this.textContent = c ? '펼치기' : '접기'; this.setAttribute('aria-expanded', String(!c)); fitPanel();
+    try { localStorage.setItem(KEY + ':collapsed', c ? '1' : ''); } catch (e) {}
+  });
+  try { if (localStorage.getItem(KEY + ':collapsed')) { panel.classList.add('mp-collapsed'); var tg = document.getElementById('mp-toggle'); tg.textContent = '펼치기'; tg.setAttribute('aria-expanded', 'false'); } } catch (e) {}
+
+  // 패널이 내용(마지막 카드 버튼·입력)을 가리지 않게 body 아래 여백과 스크롤 여백을 패널 높이만큼 둔다.
+  function fitPanel() {
+    var h = panel.offsetHeight;
+    document.body.style.paddingBottom = (h + 16) + 'px';
+    document.documentElement.style.scrollPaddingBottom = (h + 16) + 'px';
+    document.documentElement.style.setProperty('--mp-panel-h', h + 'px');
+  }
+  applyInputs(); syncUI(); fitPanel();
+  if (window.ResizeObserver) new ResizeObserver(fitPanel).observe(panel); else window.addEventListener('resize', fitPanel);
+  window.__mockupPicker = { buildPrompt: buildPrompt, storageKey: KEY, meta: M };
+})();
+
+</script>
+</body></html>

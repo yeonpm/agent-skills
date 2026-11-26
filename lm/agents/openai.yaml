@@ -1,0 +1,4 @@
+interface:
+  display_name: "lm · 로컬 → Main"
+  short_description: "로컬 변경을 프로젝트의 필수 경로에 따라 main까지 반영합니다"
+  default_prompt: "$lm을 사용해 현재 프로젝트의 로컬 → Main 작업을 진행해줘."
