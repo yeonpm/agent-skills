@@ -124,7 +124,7 @@ const sum = data.summary || {};
 b.push(`<section class="sum" id="summary"><b>핵심 요약</b><ul>
 <li><b>시안</b>: ${N}개(${esc(idRange)})${data.current ? ' + 현재안' : ''}.${sum.note ? ' ' + esc(sum.note) : ''}</li>
 <li><b>추천</b>: ${rec.map((r, i) => `<b>${i + 1}순위 <a href="#${fid(r.id)}">${esc(r.id)} ${esc(byId[r.id].name)}</a></b> — ${esc(r.reason)}`).join(' ')}</li>
-<li><b>사용자 할 일</b>: ${esc(sum.todo || '마음에 드는 시안 카드의 [이 시안 선택] 버튼을 누르고, 필요하면 카드별·전체 의견을 적어 주세요.')} 고르거나 적을 때마다 화면 아래 프롬프트가 자동으로 복사되니 대화창에 붙여 넣으면 됩니다.${meta.multi ? ' 여러 개를 골라도 됩니다.' : ' 하나만 고를 수 있고, 다시 누르면 해제됩니다.'}${hasFocus ? ' 포인트 버튼이 있는 카드는 누르면 해당 영역이 강조되고, 다시 누르거나 Esc로 해제합니다.' : ''}</li>
+<li><b>사용자 할 일</b>: ${esc(sum.todo || '마음에 드는 시안 카드의 [이 시안 선택] 버튼을 누르고, 필요하면 카드별·전체 의견을 적어 주세요.')} 고르거나 적을 때마다 화면 아래 프롬프트가 작성되니, 화면 아래의 복사 버튼으로 복사해 대화창에 붙여 넣으면 됩니다.${meta.multi ? ' 여러 개를 골라도 됩니다.' : ' 하나만 고를 수 있고, 다시 누르면 해제됩니다.'}${hasFocus ? ' 포인트 버튼이 있는 카드는 누르면 해당 영역이 강조되고, 다시 누르거나 Esc로 해제합니다.' : ''}</li>
 ${(sum.extra || []).map((x) => `<li>${esc(x)}</li>`).join('')}
 </ul></section>`);
 b.push(`<nav class="toc"><a href="#table">비교표</a>${data.current ? '<a href="#now">현재안</a>' : ''}<a href="#cards">시안 ${N}개</a>${round > 1 ? '<a href="#feedback">피드백 반영</a><a href="#mix">조합 분석</a>' : ''}<a href="#opinion">전체 의견</a></nav>`);

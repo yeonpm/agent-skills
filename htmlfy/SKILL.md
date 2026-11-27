@@ -48,7 +48,7 @@ description: 요청 내용(조사 정리, 기획·스펙 정의서, 전후 비�
 - 문서 하단에 작성일, 작업 ID, 원본 경로를 적는다.
 
 ## 2-1. 시안 문서 → lookfy 스킬
-디자인 시안·목업을 보여 주는 문서는 **lookfy 스킬**(`~/.claude/skills/lookfy/SKILL.md`)을 따른다. 시안 규칙(개수 그대로·기본 30, 서로 다른 방향, 핵심 요약·비교표·현재안·시안 카드·봐야 할 포인트, 포인트 버튼은 필요한 경우만, 카드별 선택 버튼+의견 입력, 하단 프롬프트 자동 복사, 라운드 2 반영표·조합 분석, 넘침 0)과 부품(`lookfy/assets/focus-points.*`, `lookfy/assets/mockup-picker.*`)·검사 스크립트의 원본은 그 스킬 한 곳이며 여기에 복제하지 않는다. htmlfy 문서 안에 시안 비교가 일부 들어가는 경우에도 그 부분은 lookfy 규칙과 부품을 쓴다.
+디자인 시안·목업을 보여 주는 문서는 **lookfy 스킬**(`~/.claude/skills/lookfy/SKILL.md`)을 따른다. 시안 규칙(개수 그대로·기본 30, 서로 다른 방향, 핵심 요약·비교표·현재안·시안 카드·봐야 할 포인트, 포인트 버튼은 필요한 경우만, 카드별 선택 버튼+의견 입력, 하단 프롬프트 실시간 작성·복사 버튼, 라운드 2 반영표·조합 분석, 넘침 0)과 부품(`lookfy/assets/focus-points.*`, `lookfy/assets/mockup-picker.*`)·검사 스크립트의 원본은 그 스킬 한 곳이며 여기에 복제하지 않는다. htmlfy 문서 안에 시안 비교가 일부 들어가는 경우에도 그 부분은 lookfy 규칙과 부품을 쓴다.
 
 ## 3. 검증
 번들 스크립트로 데스크톱(1280)·휴대폰(390) 폭을 확인한다. 콘솔 오류 0, 외부 요청 0, 가로 넘침 0이어야 통과다. 휴대폰 폭 스크린샷 png 1장이 같은 폴더에 생긴다.
@@ -68,7 +68,7 @@ playwright가 없으면 verify는 설치 안내를 내고 exit 2로 끝난다. �
 - push는 운영 저장소·대상 저장소 규칙을 따른다. 작성자 환경 규칙: 커밋한 뒤 묻지 않고 해당 저장소 흐름의 원격 브랜치로 push(사용자 지시 2026-11-26, SEC-AGENCY-RULES-0020), force push 금지, 스토어 업로드·운영 DB·외부 게시는 별도 승인, 배포 연동 저장소는 푸시 후 배포 SHA 확인. 규칙이 없으면 로컬 커밋까지만 하고 push는 사용자에게 확인한다.
 
 ## 5. 띄우기
-- 띄우기: `node ~/.claude/skills/htmlfy/scripts/open.cjs <문서.html 또는 URL>`. 허브(`hubUrl`)가 설정돼 있고 응답하면 허브 URL(`<hubUrl>/f/<project-id>/<저장소 내 경로>`), 아니면 file://로 연다. 클립보드 복사가 필요한 문서(dcfy는 '복사' 버튼, lookfy는 자동 복사)를 허브 없이 Chromium 계열이 아닌 브라우저로 열거나 복사가 안 되면 `--serve`(임시 로컬 서버 127.0.0.1, 보안 컨텍스트)를 백그라운드로 실행한다. 열기 명령은 설정 `openCommand`(기본 OS별 open / xdg-open / start).
+- 띄우기: `node ~/.claude/skills/htmlfy/scripts/open.cjs <문서.html 또는 URL>`. 허브(`hubUrl`)가 설정돼 있고 응답하면 허브 URL(`<hubUrl>/f/<project-id>/<저장소 내 경로>`), 아니면 file://로 연다. '복사' 버튼 클립보드 복사가 필요한 문서(dcfy·lookfy)를 허브 없이 Chromium 계열이 아닌 브라우저로 열거나 복사가 안 되면 `--serve`(임시 로컬 서버 127.0.0.1, 보안 컨텍스트)를 백그라운드로 실행한다. 열기 명령은 설정 `openCommand`(기본 OS별 open / xdg-open / start).
 - 허브가 설정돼 있는데 응답하지 않으면(open.cjs가 알림) 설정 `hubStartCommand`가 있을 때 그것을 백그라운드로 실행하고(포트가 사용 중이면 다음 포트로 뜨므로 시작 로그의 실제 주소 사용) 다시 연다. 없으면 file://로 연 사실을 보고한다.
 - 작성자 환경: 사용자에게 보여 주는 문서는 사용자의 크롬으로 연다(`openCommand` = `open -a "Google Chrome"`). 페이지를 조작·점검해야 할 때만 ego lite(`ego-browser` 스킬)를 쓰고 크롬 확장(claude-in-chrome)·내장 브라우저 패널은 쓰지 않는다. 다른 환경에서는 가진 브라우저 도구를 쓴다.
 - 파일 전송 도구(예 SendUserFile)가 있으면 스크린샷 png를 보낸다(없으면 경로만 보고).

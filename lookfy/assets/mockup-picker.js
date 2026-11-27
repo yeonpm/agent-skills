@@ -1,6 +1,6 @@
 /* htmlfy 시안 선택·의견·하단 프롬프트 v1 — 문서 맨 끝 <script> 안에 그대로 붙여 넣는다(외부 요청 없음).
-   dcfy(결정 문서) 하단 프롬프트 동작을 차용: 선택 변경 즉시·글 입력은 멈춘 뒤 300ms에 자동 복사,
-   navigator.clipboard 실패 시 숨은 textarea + execCommand('copy') 폴백, 성공/실패 토스트, localStorage 유지.
+   dcfy(결정 문서) 하단 프롬프트 동작을 차용: 자동 복사는 없다(2026-11-27). '복사' 버튼을 눌러야 복사:
+   navigator.clipboard 실패 시 숨은 textarea + execCommand('copy') 폴백, 수동 복사 성공/실패 토스트, localStorage 유지.
    문서 메타(<head>): <meta name="mp-title" content="…"> mp-date, mp-task, mp-path(저장소 경로), mp-url(허브 URL, 없으면 http 주소 자동),
    mp-multi(content="1"이면 복수 선택). 제목이 없으면 document.title. */
 (function () {
@@ -111,7 +111,7 @@
     var n = ids.filter(function (id) { return noteText(state.notes[id]); }).length + (noteText(state.overall) ? 1 : 0);
     document.getElementById('mp-status').textContent =
       (state.sel.length ? '선택 ' + state.sel.join(', ') : '선택 없음') + ' · 의견 ' + n + '건' +
-      (M.multi ? ' · 복수 선택' : '') + (lastCopied ? ' · 마지막 복사 ' + lastCopied : ' · 고르면 자동 복사');
+      (M.multi ? ' · 복수 선택' : '') + (lastCopied ? ' · 마지막 복사 ' + lastCopied : ' · 복사 버튼으로 복사');
   }
   function applyInputs() {
     document.querySelectorAll('[data-mp-note]').forEach(function (t) { t.value = state.notes[t.getAttribute('data-mp-note')] || ''; });
@@ -146,25 +146,24 @@
     } else done(fallbackCopy(text));
   }
 
-  var debounce;
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-mp-sel]'); if (!b) return;
     var id = b.getAttribute('data-mp-sel'), on = state.sel.indexOf(id) >= 0;
     if (M.multi) state.sel = on ? state.sel.filter(function (x) { return x !== id; }) : state.sel.concat(id);
     else state.sel = on ? [] : [id];
-    save(); syncUI(); clearTimeout(debounce); copyPrompt();
+    save(); syncUI();
   });
   document.addEventListener('input', function (e) {
     var t = e.target;
     if (t.hasAttribute && t.hasAttribute('data-mp-note')) state.notes[t.getAttribute('data-mp-note')] = t.value;
     else if (t.id === 'mp-overall-note') state.overall = t.value;
     else return;
-    save(); syncUI(); clearTimeout(debounce); debounce = setTimeout(copyPrompt, 300);
+    save(); syncUI();
   });
   document.getElementById('mp-copy').addEventListener('click', copyPrompt);
   document.getElementById('mp-reset').addEventListener('click', function () {
     if (!confirm('시안 선택과 의견을 모두 지울까요?')) return;
-    state = blank(); save(); applyInputs(); syncUI(); copyPrompt();
+    state = blank(); save(); applyInputs(); syncUI();
   });
   document.getElementById('mp-toggle').addEventListener('click', function () {
     var c = panel.classList.toggle('mp-collapsed');

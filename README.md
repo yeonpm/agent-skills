@@ -92,7 +92,7 @@ dcfy·lookfy는 htmlfy의 공용 스크립트(`htmlfy/scripts/lib`)와 favicon·
 }
 ```
 
-- 허브는 `GET /f/<project-id>/<경로>`로 등록 프로젝트의 파일을 서빙하는 아무 로컬 서버면 된다. 없으면 file://(Chromium 계열은 file://도 보안 컨텍스트라 dcfy의 '복사' 버튼과 lookfy의 자동 복사가 동작) 또는 `open.cjs --serve`(임시 `127.0.0.1` 서버)로 연다.
+- 허브는 `GET /f/<project-id>/<경로>`로 등록 프로젝트의 파일을 서빙하는 아무 로컬 서버면 된다. 없으면 file://(Chromium 계열은 file://도 보안 컨텍스트라 dcfy·lookfy의 '복사' 버튼이 동작) 또는 `open.cjs --serve`(임시 `127.0.0.1` 서버)로 연다.
 - 운영 저장소가 있으면 SKILL.md의 위임·보고·티켓·push 규칙은 그 저장소 규칙을 따른다. 없으면 에이전트 혼자 모든 단계를 수행하고, push는 사용자에게 확인한다.
 
 ## 공용 명령 (htmlfy/scripts)

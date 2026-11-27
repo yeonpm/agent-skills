@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-// lookfy 시안 선택·하단 프롬프트 클립보드 테스트 (dcfy scripts/test-clipboard.cjs 방식 차용).
+// lookfy 시안 선택·하단 프롬프트 클립보드 테스트(2026-11-27 수동 복사 기준; dcfy scripts/test-clipboard.cjs 방식 차용).
+//   선택·입력만으로는 클립보드가 바뀌지 않고(자동 복사 없음, 600ms 이상 확인), '복사' 버튼을 눌러야 클립보드=프롬프트가 되는지 확인한다.
 // 사용: node test-mockup-picker.cjs <허브 URL | 문서.html 경로>
 //   파일 경로를 주면 그 폴더를 임시 로컬 http 서버(127.0.0.1, 운영체제가 고른 빈 포트)로 서빙해 보안 컨텍스트에서 시험하고 끝나면 닫는다.
 // 시나리오(390 폭): ① 선택 클릭 → 프롬프트=클립보드 ② 다른 시안 클릭(단일: 하나만 / 복수: 둘 다) ③ 같은 버튼 재클릭 해제
-//   ④ 의견 입력 300ms 디바운스(입력 직후엔 아직 이전 내용, 멈춘 뒤 복사) ⑤ 여러 줄 의견 ⑥ 전체 의견 ⑦ 새로고침 유지
+//   ④ 의견 입력(자동 복사 없음 확인 후 복사 버튼) ⑤ 여러 줄 의견 ⑥ 전체 의견 ⑦ 새로고침 유지
 //   ⑧ 하단 패널이 마지막 카드 버튼·입력·전체 의견을 가리지 않음(1280·390) ⑨ 접기/펼치기 ⑩ 초기화 ⑪ writeText 실패 시 execCommand 폴백.
 // 끝나면 localStorage를 지운다(헤드리스 프로필은 매번 새로 만든다).
 'use strict';
@@ -36,7 +37,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     pressed: [...document.querySelectorAll('[data-mp-sel][aria-pressed="true"]')].map((b) => b.getAttribute('data-mp-sel')),
     secure: window.isSecureContext,
   }));
+  // 자동 복사 없음: 클립보드에 표식을 쓰고 action 뒤 600ms가 지나도 표식이 그대로여야 한다.
+  let sn = 0;
+  async function noAuto(page, step, action) {
+    const mark = 'SENTINEL-' + (++sn);
+    await page.evaluate((m) => navigator.clipboard.writeText(m), mark);
+    await action();
+    await sleep(600);
+    const clip = await page.evaluate(() => navigator.clipboard.readText());
+    push(step, clip === mark, { clipboardUnchanged: clip === mark });
+  }
+  // 수동 복사: '복사' 버튼을 눌러 클립보드=프롬프트인지 확인
   async function check(page, step, expect) {
+    await page.click('#mp-copy');
     await sleep(150);
     const r = await snap(page);
     const lines = r.prompt.split('\n');
@@ -63,7 +76,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const last = info.ids[info.ids.length - 1];
   const sel = (id) => page.locator(`[data-mp-sel="${id}"]`);
 
-  await sel(a).click();
+  // 자동 복사·토글·안내 문구 없음
+  const tg = await page.evaluate(() => ({ els: document.querySelectorAll('[id*="auto" i], [data-auto-copy], [role=switch]').length, text: /자동\s*복사|자동으로 복사/.test(document.body.innerText) }));
+  push('no-auto-copy-toggle-or-text', tg.els === 0 && !tg.text, tg);
+  await noAuto(page, 'no-auto-copy-select', () => sel(a).click());
   await check(page, 'select-first', (r) => r.pressed.join() === a && r.prompt.includes('\n선택: ' + a));
   await sel(b2).click();
   await check(page, info.multi ? 'select-second-multi' : 'select-second-single', (r) => info.multi ? r.pressed.length === 2 : r.pressed.join() === b2);
@@ -75,21 +91,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   // 의견 디바운스: 선택하지 않은 마지막 시안에 의견
   const note = page.locator(`[data-mp-note="${last}"]`);
   await note.scrollIntoViewIfNeeded();
-  const beforeClip = (await snap(page)).clip;
   await note.click();
-  await note.pressSequentially('색이 좋아요', { delay: 20 });
-  const mid = await snap(page);
-  push('note-debounce-pending', mid.clip === beforeClip && mid.prompt !== beforeClip, { note: '입력 직후엔 아직 이전 클립보드' });
-  await sleep(450);
-  await check(page, 'note-debounced-copied', (r) => r.prompt.includes(`] 의견: 색이 좋아요`) && r.prompt.includes('[' + last));
+  await noAuto(page, 'no-auto-copy-note', () => note.pressSequentially('색이 좋아요', { delay: 20 }));
+  await check(page, 'note-manual-copy', (r) => r.prompt.includes(`] 의견: 색이 좋아요`) && r.prompt.includes('[' + last));
   await note.press('Enter');
   await note.pressSequentially('버튼은 더 크게', { delay: 20 });
-  await sleep(450);
   await check(page, 'note-multiline', (r) => r.prompt.includes('색이 좋아요\n    버튼은 더 크게'));
   const ov = page.locator('#mp-overall-note');
   await ov.click();
-  await ov.pressSequentially('다음 라운드는 다크 모드도', { delay: 15 });
-  await sleep(450);
+  await noAuto(page, 'no-auto-copy-overall-note', () => ov.pressSequentially('다음 라운드는 다크 모드도', { delay: 15 }));
   await check(page, 'overall-note', (r) => r.prompt.includes('\n전체 의견: 다음 라운드는 다크 모드도'));
 
   // 새로고침 유지
@@ -128,7 +138,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   push('collapse-expand', col.hidden && col.pad === col.h + 16 && exp, col);
 
   // 초기화
-  await page.click('#mp-reset');
+  await noAuto(page, 'no-auto-copy-reset', () => page.click('#mp-reset'));
   await check(page, 'reset', (r) => r.pressed.length === 0 && r.prompt.includes('\n선택 없음\n') && !r.prompt.includes('의견:'));
   await page.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await ctx.close();
@@ -154,7 +164,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await p2.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await p2.reload({ waitUntil: 'load' });
   await p2.locator(`[data-mp-sel="${b2}"]`).click();
-  await check(p2, 'fallback-execCommand', (r) => r.pressed.includes(b2));
+  await check(p2, 'fallback-execCommand-manual-copy', (r) => r.pressed.includes(b2));
   await p2.evaluate(() => { try { localStorage.clear(); } catch (e) {} });
   await ctx2.close();
 
