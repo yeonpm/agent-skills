@@ -7,7 +7,7 @@
 > - 이 스킬들은 작성자 개인 작업 환경을 전제로 만들었다. 그대로 쓰면 일부가 동작하지 않는다.
 >   - 에이전트 운영 저장소 `~/yeonpm/ai-agency`와 그 `config/projects.json`(프로젝트 등록부). 경로는 `AGENCY_PROJECTS_JSON` 환경 변수로 바꿀 수 있다(dcfy·lookfy 빌드 스크립트).
 >   - 로컬 문서 허브 `http://127.0.0.1:8080`(`~/yeonpm/docs-hub`). 주소는 `DECISION_DOC_HUB`(dcfy)·`LOOKFY_HUB`(lookfy)로 바꿀 수 있다.
->   - preview → main 브랜치 운영, 작업 ID(부서-프로젝트-작업-번호) 규칙 등 작성자 프로젝트 규칙(`lp`·`pm`·`lpm`·`lm`·`brief`).
+>   - preview → main 브랜치 운영, 작업 ID(부서-프로젝트-작업-번호) 규칙 등 작성자 프로젝트 규칙(`brief`).
 > - 다른 환경에서는 참고용 예시로 보고, 경로·규칙을 자기 환경에 맞게 고쳐 쓴다.
 > - 문서와 주석은 한국어다. 라이선스는 아직 정하지 않았다.
 
@@ -17,10 +17,6 @@
 | `dcfy` | 여러 프로젝트의 미결 결정을 설명·선택지·추천안이 있는 HTML 결정 문서로 모으고, 고른 답을 프롬프트로 자동 복사한다 |
 | `lookfy` | 디자인 시안을 요청 개수 그대로(기본 30) 서로 다른 방향으로 만들어 카드별 선택·의견이 되는 HTML 시안 문서로 띄운다 |
 | `brief` | 등록 프로젝트 전체의 최근 3일 작업·다음 행동·결정을 브리핑한다 |
-| `lp` | 현재 프로젝트의 배포 대상 로컬 변경을 preview에 검증·커밋·푸시한다(main 미변경) |
-| `pm` | 원격 preview를 PR로 main에 반영하고 브랜치를 동기화한다 |
-| `lpm` | 로컬 → preview → main 전체 릴리스 |
-| `lm` | 로컬 변경을 프로젝트 규칙(preview 경유 포함)에 맞춰 main까지 반영한다 |
 | `task-token-report` | 사용자가 요청한 경우에만 작업별 실제 토큰·경과 시간을 로컬 실행 로그(Claude Code 세션·서브에이전트 jsonl, 이전 형식 Codex rollout)에서 집계한다 |
 
 ## 설치
@@ -39,4 +35,5 @@ git clone https://github.com/yeonpm/agent-skills-common.git ~/yeonpm/agent-skill
 - 스킬을 고치면 이 저장소에서 바로 커밋하고 `git push`한다(사용자 지시 2026-11-26).
 - 스크립트는 `~/.claude/skills/<이름>/...` 경로로 호출해도 링크를 따라 이 저장소 파일이 실행된다. 스크립트 안에서 자기 위치가 필요하면 `__dirname`/`Path(__file__).resolve()`를 쓴다.
 - 비밀값·토큰·외부인 이메일을 넣지 않는다. `.bak` 파일은 커밋하지 않는다(.gitignore).
+- `lm`·`lp`·`lpm`·`pm`은 [agent-skills-feature](https://github.com/yeonpm/agent-skills-feature)의 `etc/`로 옮겼다(2026-11-27).
 - 특정 프로젝트·기능 전용 스킬은 [agent-skills-feature](https://github.com/yeonpm/agent-skills-feature)에 둔다.
