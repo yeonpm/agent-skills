@@ -68,4 +68,4 @@ description: 사용자가 작업별 토큰·시간 측정을 명시적으로 요
 
 테스트: `python3 -m unittest discover -s <skill-directory>/tests`.
 
-원본은 `~/yeonpm/agent-skills/agent-skills-common/task-token-report`(GitHub yeonpm/agent-skills-common)이고, 사용자 설치 위치 `~/.claude/skills/task-token-report`는 그 심볼릭 링크다(2026-11-26, OPS-AGENCY-SKILLS_REPO-0001). 업데이트는 원본에서 하고 그 저장소에 커밋·push한다. 자동화·상시 감시·외부 쓰기 권한은 포함되지 않는다. 비서는 기존 작업/스킬 레코드에 원본 링크·Git SHA·검증 결과·집계 범위를 연결한다.
+원본은 `~/yeonpm/agent-skills/agent-skills/task-token-report`(GitHub yeonpm/agent-skills)이고, 사용자 설치 위치 `~/.claude/skills/task-token-report`는 그 심볼릭 링크다(2026-11-26, OPS-AGENCY-SKILLS_REPO-0001). 업데이트는 원본에서 하고 그 저장소에 커밋·push한다. 자동화·상시 감시·외부 쓰기 권한은 포함되지 않는다. 비서는 기존 작업/스킬 레코드에 원본 링크·Git SHA·검증 결과·집계 범위를 연결한다.

@@ -1,4 +1,4 @@
-# agent-skills-common
+# agent-skills
 
 여러 프로젝트에서 함께 쓰는 커스텀 에이전트 스킬(Claude Code / Codex `SKILL.md` 형식)의 원본 저장소다.
 `~/.claude/skills/<이름>`은 이 저장소 폴더를 가리키는 심볼릭 링크다.
@@ -24,8 +24,8 @@
 요구 사항: Node.js(dcfy·lookfy·htmlfy 스크립트), Python 3(task-token-report).
 
 ```bash
-git clone https://github.com/yeonpm/agent-skills-common.git ~/yeonpm/agent-skills/agent-skills-common
-~/yeonpm/agent-skills/agent-skills-common/install.sh          # 미리 보기: --dry-run
+git clone https://github.com/yeonpm/agent-skills.git ~/yeonpm/agent-skills/agent-skills
+~/yeonpm/agent-skills/agent-skills/install.sh          # 미리 보기: --dry-run
 ```
 
 `install.sh`는 여러 번 실행해도 결과가 같다. 이미 맞는 링크는 그대로 두고, 링크가 아닌 실제 폴더가 있으면 `~/.claude/skills-install-backup/<시각>/`으로 옮긴 뒤 링크를 건다. `~/.codex/skills`에 같은 이름이 이미 있으면 그것도 이 저장소로 다시 연결한다.
