@@ -19,7 +19,7 @@ description: 사용자가 작업별 토큰·시간 측정을 명시적으로 요
 ## 세션 찾기 (Claude Code, 기본)
 
 - 본 세션: `~/.claude/projects/<인코딩된 작업 경로>/<세션ID>.jsonl`. 인코딩은 작업 폴더 절대 경로의 `/` 등 구분 문자를 `-`로 바꾼 이름이다(예: `~/work/app` → `-Users-<사용자>-work-app`). `ls -t ~/.claude/projects/<인코딩>/*.jsonl | head`로 최근 세션을 좁힌다.
-- 세션 ID는 현재 세션 정보(`claude --resume` 목록, 세션 파일명)로 확인한다. `log_path`를 생략하면 `~/.claude/projects/*/<세션ID>.jsonl`에서 하나만 찾아 쓴다(여러 개·없음이면 오류).
+- 세션 ID는 현재 세션 정보(`claude --resume` 목록, 세션 파일명)로 확인한다. `log_path`를 생략하면 `<projects_dir>/*/<세션ID>.jsonl`(세션 항목의 `projects_dir`, 기본 `~/.claude/projects`)에서 하나만 찾아 쓴다(여러 개·없음이면 오류).
 - 서브에이전트: `~/.claude/projects/<인코딩>/<세션ID>/subagents/agent-<agentId>.jsonl`(중첩 서브에이전트도 같은 폴더에 평평하게 저장). 본 세션 파일에는 서브에이전트 응답이 들어 있지 않으므로 별도로 합산한다.
 
 ```json
@@ -42,7 +42,9 @@ description: 사용자가 작업별 토큰·시간 측정을 명시적으로 요
 - `format`: 생략 시 `session_id`가 있으면 `claude`, `thread_id`가 있으면 `codex`. 명시도 가능.
 - 범위: `started_at`~`ended_at`(없으면 집계 시점)의 assistant 기록만 센다. 줄의 `sessionId`가 `session_id`와 다르면(복사·fork 기록) 제외한다(`foreign_skipped`).
 - `from_uuid`/`to_uuid`(선택): 본 세션 파일에서 해당 `uuid` 줄부터 해당 줄까지(둘 다 포함, 파일 순서)만 센다. 보통 작업 요청 사용자 메시지의 uuid를 `from_uuid`로 쓴다. 찾지 못하면 `partial`. 서브에이전트 파일에는 적용하지 않고 시각 범위만 적용한다.
-- `include_subagents`(기본 `true`): 그 세션의 서브에이전트 로그를 시각 범위 안에서 포함한다. 같은 시간대에 그 세션이 다른 작업의 서브에이전트도 돌렸다면 `agent_ids`로 좁히거나 `false`로 끈다. `agent_ids` 중 파일이 없는 것은 `issues`에 남는다.
+- `include_subagents`(기본 `true`, 반드시 bool): 그 세션의 서브에이전트 로그를 시각 범위 안에서 포함한다. 같은 시간대에 그 세션이 다른 작업의 서브에이전트도 돌렸다면 `agent_ids`(null 또는 비어 있지 않은 문자열 목록)로 좁히거나 `false`로 끈다. `agent_ids` 중 파일이 없는 것은 `issues`에 남는다. 타입이 틀리면 manifest 오류로 끝난다.
+- 같은 `session_id`를 manifest에 두 번 넣으면 `duplicate session_id in manifest` 오류로 끝난다(범위는 한 항목의 `from_uuid`/`to_uuid`·`agent_ids`로 좁힌다).
+- manifest 오류는 `Invalid manifest: <오류 종류>: <원인>`(예 `missing key 'sessions'`)을 stderr에 내고 exit 2로 끝난다.
 
 ## 집계 규칙 (Claude Code)
 
@@ -52,7 +54,7 @@ description: 사용자가 작업별 토큰·시간 측정을 명시적으로 요
   - `input_tokens` = `input_tokens` + `cache_read_input_tokens` + `cache_creation_input_tokens` (전체 입력)
   - `cached_input_tokens` = `cache_read_input_tokens`, `cache_write_input_tokens` = `cache_creation_input_tokens` (둘 다 입력의 부분집합)
   - 캐시 미사용 입력 = `input_tokens - cached_input_tokens - cache_write_input_tokens`
-  - `output_tokens` = `output_tokens`, `reasoning_output_tokens` = `output_tokens_details.thinking_tokens`(출력의 부분집합). thinking이 출력보다 큰 기록은 추론 0으로 두고 `notes`에 개수를 남긴다.
+  - `output_tokens` = `output_tokens`, `reasoning_output_tokens` = `output_tokens_details.thinking_tokens`(출력의 부분집합). thinking이 출력보다 크거나 정수가 아닌 응답은 추론 0으로 두고 `notes`에 개수를, `output_tokens_details.thinking_tokens`가 없는 응답은 "추론 미기록(측정된 0 아님)"으로 `notes`에 개수를 남긴다. 두 개수는 응답 중복 제거 후(같은 `message.id`의 마지막 줄 기준) 세며 세션별 `thinking_unverified`·`reasoning_unrecorded`에도 나온다.
   - `total_tokens` = 전체 입력 + 출력
 - 세션별 결과에 `main_usage`(본 세션)와 `subagent_usage`, 파일·응답 수가 나뉘어 나온다. 같은 응답이 여러 파일에 있으면 처음 본 파일에 귀속한다.
 
@@ -68,4 +70,4 @@ description: 사용자가 작업별 토큰·시간 측정을 명시적으로 요
 
 테스트: `python3 -m unittest discover -s <skill-directory>/tests`.
 
-원본은 `~/yeonpm/agent-skills/agent-skills/task-token-report`(GitHub yeonpm/agent-skills)이고, 사용자 설치 위치 `~/.claude/skills/task-token-report`는 그 심볼릭 링크다(2026-11-26, OPS-AGENCY-SKILLS_REPO-0001). 업데이트는 원본에서 하고 그 저장소에 커밋·push한다. 자동화·상시 감시·외부 쓰기 권한은 포함되지 않는다. 비서는 기존 작업/스킬 레코드에 원본 링크·Git SHA·검증 결과·집계 범위를 연결한다.
+원본은 agent-skills 저장소(GitHub yeonpm/agent-skills)의 `task-token-report`이고, 설치 위치 `~/.claude/skills/task-token-report`는 `install.sh`가 건 심볼릭 링크다(2026-11-26, OPS-AGENCY-SKILLS_REPO-0001). 업데이트는 원본에서 하고 그 저장소에 커밋한다. 이 스킬은 Python 3 표준 라이브러리만 쓰며 agent-skills 설정 파일을 읽지 않는다(로그 위치는 manifest의 `log_path`·`projects_dir`로 바꾼다). 자동화·상시 감시·외부 쓰기 권한은 포함되지 않는다. 비서는 기존 작업/스킬 레코드에 원본 링크·Git SHA·검증 결과·집계 범위를 연결한다.

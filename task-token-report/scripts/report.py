@@ -46,14 +46,19 @@ def claude_log_path(entry, base):
 
 
 def claude_usage(usage):
-    """Normalize Claude usage. Claude input_tokens excludes cache reads/writes, so add them back."""
+    """Normalize Claude usage. Claude input_tokens excludes cache reads/writes, so add them back.
+
+    Returns (usage, flags); flags marks reasoning that could not be verified:
+    'no_details' (output_tokens_details/thinking_tokens absent) or 'thinking_unverified' (invalid/too large).
+    """
     if not isinstance(usage, dict):
-        return None, False
+        return None, {}
     raw = {k: usage.get(k, 0 if k.startswith('cache_') else None) for k in CLAUDE_RAW}
     if any(type(v) is not int or v < 0 for v in raw.values()):
-        return None, False
+        return None, {}
     details = usage.get('output_tokens_details')
-    thinking = details.get('thinking_tokens', 0) if isinstance(details, dict) else 0
+    no_details = not isinstance(details, dict) or 'thinking_tokens' not in details
+    thinking = 0 if no_details else details['thinking_tokens']
     thinking_ok = type(thinking) is int and 0 <= thinking <= raw['output_tokens']
     total_input = raw['input_tokens'] + raw['cache_read_input_tokens'] + raw['cache_creation_input_tokens']
     return {'input_tokens': total_input,
@@ -61,7 +66,8 @@ def claude_usage(usage):
             'cache_write_input_tokens': raw['cache_creation_input_tokens'],
             'output_tokens': raw['output_tokens'],
             'reasoning_output_tokens': thinking if thinking_ok else 0,
-            'total_tokens': total_input + raw['output_tokens']}, thinking_ok
+            'total_tokens': total_input + raw['output_tokens']}, {
+                'no_details': no_details, 'thinking_unverified': not thinking_ok}
 
 
 def claude_file(path, label, owner, uuid_range, start, cutoff, claude_seen, issues, stats):
@@ -107,20 +113,18 @@ def claude_file(path, label, owner, uuid_range, start, cutoff, claude_seen, issu
                 if not start <= stamp <= cutoff:
                     continue
                 key = message.get('id') or obj.get('requestId')
-                usage, thinking_ok = claude_usage(message.get('usage'))
+                usage, flags = claude_usage(message.get('usage'))
                 if not isinstance(key, str) or not key or usage is None:
                     issues.append(f'{label}: invalid response identity/usage')
                     continue
-                if not thinking_ok:
-                    stats['thinking_unverified'] += 1
                 if key in claude_seen:
                     stats['duplicates_skipped'] += 1
                     if claude_seen[key][1] != usage:
                         stats['duplicates_updated'] += 1
-                    # Same response repeated per content block: the last record wins.
-                    claude_seen[key] = (claude_seen[key][0], usage)
+                    # Same response repeated per content block: the last record wins (flags too).
+                    claude_seen[key] = (claude_seen[key][0], usage, flags)
                     continue
-                claude_seen[key] = ((owner, label), usage)
+                claude_seen[key] = ((owner, label), usage, flags)
     except OSError:
         issues.append(f'{label}: log unavailable')
     if first is not None and not hit_first:
@@ -134,11 +138,16 @@ def claude_session(entry, base, start, cutoff, claude_seen, issues, notes):
     session = entry['session_id']
     if not isinstance(session, str) or not session:
         raise ValueError('session_id must be a nonempty string')
-    path = claude_log_path(entry, base)
     include = entry.get('include_subagents', True)
+    if type(include) is not bool:
+        raise ValueError(f'{session}: include_subagents must be true or false')
     agent_ids = entry.get('agent_ids')
+    if agent_ids is not None and (not isinstance(agent_ids, list)
+                                  or not all(isinstance(a, str) and a for a in agent_ids)):
+        raise ValueError(f'{session}: agent_ids must be null or a list of nonempty strings')
+    path = claude_log_path(entry, base)
     stats = dict.fromkeys(('duplicates_skipped', 'duplicates_updated', 'synthetic_skipped',
-                           'foreign_skipped', 'thinking_unverified'), 0)
+                           'foreign_skipped'), 0)
     claude_file(path, session, session, (entry.get('from_uuid'), entry.get('to_uuid')),
                 start, cutoff, claude_seen, issues, stats)
     files = []
@@ -154,22 +163,28 @@ def claude_session(entry, base, start, cutoff, claude_seen, issues, notes):
         for sub in files:
             claude_file(sub, f'{session}/{sub.stem}', session, (None, None),
                         start, cutoff, claude_seen, issues, stats)
-    if stats['thinking_unverified']:
-        notes.append(f'{session}: {stats["thinking_unverified"]} responses had thinking_tokens > output_tokens; reasoning counted as 0 for them')
-    return {'format': 'claude', 'session_id': session, 'include_subagents': bool(include),
+    return {'format': 'claude', 'session_id': session, 'include_subagents': include,
             'subagent_files': len(files), 'from_uuid': entry.get('from_uuid'), 'to_uuid': entry.get('to_uuid'),
-            **{k: v for k, v in stats.items() if k != 'thinking_unverified'}}
+            **stats}
 
 
-def finish_claude(sessions, claude_seen, totals, issues):
-    """Sum deduplicated Claude responses once, attributed to the first owning file."""
+def finish_claude(sessions, claude_seen, totals, issues, notes):
+    """Sum deduplicated Claude responses once, attributed to the first owning file.
+
+    Reasoning flags are counted per unique response (after deduplication), not per log line.
+    """
     by_session = {}
-    for (owner, label), usage in claude_seen.values():
+    for (owner, label), usage, flags in claude_seen.values():
         bucket = by_session.setdefault(owner, {'main': dict.fromkeys(FIELDS, 0),
                                                'subagents': dict.fromkeys(FIELDS, 0),
-                                               'main_responses': 0, 'subagents_responses': 0})
+                                               'main_responses': 0, 'subagents_responses': 0,
+                                               'thinking_unverified': 0, 'no_details': 0})
         part = 'main' if label == owner else 'subagents'
         bucket[part + '_responses'] += 1
+        if flags.get('no_details'):
+            bucket['no_details'] += 1
+        elif flags.get('thinking_unverified'):
+            bucket['thinking_unverified'] += 1
         for key in FIELDS:
             totals[key] += usage[key]
             bucket[part][key] += usage[key]
@@ -182,6 +197,14 @@ def finish_claude(sessions, claude_seen, totals, issues):
             issues.append(f"{item['session_id']}: no recorded usage in range")
             continue
         usage = {k: bucket['main'][k] + bucket['subagents'][k] for k in FIELDS}
+        session = item['session_id']
+        if bucket['thinking_unverified']:
+            notes.append(f'{session}: {bucket["thinking_unverified"]} responses had invalid thinking_tokens '
+                         '(> output_tokens or not an integer); reasoning counted as 0 for them')
+        if bucket['no_details']:
+            notes.append(f'{session}: {bucket["no_details"]} responses had no output_tokens_details.thinking_tokens; '
+                         'reasoning not recorded (counted as 0, not a measured zero)')
+        item.update(thinking_unverified=bucket['thinking_unverified'], reasoning_unrecorded=bucket['no_details'])
         item.update(unique_responses=bucket['main_responses'] + bucket['subagents_responses'],
                     subagent_responses=bucket['subagents_responses'],
                     usage=usage, main_usage=bucket['main'], subagent_usage=bucket['subagents'])
@@ -284,13 +307,20 @@ def report(manifest, base=Path('.'), now=None):
         issues.append('session inventory not confirmed complete')
     claude_seen = {}
     notes = []
+    owners = set()
     for entry in entries:
+        if not isinstance(entry, dict):
+            raise ValueError('each session entry must be an object')
         fmt = entry_format(entry)
         if fmt == 'claude':
+            if entry.get('session_id') in owners:
+                raise ValueError(f"duplicate session_id in manifest: {entry.get('session_id')} "
+                                 '(list each session once; narrow with from_uuid/to_uuid or agent_ids)')
+            owners.add(entry.get('session_id'))
             sessions.append(claude_session(entry, base, start, cutoff, claude_seen, issues, notes))
         else:
             sessions.append(codex_session(entry, base, start, cutoff, seen, totals, issues))
-    finish_claude(sessions, claude_seen, totals, issues)
+    finish_claude(sessions, claude_seen, totals, issues, notes)
     return {'task_id': manifest['task_id'], 'status': 'partial' if issues else 'recorded_snapshot',
             'started_at': start.isoformat(), 'cutoff_at': cutoff.isoformat(),
             'collected_at': now.isoformat(), 'ended_at': manifest.get('ended_at'),
@@ -310,7 +340,9 @@ def main():
     try:
         result = report(json.loads(args.manifest.read_text()), args.manifest.parent)
     except (KeyError, ValueError, TypeError, OSError) as exc:
-        parser.exit(2, f'Invalid manifest: {type(exc).__name__}\n')
+        detail = exc.args[0] if isinstance(exc, KeyError) and exc.args else exc
+        message = f'missing key {detail!r}' if isinstance(exc, KeyError) else str(detail)
+        parser.exit(2, f'Invalid manifest: {type(exc).__name__}: {message}\n')
     try:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         sys.stdout.flush()

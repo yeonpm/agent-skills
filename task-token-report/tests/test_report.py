@@ -159,6 +159,72 @@ class ClaudeTests(unittest.TestCase):
         self.assertTrue(result['notes'])
         self.assertEqual(result['status'], 'recorded_snapshot')
 
+    def test_duplicate_session_id_rejected(self):
+        logs = {'s1.jsonl': [claude()]}
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            (base / 's1.jsonl').write_text(json.dumps(claude()))
+            entry = dict(session_id='s1', log_path='s1.jsonl')
+            manifest = dict(task_id='t', started_at='2026-10-07T01:00:00Z', ended_at='2026-10-07T01:02:00Z',
+                            scope_complete=True, sessions=[entry, dict(entry)])
+            with self.assertRaisesRegex(ValueError, 'duplicate session_id in manifest: s1'):
+                module.report(manifest, base, datetime(2026, 10, 7, 1, 3, tzinfo=timezone.utc))
+        self.assertEqual(self.run_report(logs)['status'], 'recorded_snapshot')
+
+    def test_missing_output_details_noted(self):
+        record = claude()
+        del record['message']['usage']['output_tokens_details']
+        result = self.run_report({'s1.jsonl': [record, record, claude('msg_2')]})
+        self.assertEqual(result['usage']['reasoning_output_tokens'], 4)
+        self.assertEqual(result['sessions'][0]['reasoning_unrecorded'], 1)
+        self.assertTrue(any('no output_tokens_details' in n and ': 1 responses' in n for n in result['notes']))
+        self.assertEqual(result['status'], 'recorded_snapshot')
+        clean = self.run_report({'s1.jsonl': [claude()]})
+        self.assertEqual(clean['notes'], [])
+
+    def test_thinking_unverified_counted_after_dedup(self):
+        bad = claude(out=0, thinking=10)
+        result = self.run_report({'s1.jsonl': [bad, bad, bad, claude('msg_2', out=1, thinking=5)]})
+        self.assertEqual(result['sessions'][0]['thinking_unverified'], 2)
+        self.assertTrue(any(': 2 responses had invalid thinking_tokens' in n for n in result['notes']))
+        # A later valid duplicate line replaces the flag (last record wins).
+        fixed = self.run_report({'s1.jsonl': [bad, claude(out=10, thinking=4)]})
+        self.assertEqual(fixed['sessions'][0]['thinking_unverified'], 0)
+
+    def test_subagent_option_types(self):
+        logs = {'s1.jsonl': [claude()]}
+        for bad in ({'include_subagents': 'false'}, {'include_subagents': 0}, {'agent_ids': 'a1'},
+                    {'agent_ids': [1]}, {'agent_ids': ['']}):
+            with self.assertRaises(ValueError, msg=str(bad)):
+                self.run_report(logs, bad)
+        self.assertEqual(self.run_report(logs, {'include_subagents': False, 'agent_ids': []})['status'],
+                         'recorded_snapshot')
+
+    def test_cli_invalid_manifest_message(self):
+        import subprocess
+        import sys
+        script = Path(__file__).parents[1] / 'scripts/report.py'
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            cases = {
+                'dup.json': (dict(task_id='t', started_at='2026-10-07T01:00:00Z', scope_complete=True,
+                                  sessions=[dict(session_id='s1', log_path='x'), dict(session_id='s1', log_path='x')]),
+                             'duplicate session_id in manifest: s1'),
+                'key.json': (dict(task_id='t', started_at='2026-10-07T01:00:00Z'), "missing key 'sessions'"),
+                'type.json': (dict(task_id='t', started_at='2026-10-07T01:00:00Z',
+                                   sessions=[dict(session_id='s1', log_path='x', include_subagents='yes')]),
+                              'include_subagents must be true or false'),
+            }
+            for name, (manifest, expected) in cases.items():
+                (base / name).write_text(json.dumps(manifest))
+                proc = subprocess.run([sys.executable, str(script), str(base / name)], capture_output=True, text=True)
+                self.assertEqual(proc.returncode, 2, name)
+                self.assertIn('Invalid manifest: ', proc.stderr)
+                self.assertIn(expected, proc.stderr, name)
+            (base / 'bad.json').write_text('{oops')
+            proc = subprocess.run([sys.executable, str(script), str(base / 'bad.json')], capture_output=True, text=True)
+            self.assertIn('Invalid manifest: JSONDecodeError: Expecting property name', proc.stderr)
+
     def test_cli_broken_pipe(self):
         import subprocess
         import sys
@@ -174,6 +240,7 @@ class ClaudeTests(unittest.TestCase):
             proc.stdout.read(1)
             proc.stdout.close()
             err = proc.stderr.read()
+            proc.stderr.close()
             proc.wait()
             self.assertNotIn(b'Traceback', err)
 
