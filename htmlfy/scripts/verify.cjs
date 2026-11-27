@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 // htmlfy 검증: 데스크톱(1280)·휴대폰(390) 폭에서 콘솔 오류, 외부 요청, 가로 넘침을 확인하고 스크린샷 1장을 저장한다.
 // 사용: node verify.cjs <문서.html> [스크린샷.png]
-// playwright-core 위치: ~/.cache/htmlfy-verify (없으면 SKILL.md의 설치 명령 실행)
+// playwright-core·브라우저 위치는 lib/skills-env.cjs가 찾는다(설정 playwrightModule·browserExecutable, 진단: doctor.cjs).
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 
 const html = path.resolve(process.argv[2] || '');
 if (!process.argv[2] || !fs.existsSync(html)) {
@@ -13,35 +12,10 @@ if (!process.argv[2] || !fs.existsSync(html)) {
 }
 const shot = path.resolve(process.argv[3] || html.replace(/\.html?$/i, '.png'));
 
-let chromium;
-try {
-  ({ chromium } = require(path.join(os.homedir(), '.cache/htmlfy-verify/node_modules/playwright-core')));
-} catch {
-  console.error('playwright-core 없음: mkdir -p ~/.cache/htmlfy-verify && cd ~/.cache/htmlfy-verify && npm i playwright-core');
-  process.exit(2);
-}
-
-// 기본 브라우저가 없으면 캐시에 있는 가장 최신 Chromium을 사용한다.
-function findExecutable() {
-  const def = chromium.executablePath();
-  if (fs.existsSync(def)) return def;
-  const cache = path.join(os.homedir(), 'Library/Caches/ms-playwright');
-  const dirs = fs.existsSync(cache)
-    ? fs.readdirSync(cache).filter((d) => /^chromium-\d+$/.test(d)).sort((a, b) => b.split('-')[1] - a.split('-')[1])
-    : [];
-  for (const d of dirs) {
-    for (const sub of ['chrome-mac-arm64', 'chrome-mac']) {
-      for (const app of ['Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing', 'Chromium.app/Contents/MacOS/Chromium']) {
-        const p = path.join(cache, d, sub, app);
-        if (fs.existsSync(p)) return p;
-      }
-    }
-  }
-  return undefined;
-}
+const env = require('./lib/skills-env.cjs');
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: findExecutable() });
+  const browser = await env.launchBrowser({ skill: 'htmlfy' });
   const url = 'file://' + html;
   const results = [];
   for (const vp of [{ name: 'desktop', width: 1280, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {
