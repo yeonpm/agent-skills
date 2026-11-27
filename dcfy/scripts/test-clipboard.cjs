@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-// dcfy(구 decisionfy) 클립보드 테스트: 허브 URL(보안 컨텍스트)에서 선택·입력 때 클립보드 내용이 하단 프롬프트와 같은지 확인한다.
+// dcfy(구 decisionfy) 클립보드 테스트(2026-11-27 수동 복사 기준): 허브 URL(보안 컨텍스트)에서
+//   선택·입력만으로는 클립보드가 바뀌지 않고(자동 복사 없음), '복사' 버튼을 눌러야 클립보드가 하단 프롬프트와 같아지는지 확인한다.
 // 사용: node test-clipboard.cjs <허브 URL | 문서.html 경로>
 //   허브 URL 예: http://127.0.0.1:8080/f/<project-id>/docs/reports/decisions/....html
 //   파일 경로를 주면 그 폴더를 임시 로컬 http 서버(127.0.0.1, 빈 포트)로 서빙해 보안 컨텍스트에서 시험하고 끝나면 닫는다(허브 없어도 됨).
-// 시나리오: ① 라디오 클릭 ② 메모 입력(300ms 디바운스) ③ 체크박스 ④ 추천안 일괄 선택 ⑤ navigator.clipboard 실패 시 execCommand 폴백.
+// 시나리오: ① 라디오 클릭 ② 메모 입력 ③ 체크박스 ④ 추천안 일괄 선택(각각 600ms 뒤에도 클립보드 불변 → '복사' 클릭 시 프롬프트와 일치) ⑤ 자동 복사 토글 부재·옛 저장 키 무시 ⑥ navigator.clipboard 실패 시 execCommand 폴백.
 // 확정 항목(resolution)이 있으면: 입력 비활성(없음)·프롬프트 제외·추천 일괄 제외·localStorage 복원 제외도 확인한다(2026-11-20).
 // 끝나면 localStorage를 지워 사용자의 선택에 영향을 주지 않는다(헤드리스 프로필은 매번 새로 만든다).
 'use strict';
@@ -30,7 +31,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const results = [];
   const errors = [];
 
+  // 자동 복사 없음: 클립보드에 표식을 쓰고 동작을 한 뒤 600ms 지나도 표식이 그대로여야 한다.
+  let sn = 0;
+  async function noAuto(page, name, action) {
+    const mark = 'SENTINEL-' + (++sn);
+    await page.evaluate((m) => navigator.clipboard.writeText(m), mark);
+    await action();
+    await sleep(600);
+    const clip = await page.evaluate(() => navigator.clipboard.readText());
+    results.push({ step: name, ok: clip === mark, clipboardUnchanged: clip === mark });
+  }
+  // 수동 복사: '복사' 버튼을 눌러 클립보드가 프롬프트와 같아지는지 확인
   async function check(page, name) {
+    await page.click('#btn-copy');
     await sleep(150);
     const r = await page.evaluate(async () => ({
       clip: await navigator.clipboard.readText(),
@@ -90,11 +103,25 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     results[results.length - 1].storageLeftover = leftover;
   }
 
-  // 접힌 채로 선택해도 프롬프트 갱신·자동 복사 동작(① 이후 check가 검증). 이어서 펼치기 → 프롬프트 표시·키보드 토글.
+  // 자동 복사 토글 부재 + 옛 저장 키가 남아 있어도 자동 복사 안 됨
+  const tog = await page.evaluate(() => {
+    const body = document.body.innerText;
+    return {
+      autoEls: document.querySelectorAll('[id*="auto" i]:not(#app), [data-auto-copy], input[type=checkbox][name*="auto" i], [role=switch]').length,
+      autoText: /자동\s*복사|자동으로 복사|auto.?copy/i.test(body),
+      autoKeys: Object.keys(localStorage).filter((k) => /auto/i.test(k)).length,
+      togglePanelBtn: !!document.getElementById('btn-toggle'),
+    };
+  });
+  results.push({ step: 'no-auto-copy-toggle', ok: tog.autoEls === 0 && !tog.autoText && tog.autoKeys === 0 && tog.togglePanelBtn, ...tog });
+  await page.evaluate(() => { const k = window.__decisionDoc.storageKey; ['auto-copy', 'autocopy', 'auto', 'autoCopy'].forEach((x) => { try { localStorage.setItem(k + ':' + x, '1'); localStorage.setItem(k + ':' + x, 'on'); } catch {} }); });
+  await page.reload({ waitUntil: 'load' });
+
+  // 접힌 채로 선택해도 프롬프트 갱신(① 이후 check가 '복사' 클릭으로 검증). 이어서 펼치기 → 프롬프트 표시·키보드 토글.
   // ① 첫 single 결정의 첫 선택지(라벨 클릭 = 실제 사용자 동작)
   const radio = page.locator('.dec input[type=radio][data-kind=choice]').first();
-  await radio.locator('xpath=ancestor::label[1]').click();
-  await check(page, 'radio-click');
+  await noAuto(page, 'no-auto-copy-radio(stale-auto-keys-ignored)', () => radio.locator('xpath=ancestor::label[1]').click());
+  await check(page, 'radio-click-manual-copy');
 
   await page.focus('#btn-toggle');
   await page.keyboard.press('Enter');
@@ -110,12 +137,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const cust = page.locator('.dec:has(input[data-kind=custom])').first();
   if (await cust.count()) {
     const inside = await cust.evaluate((c) => { const i = c.querySelector('input[data-kind=custom]'); return !!i.closest('label.opt') && !!i.closest('label.opt').querySelector('input[data-kind=choice][value="__custom"]'); });
-    await cust.locator('input[data-kind=choice][value="__custom"]').locator('xpath=ancestor::label[1]').locator('.opt-label').click();
+    await noAuto(page, 'no-auto-copy-custom-select', () => cust.locator('input[data-kind=choice][value="__custom"]').locator('xpath=ancestor::label[1]').locator('.opt-label').click());
     const foc = await cust.evaluate((c) => document.activeElement === c.querySelector('input[data-kind=custom]'));
     results.push({ step: 'custom-in-option-and-focus', ok: inside && foc, inside, focused: foc });
-    await page.keyboard.type('내 답');
-    await sleep(450);
-    await check(page, 'custom-typing-clipboard');
+    await noAuto(page, 'no-auto-copy-custom-typing', () => page.keyboard.type('내 답'));
+    await check(page, 'custom-typing-manual-copy');
     const other = cust.locator('input[type=radio][data-kind=choice]:not([value="__custom"])').first();
     if (await other.count()) {
       await other.locator('xpath=ancestor::label[1]').click();
@@ -131,28 +157,26 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       await sleep(450);
       const auto = await cust.locator('input[data-kind=choice][value="__custom"]').isChecked();
       results.push({ step: 'custom-typing-autoselects', ok: auto, auto });
-      await check(page, 'custom-autoselect-clipboard');
+      await check(page, 'custom-autoselect-manual-copy');
     }
   }
 
-  // ② 메모 입력 → 300ms 디바운스 후 복사
+  // ② 메모 입력 → 자동 복사 없음, '복사' 클릭 시 복사
   const memo = page.locator('.dec [data-kind=memo]').first();
   await memo.click();
-  await memo.pressSequentially('테스트 메모', { delay: 20 });
-  await sleep(450);
-  await check(page, 'memo-input-debounced');
+  await noAuto(page, 'no-auto-copy-memo', () => memo.pressSequentially('테스트 메모', { delay: 20 }));
+  await check(page, 'memo-input-manual-copy');
   await memo.press('Enter');
   await memo.pressSequentially('둘째 줄', { delay: 20 });
-  await sleep(450);
   await check(page, 'memo-multiline');
 
   // ③ 체크박스(multi 결정이 있을 때)
   const cb = page.locator('.dec input[type=checkbox][data-kind=choice]').first();
-  if (await cb.count()) { await cb.locator('xpath=ancestor::label[1]').click(); await check(page, 'checkbox-click'); }
+  if (await cb.count()) { await noAuto(page, 'no-auto-copy-checkbox', () => cb.locator('xpath=ancestor::label[1]').click()); await check(page, 'checkbox-manual-copy'); }
 
   // ④ 추천안 일괄 선택
-  await page.click('#btn-rec');
-  await check(page, 'apply-recommended');
+  await noAuto(page, 'no-auto-copy-recommended', () => page.click('#btn-rec'));
+  await check(page, 'apply-recommended-manual-copy');
   await resolvedExcluded('resolved-excluded-from-recommended');
 
   // 선택 유지(localStorage) 확인: 새로고침 후 같은 프롬프트
@@ -178,7 +202,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await page2.evaluate(() => { try { localStorage.clear(); } catch {} });
   await page2.reload({ waitUntil: 'load' });
   await page2.locator('.dec input[type=radio][data-kind=choice]').nth(1).locator('xpath=ancestor::label[1]').click();
-  await check(page2, 'fallback-execCommand');
+  await check(page2, 'fallback-execCommand-manual-copy');
   await page2.evaluate(() => { try { localStorage.clear(); } catch {} });
   await ctx2.close();
 

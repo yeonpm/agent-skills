@@ -68,7 +68,7 @@ playwright가 없으면 verify는 설치 안내를 내고 exit 2로 끝난다. �
 - push는 운영 저장소·대상 저장소 규칙을 따른다. 작성자 환경 규칙: 커밋한 뒤 묻지 않고 해당 저장소 흐름의 원격 브랜치로 push(사용자 지시 2026-11-26, SEC-AGENCY-RULES-0020), force push 금지, 스토어 업로드·운영 DB·외부 게시는 별도 승인, 배포 연동 저장소는 푸시 후 배포 SHA 확인. 규칙이 없으면 로컬 커밋까지만 하고 push는 사용자에게 확인한다.
 
 ## 5. 띄우기
-- 띄우기: `node ~/.claude/skills/htmlfy/scripts/open.cjs <문서.html 또는 URL>`. 허브(`hubUrl`)가 설정돼 있고 응답하면 허브 URL(`<hubUrl>/f/<project-id>/<저장소 내 경로>`), 아니면 file://로 연다. 클립보드 자동 복사가 필요한 문서(dcfy·lookfy)를 허브 없이 Chromium 계열이 아닌 브라우저로 열거나 복사가 안 되면 `--serve`(임시 로컬 서버 127.0.0.1, 보안 컨텍스트)를 백그라운드로 실행한다. 열기 명령은 설정 `openCommand`(기본 OS별 open / xdg-open / start).
+- 띄우기: `node ~/.claude/skills/htmlfy/scripts/open.cjs <문서.html 또는 URL>`. 허브(`hubUrl`)가 설정돼 있고 응답하면 허브 URL(`<hubUrl>/f/<project-id>/<저장소 내 경로>`), 아니면 file://로 연다. 클립보드 복사가 필요한 문서(dcfy는 '복사' 버튼, lookfy는 자동 복사)를 허브 없이 Chromium 계열이 아닌 브라우저로 열거나 복사가 안 되면 `--serve`(임시 로컬 서버 127.0.0.1, 보안 컨텍스트)를 백그라운드로 실행한다. 열기 명령은 설정 `openCommand`(기본 OS별 open / xdg-open / start).
 - 허브가 설정돼 있는데 응답하지 않으면(open.cjs가 알림) 설정 `hubStartCommand`가 있을 때 그것을 백그라운드로 실행하고(포트가 사용 중이면 다음 포트로 뜨므로 시작 로그의 실제 주소 사용) 다시 연다. 없으면 file://로 연 사실을 보고한다.
 - 작성자 환경: 사용자에게 보여 주는 문서는 사용자의 크롬으로 연다(`openCommand` = `open -a "Google Chrome"`). 페이지를 조작·점검해야 할 때만 ego lite(`ego-browser` 스킬)를 쓰고 크롬 확장(claude-in-chrome)·내장 브라우저 패널은 쓰지 않는다. 다른 환경에서는 가진 브라우저 도구를 쓴다.
 - 파일 전송 도구(예 SendUserFile)가 있으면 스크린샷 png를 보낸다(없으면 경로만 보고).

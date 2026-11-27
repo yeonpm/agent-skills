@@ -154,7 +154,7 @@ footer.meta ul{margin:4px 0;padding-left:18px}
   <div class="inner">
     <div class="bar">
       <strong>프롬프트</strong>
-      <span class="status" id="status">선택하면 아래 프롬프트가 작성되고 자동으로 복사됩니다.</span>
+      <span class="status" id="status">선택하면 아래 프롬프트가 작성됩니다. 복사 버튼으로 복사하세요.</span>
       <button type="button" id="btn-copy" class="primary">복사</button>
       <button type="button" id="btn-toggle" aria-expanded="false" aria-controls="prompt">펼치기</button>
     </div>
@@ -326,7 +326,7 @@ function render(){
   if (urgent.length) h += '<div class="kv"><span>긴급</span>' + urgent.map(function(d){ return '<a href="#d-' + esc(d.id) + '">' + esc(d.id) + '</a> ' + esc(d.title); }).join(' · ') + '</div>';
   if (meta.summary) h += '<div class="kv">' + txt(meta.summary) + '</div>';
   h += '<div class="toolbar"><button type="button" id="btn-rec" class="primary">추천안 일괄 선택</button><button type="button" id="btn-reset">초기화</button></div>';
-  h += '<div class="legend">고르면 하단 프롬프트가 바로 작성되고 클립보드로 복사됩니다(텍스트는 입력을 멈춘 뒤 0.3초). 선택은 이 브라우저에 저장됩니다. 고르지 않은 항목은 프롬프트의 "미결" 줄에만 들어갑니다. 선택지 아래 <b style="color:var(--rec)">+</b> 장점 · <b style="color:var(--urgent)">−</b> 단점 · <b style="color:var(--warn)">?</b> 고려할 점("(비서 정리)"는 원본에 없는 일반 고려사항).</div>';
+  h += '<div class="legend">고르면 하단 프롬프트가 바로 작성됩니다. 하단의 <b>복사</b> 버튼으로 클립보드에 복사하세요. 선택은 이 브라우저에 저장됩니다. 고르지 않은 항목은 프롬프트의 "미결" 줄에만 들어갑니다. 선택지 아래 <b style="color:var(--rec)">+</b> 장점 · <b style="color:var(--urgent)">−</b> 단점 · <b style="color:var(--warn)">?</b> 고려할 점("(비서 정리)"는 원본에 없는 일반 고려사항).</div>';
   if (resolved.length) h += '<div class="legend"><b>확정</b> 카드는 사용자가 이미 답한 항목으로 읽기 전용입니다. 프롬프트·추천안 일괄 선택·초기화에 포함되지 않고, 조치가 끝날 때마다 조치·구현 기록과 상태가 갱신됩니다.</div>';
   h += '</section>';
   if ((D.todos||[]).length) {
@@ -450,11 +450,10 @@ function selectCustom(d, s){
   var box = document.querySelector('#d-' + CSS.escape(d.id) + ' input[data-kind=choice][value="' + CUSTOM + '"]');
   if (box) box.checked = true;
 }
-var debounce;
 function onEdit(e){
   var el = e.target, id = el.getAttribute && el.getAttribute('data-id'); if (!id) return;
   var d = decById(id); if (!d || isResolved(d)) return;
-  var s = st(id), k = el.getAttribute('data-kind'), textual = false;
+  var s = st(id), k = el.getAttribute('data-kind');
   if (k === 'choice') {
     if (el.type === 'radio') { if (el.checked) s.choice = el.value; }
     else {
@@ -462,13 +461,10 @@ function onEdit(e){
       if (el.checked) set.push(el.value);
       s.choices = set;
     }
-  } else if (k === 'custom') { s.custom = el.value; textual = true; if (e.type === 'input') selectCustom(d, s); }
-  else if (k === 'memo') { s.memo = el.value; textual = true; }
-  else if (k === 'field') { s.fields[el.getAttribute('data-key')] = el.value; textual = true; }
+  } else if (k === 'custom') { s.custom = el.value; if (e.type === 'input') selectCustom(d, s); }
+  else if (k === 'memo') { s.memo = el.value; }
+  else if (k === 'field') { s.fields[el.getAttribute('data-key')] = el.value; }
   save(); syncUI();
-  clearTimeout(debounce);
-  if (textual) { if (e.type === 'input') debounce = setTimeout(copyPrompt, 300); }
-  else if (e.type === 'change') copyPrompt();
 }
 
 function applyRecommended(){
@@ -479,11 +475,11 @@ function applyRecommended(){
     var s = st(d.id);
     if (d.type === 'multi') s.choices = recs; else s.choice = recs[0];
   });
-  save(); applyStateToInputs(); syncUI(); copyPrompt();
+  save(); applyStateToInputs(); syncUI();
 }
 function reset(){
   if (!confirm('모든 선택과 메모를 지울까요?')) return;
-  state = {}; save(); applyStateToInputs(); syncUI(); copyPrompt();
+  state = {}; save(); applyStateToInputs(); syncUI();
 }
 
 function fitPanel(){
@@ -505,7 +501,7 @@ app.addEventListener('click', function(e){
   var id = el.getAttribute('data-id'); if (!id) return;
   var d = decById(id); if (!d || isResolved(d)) return;
   if (el.getAttribute('data-kind') === 'custom') {
-    var s = st(id); selectCustom(d, s); save(); syncUI(); copyPrompt();
+    var s = st(id); selectCustom(d, s); save(); syncUI();
   } else if (el.getAttribute('data-kind') === 'choice' && el.value === CUSTOM && el.checked && e.detail > 0) {
     var inp = document.querySelector('#d-' + CSS.escape(id) + ' input[data-kind=custom]'); if (inp) inp.focus();
   }
