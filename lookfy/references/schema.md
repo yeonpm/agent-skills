@@ -8,14 +8,14 @@
     "title": "캐모리 설정 화면 시안 10개",      // 필수. 프롬프트 1줄에도 쓰임
     "subtitle": "…",                          // 선택
     "date": "2026-11-25",                     // 필수(KST)
-    "taskId": "DES-CAMORY-SETTINGS-0001",     // 필수, DEPT-PROJECT-WORK-NNNN
-    "project": "camory",                      // config/projects.json id
+    "taskId": "DES-CAMORY-SETTINGS-0001",     // 필수, 형식은 설정 taskIdPattern(기본: 영문·숫자·._- 아무 ID)
+    "project": "camory",                      // 등록부(설정 projectsJson) id, 없으면 저장소 폴더 이름
     "count": 10,                              // 필수 = 사용자가 준 개수 N(없으면 30). variants 수와 다르면 build 실패
     "round": 1,                               // 기본 1
     "numbering": "continue",                  // 라운드 2+ 필수: "continue"(startNo부터 이어 번호) | "prefix"(R2-01..)
     "startNo": 11,                            // continue일 때 이전 라운드 마지막 번호 + 1
     "multi": false,                           // true면 여러 시안 선택 허용(기본 단일)
-    "docPath": "…"                            // 선택. 없으면 출력 html 절대 경로(허브 URL은 자동 계산)
+    "docPath": "…"                            // 선택. 없으면 출력 html 절대 경로(허브 hubUrl이 설정돼 있으면 허브 URL 자동 계산)
   },
   "summary": {
     "recommend": [{ "id": "03", "reason": "한 줄 이유" }],   // 1~2개

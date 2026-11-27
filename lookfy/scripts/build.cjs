@@ -6,12 +6,14 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const os = require('os');
 
 const SKILL = path.resolve(__dirname, '..');
 const FAVICON = path.join(SKILL, '..', 'htmlfy', 'assets', 'favicon.svg');
-const PROJECTS_JSON = process.env.AGENCY_PROJECTS_JSON || path.join(os.homedir(), 'yeonpm/ai-agency/config/projects.json');
-const HUB = process.env.LOOKFY_HUB || 'http://127.0.0.1:8080';
+let env;
+try { env = require(path.join(__dirname, '..', '..', 'htmlfy', 'scripts', 'lib', 'skills-env.cjs')); }
+catch (e) { console.error('htmlfy 스킬이 이 스킬과 같은 폴더(예: ~/.claude/skills/htmlfy)에 있어야 한다: ' + e.message); process.exit(2); }
+// 설정(환경 변수 > ~/.config/agent-skills/config.json > 기본값): 등록부 projectsJson, 허브 hubUrl(옛 LOOKFY_HUB), taskIdPattern.
+const cfg = env.resolve({ skill: 'lookfy' });
 
 function fail(msg) { console.error('build 실패: ' + msg); process.exit(1); }
 const input = process.argv[2];
@@ -20,22 +22,19 @@ const out = path.resolve(process.argv[3] || input.replace(/\.json$/i, '') + '.ht
 let data;
 try { data = JSON.parse(fs.readFileSync(input, 'utf8')); } catch (e) { fail('JSON 파싱 오류 ' + e.message); }
 
-// ---- 허브 URL (등록 프로젝트의 docs/·knowledge/ 아래만 서빙) ----
-let projects = [];
-try { const pj = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf8')); projects = (Array.isArray(pj) ? pj : pj.projects || []).filter((p) => p.id && p.path); } catch {}
-function hubUrl(abs) {
-  const p = projects.filter((x) => abs.startsWith(x.path.replace(/\/$/, '') + '/')).sort((a, b) => b.path.length - a.path.length)[0];
-  if (!p) return '';
-  const rel = path.relative(p.path, abs);
-  if (!/^(docs|knowledge)\//.test(rel)) return '';
-  return `${HUB}/f/${p.id}/${rel.split('/').map(encodeURIComponent).join('/')}`;
-}
+// ---- 허브 URL (등록 프로젝트의 docs/·knowledge/ 아래만 서빙). 허브·등록부가 없으면 빈 값 ----
+const proj = env.loadProjects(cfg, [out]);
+const { projects } = proj;
+env.warnConfig(cfg, 'lookfy build', [env.projectsWarning(proj)]);
+const toHub = env.makeHubUrl(cfg.values.hubUrl, projects);
+const hubUrl = (abs) => toHub(abs) || '';
+const TASK_ID = env.taskIdRegex(cfg);
 
 // ---- 스키마 점검 ----
 const errs = [], warns = [];
 const meta = data.meta || (errs.push('meta 없음'), {});
 ['title', 'date', 'taskId', 'count'].forEach((k) => { if (meta[k] == null || meta[k] === '') errs.push(`meta.${k} 필요`); });
-if (meta.taskId && !/^[A-Z][A-Z0-9_]*-[A-Z][A-Z0-9_]*-[A-Z][A-Z0-9_]*-[0-9]{4,}$/.test(meta.taskId)) errs.push('meta.taskId 형식(DEPT-PROJECT-WORK-NNNN) 아님');
+if (meta.taskId && !TASK_ID.test(meta.taskId)) errs.push(`meta.taskId 형식 아님(설정 taskIdPattern ${TASK_ID.source})`);
 const N = Number(meta.count);
 if (!Number.isInteger(N) || N < 1) errs.push('meta.count는 1 이상 정수(사용자가 준 개수, 기본 30)');
 const round = Number(meta.round || 1);

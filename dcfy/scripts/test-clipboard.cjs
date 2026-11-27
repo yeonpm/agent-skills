@@ -1,45 +1,31 @@
 #!/usr/bin/env node
 // dcfy(구 decisionfy) 클립보드 테스트: 허브 URL(보안 컨텍스트)에서 선택·입력 때 클립보드 내용이 하단 프롬프트와 같은지 확인한다.
-// 사용: node test-clipboard.cjs <허브 URL 예: http://127.0.0.1:8080/f/agency/docs/reports/decisions/....html>
+// 사용: node test-clipboard.cjs <허브 URL | 문서.html 경로>
+//   허브 URL 예: http://127.0.0.1:8080/f/<project-id>/docs/reports/decisions/....html
+//   파일 경로를 주면 그 폴더를 임시 로컬 http 서버(127.0.0.1, 빈 포트)로 서빙해 보안 컨텍스트에서 시험하고 끝나면 닫는다(허브 없어도 됨).
 // 시나리오: ① 라디오 클릭 ② 메모 입력(300ms 디바운스) ③ 체크박스 ④ 추천안 일괄 선택 ⑤ navigator.clipboard 실패 시 execCommand 폴백.
 // 확정 항목(resolution)이 있으면: 입력 비활성(없음)·프롬프트 제외·추천 일괄 제외·localStorage 복원 제외도 확인한다(2026-11-20).
 // 끝나면 localStorage를 지워 사용자의 선택에 영향을 주지 않는다(헤드리스 프로필은 매번 새로 만든다).
 'use strict';
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 
-const url = process.argv[2];
-if (!url || !/^https?:\/\//.test(url)) { console.error('usage: node test-clipboard.cjs <http(s) URL>'); process.exit(2); }
+const arg = process.argv[2];
+if (!arg) { console.error('usage: node test-clipboard.cjs <http(s) URL | file.html>'); process.exit(2); }
 
-let chromium;
-try {
-  ({ chromium } = require(path.join(os.homedir(), '.cache/htmlfy-verify/node_modules/playwright-core')));
-} catch {
-  console.error('playwright-core 없음: mkdir -p ~/.cache/htmlfy-verify && cd ~/.cache/htmlfy-verify && npm i playwright-core');
-  process.exit(2);
-}
-
-function findExecutable() {
-  const def = chromium.executablePath();
-  if (fs.existsSync(def)) return def;
-  const cache = path.join(os.homedir(), 'Library/Caches/ms-playwright');
-  const dirs = fs.existsSync(cache)
-    ? fs.readdirSync(cache).filter((d) => /^chromium-\d+$/.test(d)).sort((a, b) => b.split('-')[1] - a.split('-')[1])
-    : [];
-  for (const d of dirs) for (const sub of ['chrome-mac-arm64', 'chrome-mac']) {
-    for (const app of ['Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing', 'Chromium.app/Contents/MacOS/Chromium']) {
-      const p = path.join(cache, d, sub, app);
-      if (fs.existsSync(p)) return p;
-    }
-  }
-  return undefined;
-}
+let env;
+try { env = require(path.join(__dirname, '..', '..', 'htmlfy', 'scripts', 'lib', 'skills-env.cjs')); }
+catch (e) { console.error('htmlfy 스킬이 이 스킬과 같은 폴더(예: ~/.claude/skills/htmlfy)에 있어야 한다: ' + e.message); process.exit(2); }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: findExecutable() });
+  let server = null, url = arg;
+  if (!/^https?:\/\//.test(arg)) {
+    if (!fs.existsSync(arg)) { console.error('파일 없음: ' + arg); process.exit(2); }
+    ({ server, url } = await env.serveFile(arg));
+  }
+  const browser = await env.launchBrowser({ skill: 'dcfy' });
   const origin = new URL(url).origin;
   const results = [];
   const errors = [];
@@ -197,7 +183,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await ctx2.close();
 
   await browser.close();
+  if (server) server.close();
   const ok = results.every((r) => r.ok) && errors.length === 0;
-  console.log(JSON.stringify({ ok, url, results, consoleErrors: errors }, null, 2));
+  console.log(JSON.stringify({ ok, url, server: server ? 'temporary 127.0.0.1 (closed)' : 'given', results, consoleErrors: errors }, null, 2));
   process.exit(ok ? 0 : 1);
 })().catch((e) => { console.error(e); process.exit(2); });

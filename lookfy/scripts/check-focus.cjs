@@ -5,7 +5,6 @@
 // 사용: node check-focus.cjs <문서.html> [강조스크린샷.png]
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 
 const html = path.resolve(process.argv[2] || '');
 if (!process.argv[2] || !fs.existsSync(html)) {
@@ -14,27 +13,9 @@ if (!process.argv[2] || !fs.existsSync(html)) {
 }
 const shot = path.resolve(process.argv[3] || html.replace(/\.html?$/i, '-focus.png'));
 
-let chromium;
-try {
-  ({ chromium } = require(path.join(os.homedir(), '.cache/htmlfy-verify/node_modules/playwright-core')));
-} catch {
-  console.error('playwright-core 없음: mkdir -p ~/.cache/htmlfy-verify && cd ~/.cache/htmlfy-verify && npm i playwright-core');
-  process.exit(2);
-}
-function findExecutable() {
-  const def = chromium.executablePath();
-  if (fs.existsSync(def)) return def;
-  const cache = path.join(os.homedir(), 'Library/Caches/ms-playwright');
-  const dirs = fs.existsSync(cache)
-    ? fs.readdirSync(cache).filter((d) => /^chromium-\d+$/.test(d)).sort((a, b) => b.split('-')[1] - a.split('-')[1])
-    : [];
-  for (const d of dirs) for (const sub of ['chrome-mac-arm64', 'chrome-mac'])
-    for (const app of ['Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing', 'Chromium.app/Contents/MacOS/Chromium']) {
-      const p = path.join(cache, d, sub, app);
-      if (fs.existsSync(p)) return p;
-    }
-  return undefined;
-}
+let env;
+try { env = require(path.join(__dirname, '..', '..', 'htmlfy', 'scripts', 'lib', 'skills-env.cjs')); }
+catch (e) { console.error('htmlfy 스킬이 이 스킬과 같은 폴더(예: ~/.claude/skills/htmlfy)에 있어야 한다: ' + e.message); process.exit(2); }
 
 const state = (page, id) => page.evaluate((id) => {
   const act = [...document.querySelectorAll('.fp-area.fp-active')];
@@ -52,7 +33,7 @@ const state = (page, id) => page.evaluate((id) => {
 }, id);
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: findExecutable() });
+  const browser = await env.launchBrowser({ skill: 'lookfy' });
   const results = [];
   for (const vp of [{ name: 'desktop', width: 1280, height: 900 }, { name: 'mobile', width: 390, height: 844 }]) {
     const page = await browser.newPage({ viewport: { width: vp.width, height: vp.height }, reducedMotion: 'reduce' });

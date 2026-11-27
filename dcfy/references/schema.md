@@ -1,6 +1,6 @@
 # decisions.json 스키마
 
-`scripts/build.cjs`가 이 형식을 점검한다. 예시: `example-decisions.json`. 실제 사용 예: `ai-agency/docs/reports/decisions/2026-11-17-1130-decisions.json`(선택지 설명 포함).
+`scripts/build.cjs`가 이 형식을 점검한다. 예시: `example-decisions.json`. 허브 링크·작업 ID 형식은 설정(README "설정")을 따른다.
 
 ## 최상위
 | 키 | 필수 | 설명 |
@@ -15,7 +15,7 @@
 |---|---|---|
 | `title` | 예 | 문서 제목(탭 제목) |
 | `date` | 예 | `YYYY-MM-DD`(KST). 프롬프트 첫 줄 `결정 문서 <date> 응답` |
-| `taskId` | 예 | `DEPT-PROJECT-WORK-NNNN` 형식 |
+| `taskId` | 예 | 설정 `taskIdPattern` 정규식(기본: 영문·숫자·`._-`로 된 아무 ID, 작성자 환경은 `DEPT-PROJECT-WORK-NNNN`) |
 | `createdAt` | 아니오 | 표시용 작성 시각 예 `2026-11-17 11:10 KST` |
 | `summary` | 아니오 | 핵심 요약에 붙일 한두 문장(가장 급한 것) |
 | `footerNote` | 아니오 | 하단 메모(원천 목록 등) |
@@ -26,7 +26,7 @@
 | 키 | 필수 | 설명 |
 |---|---|---|
 | `id` | 예 | 문서 안에서 유일. 대문자·하이픈 권장 예 `SOGON-POL001-Q1` |
-| `project` | 예 | `config/projects.json` id(등록 안 된 대상은 임의 id + `projects`에 이름) |
+| `project` | 예 | 등록부(설정 `projectsJson`) id, 등록부가 없으면 저장소 폴더 이름(등록 안 된 대상은 임의 id + `projects`에 이름) |
 | `title` | 예 | 한 줄 제목(프롬프트에 그대로 들어감) |
 | `type` | 아니오 | `single`(기본, 라디오) · `multi`(체크박스) · `text`(피드백 입력) |
 | `urgency` | 아니오 | `high`(긴급) · `normal`(기본) · `low` |
@@ -40,7 +40,7 @@
 | `allowCustom` | 아니오 | 기본 true — '직접 입력' 선택지 추가 |
 | `allowHold` | 아니오 | 기본 true — '보류' 선택지 추가 |
 | `fields[]` | text 필수 | `{ key, label, hint? }` 문항별 입력칸 |
-| `sources[]` | 예(1개 이상) | `{ label, path?, url? }`. path가 등록 프로젝트의 docs/·knowledge/·STATUS.md·README.md면 허브 url 자동. 대화 근거는 `{ "label": "현재 비서 대화(날짜) — 저장소 기록 없음" }` |
+| `sources[]` | 예(1개 이상) | `{ label, path?, url? }`. 허브(`hubUrl`)가 설정돼 있고 path가 등록 프로젝트의 docs/·knowledge/·STATUS.md·README.md면 허브 url 자동. 대화 근거는 `{ "label": "현재 비서 대화(날짜) — 저장소 기록 없음" }` |
 | `resolution` | 아니오 | 사용자가 답한 뒤 채우는 확정 기록(아래). 있으면 읽기 전용 확정 카드가 되고 프롬프트·추천안 일괄·초기화·저장에서 빠진다 |
 
 모든 항목에 메모 칸이 자동으로 붙는다(확정 카드 제외).

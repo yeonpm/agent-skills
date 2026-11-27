@@ -6,11 +6,13 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const os = require('os');
 
 const SKILL = path.resolve(__dirname, '..');
-const PROJECTS_JSON = process.env.AGENCY_PROJECTS_JSON || path.join(os.homedir(), 'yeonpm/ai-agency/config/projects.json');
-const HUB = process.env.DECISION_DOC_HUB || 'http://127.0.0.1:8080';
+let env;
+try { env = require(path.join(__dirname, '..', '..', 'htmlfy', 'scripts', 'lib', 'skills-env.cjs')); }
+catch (e) { console.error('htmlfy 스킬이 이 스킬과 같은 폴더(예: ~/.claude/skills/htmlfy)에 있어야 한다: ' + e.message); process.exit(2); }
+// 설정(환경 변수 > ~/.config/agent-skills/config.json > 기본값): 등록부 projectsJson, 허브 hubUrl(옛 DECISION_DOC_HUB), taskIdPattern.
+const cfg = env.resolve({ skill: 'dcfy' });
 
 function fail(msg) { console.error('build 실패: ' + msg); process.exit(1); }
 
@@ -21,24 +23,12 @@ const out = path.resolve(process.argv[3] || input.replace(/\.json$/i, '') + '.ht
 let data;
 try { data = JSON.parse(fs.readFileSync(input, 'utf8')); } catch (e) { fail('JSON 파싱 오류 ' + e.message); }
 
-// ---- 등록 프로젝트 (허브 URL 계산용) ----
-let projects = [];
-try {
-  const pj = JSON.parse(fs.readFileSync(PROJECTS_JSON, 'utf8'));
-  projects = (Array.isArray(pj) ? pj : pj.projects || []).filter((p) => p.id && p.path);
-} catch { /* 등록부가 없으면 허브 URL 자동 변환만 생략 */ }
-
-// 허브는 등록 프로젝트의 docs/·knowledge/ 아래와 루트 STATUS.md·README.md만 서빙한다.
-function hubUrl(abs) {
-  if (!abs || !path.isAbsolute(abs)) return null;
-  const p = projects
-    .filter((x) => abs === x.path || abs.startsWith(x.path.replace(/\/$/, '') + '/'))
-    .sort((a, b) => b.path.length - a.path.length)[0];
-  if (!p) return null;
-  const [rel, hash] = path.relative(p.path, abs).split('#');
-  if (!/^(docs|knowledge)\//.test(rel) && !['STATUS.md', 'README.md'].includes(rel)) return null;
-  return `${HUB}/f/${p.id}/${rel.split('/').map(encodeURIComponent).join('/')}${hash ? '#' + hash : ''}`;
-}
+// ---- 등록 프로젝트 (허브 URL 계산용) — 등록부가 없으면 현재 저장소·출력 파일 저장소 기준, 허브가 없으면 링크 자동 변환 생략 ----
+const proj = env.loadProjects(cfg, [out]);
+const { projects } = proj;
+env.warnConfig(cfg, 'dcfy build', [env.projectsWarning(proj)]);
+const hubUrl = env.makeHubUrl(cfg.values.hubUrl, projects);
+const TASK_ID = env.taskIdRegex(cfg);
 
 // ---- 스키마 점검 ----
 const errs = [];
@@ -47,7 +37,7 @@ const EXPLAIN = ['pros', 'cons', 'considerations'];
 const RES_STATUS = ['decided', 'deferred', 'in_progress', 'done', 'blocked'];
 const meta = data.meta || (errs.push('meta 없음'), {});
 ['title', 'date', 'taskId'].forEach((k) => { if (!meta[k]) errs.push(`meta.${k} 필요`); });
-if (meta.taskId && !/^[A-Z][A-Z0-9_]*-[A-Z][A-Z0-9_]*-[A-Z][A-Z0-9_]*-[0-9]{4,}$/.test(meta.taskId)) errs.push('meta.taskId 형식(DEPT-PROJECT-WORK-NNNN) 아님');
+if (meta.taskId && !TASK_ID.test(meta.taskId)) errs.push(`meta.taskId 형식 아님(설정 taskIdPattern ${TASK_ID.source})`);
 const decs = Array.isArray(data.decisions) ? data.decisions : (errs.push('decisions 배열 필요'), []);
 const ids = new Set();
 decs.forEach((d, i) => {

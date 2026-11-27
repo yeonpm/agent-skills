@@ -9,48 +9,22 @@
 'use strict';
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
-const http = require('http');
 
 const arg = process.argv[2];
 if (!arg) { console.error('usage: node test-mockup-picker.cjs <http(s) URL | file.html>'); process.exit(2); }
 
-let chromium;
-try { ({ chromium } = require(path.join(os.homedir(), '.cache/htmlfy-verify/node_modules/playwright-core'))); }
-catch { console.error('playwright-core 없음: mkdir -p ~/.cache/htmlfy-verify && cd ~/.cache/htmlfy-verify && npm i playwright-core'); process.exit(2); }
-function findExecutable() {
-  const def = chromium.executablePath();
-  if (fs.existsSync(def)) return def;
-  const cache = path.join(os.homedir(), 'Library/Caches/ms-playwright');
-  const dirs = fs.existsSync(cache) ? fs.readdirSync(cache).filter((d) => /^chromium-\d+$/.test(d)).sort((a, b) => b.split('-')[1] - a.split('-')[1]) : [];
-  for (const d of dirs) for (const sub of ['chrome-mac-arm64', 'chrome-mac'])
-    for (const app of ['Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing', 'Chromium.app/Contents/MacOS/Chromium']) {
-      const p = path.join(cache, d, sub, app);
-      if (fs.existsSync(p)) return p;
-    }
-  return undefined;
-}
+let env;
+try { env = require(path.join(__dirname, '..', '..', 'htmlfy', 'scripts', 'lib', 'skills-env.cjs')); }
+catch (e) { console.error('htmlfy 스킬이 이 스킬과 같은 폴더(예: ~/.claude/skills/htmlfy)에 있어야 한다: ' + e.message); process.exit(2); }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const TYPES = { '.html': 'text/html; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.css': 'text/css', '.js': 'text/javascript' };
-
-function serveFile(file) {
-  const root = path.dirname(path.resolve(file));
-  const server = http.createServer((req, res) => {
-    const p = path.join(root, decodeURIComponent(new URL(req.url, 'http://x').pathname));
-    if (!p.startsWith(root) || !fs.existsSync(p) || fs.statSync(p).isDirectory()) { res.writeHead(404); return res.end(); }
-    res.writeHead(200, { 'content-type': TYPES[path.extname(p).toLowerCase()] || 'application/octet-stream' });
-    fs.createReadStream(p).pipe(res);
-  });
-  return new Promise((resolve) => server.listen(0, '127.0.0.1', () => resolve({ server, url: `http://127.0.0.1:${server.address().port}/${encodeURIComponent(path.basename(file))}` })));
-}
 
 (async () => {
   let server = null, url = arg;
   if (!/^https?:\/\//.test(arg)) {
     if (!fs.existsSync(arg)) { console.error('파일 없음: ' + arg); process.exit(2); }
-    ({ server, url } = await serveFile(arg));
+    ({ server, url } = await env.serveFile(arg));
   }
-  const browser = await chromium.launch({ executablePath: findExecutable() });
+  const browser = await env.launchBrowser({ skill: 'lookfy' });
   const origin = new URL(url).origin;
   const results = [], errors = [];
   const push = (step, ok, extra) => results.push(Object.assign({ step, ok: !!ok }, extra || {}));

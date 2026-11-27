@@ -1,6 +1,6 @@
 ---
 name: lookfy
-description: 디자인 시안·목업을 요청한 개수 그대로(기본 30개) 서로 확실히 다른 방향으로 만들어, 시안 카드마다 선택 버튼·의견 입력이 있고 고를 때마다 하단 프롬프트가 자동 복사되는 단독 HTML 시안 문서로 대상 저장소 docs/design에 저장·검증·로컬 커밋하고 로컬 문서 허브(127.0.0.1:8080)로 띄운다. 사용자가 "lookfy", "/lookfy", "/lookfy 10 캐모리 설정 화면", "시안 N개", "시안 뽑아줘/보여줘/만들어줘", "시안 몇 개 html로", "디자인 시안", "목업 여러 개", "2차 시안" 등 시안을 요청하면 반드시 이 스킬을 쓴다. 시안이 아닌 조사·스펙·보고서·전후 비교 문서(→ htmlfy), 시안 하나를 실제 서비스 코드에 구현하는 요청, 결정 대기 모음(→ dcfy)은 제외.
+description: 디자인 시안·목업을 요청한 개수 그대로(기본 30개) 서로 확실히 다른 방향으로 만들어, 시안 카드마다 선택 버튼·의견 입력이 있고 고를 때마다 하단 프롬프트가 자동 복사되는 단독 HTML 시안 문서로 대상 저장소 docs/design에 저장·검증·로컬 커밋하고 로컬 문서 허브(설정 시) 또는 임시 로컬 서버로 띄운다. 사용자가 "lookfy", "/lookfy", "/lookfy 10 캐모리 설정 화면", "시안 N개", "시안 뽑아줘/보여줘/만들어줘", "시안 몇 개 html로", "디자인 시안", "목업 여러 개", "2차 시안" 등 시안을 요청하면 반드시 이 스킬을 쓴다. 시안이 아닌 조사·스펙·보고서·전후 비교 문서(→ htmlfy), 시안 하나를 실제 서비스 코드에 구현하는 요청, 결정 대기 모음(→ dcfy)은 제외.
 ---
 
 # lookfy — 시안을 요청한 개수 그대로 만들어 고르게 하기
@@ -9,13 +9,16 @@ description: 디자인 시안·목업을 요청한 개수 그대로(기본 30개
 - **개수 N**: 사용자가 준 숫자 그대로. 없으면 **30**. 정확히 N개를 만든다(늘리거나 줄이거나 합치지 않는다). 빌드·검사 스크립트가 카드 수 ≠ N이면 실패시킨다.
 - 시안 규칙의 원본은 이 문서다. htmlfy·역할 파일은 이 문서를 가리키기만 한다.
 
+## 환경
+htmlfy "환경" 절과 같다: 설정은 `node ~/.claude/skills/htmlfy/scripts/config.cjs`(키: `projectsJson`·`agencyDir`·`hubUrl`(옛 `LOOKFY_HUB`)·`taskIdPattern`·`openCommand`·`excludePaths`·`nodeSetup`), 점검은 `doctor.cjs`. htmlfy 스킬이 같은 스킬 폴더에 있어야 한다(공용 스크립트·favicon·verify).
+
 ## 0. 누가 쓰는가
-- 접수 비서는 직접 만들지 않는다. 디자인 계열 하위 에이전트(Agent 도구, `ai-agency/agents/visual-design.md`·`ux-design.md`)에 `ai-agency/templates/agent-handoff.md` 양식으로 위임한다.
-- 인계에 반드시: 작업 ID, 대상 저장소 경로, 그 저장소에서 읽을 문서(AGENTS.md/CLAUDE.md, 디자인 시스템·관련 결정 기록), **개수 N**(사용자 원문 그대로, 없으면 30), 사용자 원문과 출처, 라운드(이전 시안 문서 경로·번호), 1~6단계와 완료 조건, 보고 양식(`templates/agent-report.md`).
+- 운영 저장소에 위임 규칙이 있으면 따른다. 작성자 환경: 접수 비서는 직접 만들지 않고 디자인 계열 하위 에이전트(Agent 도구, 역할 파일 `<agencyDir>/agents/visual-design.md`·`ux-design.md`)에 `<agencyDir>/templates/agent-handoff.md` 양식으로 위임한다. 역할 파일·양식이 없으면 htmlfy `references/default-handoff.md`를 쓰고, 위임 구조가 없으면 한 에이전트가 직접 1~5단계를 수행한다.
+- 인계에 반드시: 작업 ID, 대상 저장소 경로, 그 저장소에서 읽을 문서(AGENTS.md/CLAUDE.md, 디자인 시스템·관련 결정 기록), **개수 N**(사용자 원문 그대로, 없으면 30), 사용자 원문과 출처, 라운드(이전 시안 문서 경로·번호), 1~6단계와 완료 조건, 보고 양식(`<agencyDir>/templates/agent-report.md` 또는 내장 양식).
 - N이 크면(20 이상) 실행 에이전트가 하위 에이전트에 묶음(예 10개씩)으로 나눠 병렬로 만들 수 있다. 이때 묶음마다 **방향 목록을 먼저 확정해 나눠 주고**(겹침 방지), 결과는 한 mockups.json → **최종 문서 하나**로 합친다. 합친 뒤 방향 중복이 있으면 비슷한 시안을 합치지 말고 다른 방향으로 **교체**해 N개를 유지한다.
 
 ## 1. 대상 저장소와 저장 위치
-- `ai-agency/config/projects.json`의 `path`로 저장소를 찾는다. `~/yeonpm/deprecated`는 쓰지 않는다. 작업 전 경로·브랜치·미커밋 변경을 확인하고 남의 변경은 건드리지 않는다.
+- 등록부(설정 `projectsJson`)가 있으면 그 `path`로 저장소를 찾고, 없으면 현재 git 저장소에 둔다. 설정 `excludePaths` 하위는 쓰지 않는다. 작업 전 경로·브랜치·미커밋 변경을 확인하고 남의 변경은 건드리지 않는다.
 - 파일: `docs/design/YYYY-MM-DD-<slug>.json`(원본 데이터) + 같은 이름 `.html`(빌드 결과) + 필요하면 `docs/design/<slug>/img/`(렌더 이미지). 날짜는 KST. 허브는 `docs/`·`knowledge/` 아래만 서빙한다.
 
 ## 2. 시안 문서 규칙 (원본)
@@ -45,7 +48,7 @@ htmlfy 2절 공통 규칙(한국어, 단독 실행·외부 요청 0, 다크모�
 1. `references/schema.md` 형식으로 `mockups.json`을 쓴다(`meta.count` = N). 목업은 인라인 SVG(색 클래스 `m-*`로 다크모드 자동), 렌더 이미지(`img`), HTML 목업 중 하나.
 2. 빌드: 스키마·개수·번호·방향 중복을 검사하고 템플릿 `assets/template.html`에 부품을 인라인으로 넣어 HTML을 만든다. 실패 메시지대로 JSON을 고친다(개수를 맞추려고 시안을 합치거나 빼지 않는다).
 ```bash
-source ~/.nvm/nvm.sh >/dev/null && nvm use 24 >/dev/null
+# (설정 nodeSetup이 있으면 먼저 실행)
 node ~/.claude/skills/lookfy/scripts/build.cjs <저장소>/docs/design/YYYY-MM-DD-<slug>.json
 ```
 - 빌드를 쓰지 않고 손으로 쓰는 문서도 같은 부품을 인라인으로 붙인다: `assets/focus-points.css/js`(포인트 버튼), `assets/mockup-picker.css/js`(선택·의견·하단 프롬프트). 마크업은 `<article class="mp-card" data-mp-id="01" data-mp-name="이름"> … <div class="mp-slot"></div></article>`, 전체 의견 자리 `<div class="mp-overall"></div>`(없으면 main 끝 자동), 메타 `<meta name="mp-title|mp-date|mp-task|mp-path|mp-url|mp-multi" content="…">`, `<meta name="lookfy-count" content="N">`. 포인트 영역은 `.fp-stage` 안 `<span class="fp-area" data-focus="v01-1" data-no="1" style="--x:72%;--y:79%;--w:20%;--h:15%">` + 버튼 `<button class="fp-btn" data-target="v01-1">`(좌표는 stage 기준 %, 둥근 영역 `--r:50%`).
@@ -63,7 +66,7 @@ node $S/lookfy/scripts/test-mockup-picker.cjs <허브 URL 또는 문서.html>  #
 - 이미지에 구워진 글자(png 렌더 시안)는 검사가 볼 수 없으므로 렌더 단계에서 넘침을 검사한다.
 
 ## 5. 커밋·띄우기·보고
-htmlfy 4~6절을 그대로 따른다: 대상 저장소에 json·html·png(이미지 폴더)만 스테이징해 `[작업 ID] docs: <요약>` + 빈 줄 + Co-Authored-By 로 로컬 커밋 후 묻지 않고 원격 브랜치로 **push**(SEC-AGENCY-RULES-0020, force 금지). 허브 확인 후 `open -a "Google Chrome" "http://127.0.0.1:8080/f/<project-id>/docs/design/<파일>.html"`로 띄우고 스크린샷은 SendUserFile(없으면 경로). 보고(부모에게 `templates/agent-report.md`): 요청 N·생성 N(check-count), 추천, 검증 수치(verify·check-focus·picker·넘침), 허브 URL, 스크린샷, 커밋 SHA·push 여부, 확인 못 한 것.
+htmlfy 4~6절을 그대로 따른다: 대상 저장소에 json·html·png(이미지 폴더)만 스테이징해 `[작업 ID] docs: <요약>` + 빈 줄 + Co-Authored-By 로 로컬 커밋 후 push는 htmlfy 4단계 규칙(작성자 환경: 묻지 않고 원격 브랜치로 push, SEC-AGENCY-RULES-0020, force 금지). 띄우기: 허브가 있으면 `node ~/.claude/skills/htmlfy/scripts/open.cjs --skill lookfy <저장소>/docs/design/<파일>.html`(허브 URL `<hubUrl>/f/<project-id>/docs/design/<파일>.html`, 작성자 환경은 크롬), 허브가 없으면 같은 명령이 file://로 연다(Chromium 계열은 file://도 자동 복사 동작, 다른 브라우저이거나 복사가 안 되면 `--serve`를 붙여 백그라운드로 실행 — 임시 로컬 서버). 스크린샷은 파일 전송 도구가 있으면 보내고(예 SendUserFile) 없으면 경로. 보고(부모에게 `<agencyDir>/templates/agent-report.md` 또는 내장 양식): 요청 N·생성 N(check-count), 추천, 검증 수치(verify·check-focus·picker·넘침), 허브 URL, 스크린샷, 커밋 SHA·push 여부, 확인 못 한 것.
 
 ## 파일
 - `assets/template.html` 골격 · `assets/focus-points.css/js` 포인트 강조 · `assets/mockup-picker.css/js` 선택·의견·하단 프롬프트 (부품 원본은 여기 한 곳. htmlfy는 참조만)
