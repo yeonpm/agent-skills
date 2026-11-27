@@ -21,7 +21,7 @@
 | `pm` | 원격 preview를 PR로 main에 반영하고 브랜치를 동기화한다 |
 | `lpm` | 로컬 → preview → main 전체 릴리스 |
 | `lm` | 로컬 변경을 프로젝트 규칙(preview 경유 포함)에 맞춰 main까지 반영한다 |
-| `task-token-report` | 사용자가 요청한 경우에만 작업별 실제 토큰·경과 시간을 로컬 실행 로그에서 집계한다 |
+| `task-token-report` | 사용자가 요청한 경우에만 작업별 실제 토큰·경과 시간을 로컬 실행 로그(Claude Code 세션·서브에이전트 jsonl, 이전 형식 Codex rollout)에서 집계한다 |
 
 ## 설치
 
